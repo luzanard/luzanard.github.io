@@ -7,7 +7,7 @@
   <meta name="description" content="Warhammer 40,000 10th Edition Army Builder for Adeptus Mechanicus">
 
   <!-- Theme CSS -->
-  <link rel="stylesheet" href="css/theme.css">
+  <link rel="stylesheet" href="theme.css">
 </head>
 <body>
 
@@ -100,12 +100,12 @@
       </section>
 
       <!-- Forge World -->
-      <section class="sidebar-section" aria-labelledby="forge-world-heading">
+      <section class="sidebar-section" id="forge-world-section" aria-labelledby="forge-world-heading">
         <h2 class="sidebar-section-title" id="forge-world-heading">⬡ Forge World</h2>
-        <!-- Populated by Renderer.renderForgeWorldSelector() from profiles.json -->
         <select id="forge-world-select" class="select-styled" aria-label="Select forge world">
           <option value="">— No Forge World —</option>
         </select>
+        <!-- Forge world ability injected here by App.js -->
       </section>
 
     </aside>
@@ -163,12 +163,12 @@
        SCRIPTS — load order matters
        No build step. Pure ES5-compatible IIFEs.
   ═══════════════════════════════════════════ -->
-  <script src="js/DataLoader.js"></script>
-  <script src="js/StatCalculator.js"></script>
-  <script src="js/StateManager.js"></script>
-  <script src="js/Renderer.js"></script>
-  <script src="js/EventHandlers.js"></script>
-  <script src="js/App.js"></script>
+  <script src="DataLoader.js"></script>
+  <script src="StatCalculator.js"></script>
+  <script src="StateManager.js"></script>
+  <script src="Renderer.js"></script>
+  <script src="EventHandlers.js"></script>
+  <script src="App.js"></script>
 
 </body>
 </html>

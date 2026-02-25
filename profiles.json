@@ -1,0 +1,375 @@
+{
+  "detachments": [
+    {
+      "id": "rad_zone_corps",
+      "name": "Rad-Zone Corps",
+      "lore": "Rad-Zone Corps forces are masters of radiological warfare, flooding the battlefield with lethal rad-saturated zones.",
+      "rule": {
+        "name": "Rad-Suffusion",
+        "description": "[PLACEHOLDER] Each time an ADEPTUS MECHANICUS unit from your army shoots or fights, until the end of the phase, each time an enemy unit suffers one or more hits from that unit, that enemy unit is rad-saturated until the end of the turn. While an enemy unit is rad-saturated, subtract 1 from its Toughness characteristic."
+      },
+      "stratagems": [
+        {
+          "id": "rad_barrage",
+          "name": "Rad-Barrage",
+          "cost": 1,
+          "phase": "SHOOTING",
+          "description": "[PLACEHOLDER] Use this Stratagem in your Shooting phase, when an ADEPTUS MECHANICUS RAD-ZONE CORPS unit from your army is selected to shoot. Until the end of the phase, each time a model in that unit makes a ranged attack, on an unmodified Hit roll of 6, the target suffers 1 mortal wound in addition to any normal damage."
+        },
+        {
+          "id": "radium_fusillade",
+          "name": "Radium Fusillade",
+          "cost": 1,
+          "phase": "SHOOTING",
+          "description": "[PLACEHOLDER] Use this Stratagem in your Shooting phase, when a SKITARII unit from your army is selected to shoot. Until the end of the phase, each time a model in that unit makes a ranged attack with a Radium weapon, that attack has the LETHAL HITS ability."
+        },
+        {
+          "id": "machine_god_blessing",
+          "name": "Machine God's Blessing",
+          "cost": 1,
+          "phase": "COMMAND",
+          "description": "[PLACEHOLDER] Use this Stratagem in your Command phase. Select one ADEPTUS MECHANICUS unit from your army. Until the start of your next Command phase, each time a model in that unit makes a saving throw, add 1 to that saving throw."
+        }
+      ],
+      "enhancements": [
+        {
+          "id": "rad_suffusion_matrix",
+          "name": "Rad-Suffusion Matrix",
+          "cost": 15,
+          "description": "[PLACEHOLDER] The bearer's unit radiates lethal radiation. Each time an enemy unit within 3\" of the bearer's unit fights, subtract 1 from the Hit rolls of that enemy unit."
+        },
+        {
+          "id": "enriched_rounds",
+          "name": "Enriched Rounds",
+          "cost": 20,
+          "description": "[PLACEHOLDER] Add 1 to the Damage characteristic of ranged weapons equipped by the bearer."
+        },
+        {
+          "id": "mechadendrite_web",
+          "name": "Mechadendrite Web",
+          "cost": 25,
+          "description": "[PLACEHOLDER] The bearer has a 4+ invulnerable save. In addition, each time the bearer's unit loses a model, roll one D6: on a 5+, that model is not removed from play and is instead left with 1 wound remaining."
+        }
+      ]
+    },
+    {
+      "id": "skitarii_hunter_cohort",
+      "name": "Skitarii Hunter Cohort",
+      "lore": "The Hunter Cohort are precision operatives who identify high-value targets and coordinate devastating strikes.",
+      "rule": {
+        "name": "Hunters of the Machine God",
+        "description": "[PLACEHOLDER] Each time an ADEPTUS MECHANICUS unit from your army is selected to shoot or fight, you can select one enemy unit as the priority target. Until the end of the phase, each time a model in your unit makes an attack against the priority target, re-roll a Hit roll of 1."
+      },
+      "stratagems": [
+        {
+          "id": "track_and_eliminate",
+          "name": "Track and Eliminate",
+          "cost": 1,
+          "phase": "SHOOTING",
+          "description": "[PLACEHOLDER] Use this Stratagem in your Shooting phase, when an ADEPTUS MECHANICUS unit from your army is selected to shoot. Until the end of the phase, each time a model in that unit makes a ranged attack, on an unmodified wound roll of 6, improve the AP of that attack by 1."
+        },
+        {
+          "id": "noospheric_uplink",
+          "name": "Noospheric Uplink",
+          "cost": 2,
+          "phase": "COMMAND",
+          "description": "[PLACEHOLDER] Use this Stratagem in your Command phase. Select one ADEPTUS MECHANICUS unit from your army. Until the start of your next Command phase, each time a model in that unit makes an attack, you can re-roll the Hit roll."
+        },
+        {
+          "id": "binharic_override",
+          "name": "Binharic Override",
+          "cost": 1,
+          "phase": "MOVEMENT",
+          "description": "[PLACEHOLDER] Use this Stratagem in your Movement phase. Select one ADEPTUS MECHANICUS unit from your army. That unit can make a Normal Move of up to 6\" even if it has already made a Normal Move this turn."
+        }
+      ],
+      "enhancements": [
+        {
+          "id": "hunter_designation_uplink",
+          "name": "Hunter-Designation Uplink",
+          "cost": 20,
+          "description": "[PLACEHOLDER] Once per battle round, at the start of your Shooting phase, the bearer can designate one enemy unit as a priority target. Until the end of the turn, friendly ADEPTUS MECHANICUS units can re-roll wound rolls when attacking that unit."
+        },
+        {
+          "id": "auto_calibrating_targeter",
+          "name": "Auto-Calibrating Targeter",
+          "cost": 15,
+          "description": "[PLACEHOLDER] Each time the bearer makes a ranged attack, that attack has the PRECISION ability."
+        },
+        {
+          "id": "long_range_vox_array",
+          "name": "Long-Range Vox Array",
+          "cost": 25,
+          "description": "[PLACEHOLDER] Friendly ADEPTUS MECHANICUS units can use the bearer's unit's Ld characteristic for Battleshock tests. In addition, the range of the bearer's unit's aura abilities is increased by 3\"."
+        }
+      ]
+    },
+    {
+      "id": "maniple_assault_force",
+      "name": "Maniple Assault Force",
+      "lore": "When the Omnissiah demands close engagement, the Assault Maniple answers with brutal efficiency.",
+      "rule": {
+        "name": "Assault Protocols",
+        "description": "[PLACEHOLDER] Each time an ADEPTUS MECHANICUS unit from your army makes a Charge move, until the end of the turn, add 1 to the Strength characteristic of melee weapons equipped by models in that unit."
+      },
+      "stratagems": [
+        {
+          "id": "blitz_protocol",
+          "name": "Blitz Protocol",
+          "cost": 1,
+          "phase": "CHARGE",
+          "description": "[PLACEHOLDER] Use this Stratagem in the Charge phase, when an ADEPTUS MECHANICUS unit from your army is selected to charge. Until the end of the phase, add 2 to Charge rolls made for that unit."
+        },
+        {
+          "id": "motive_force_surge",
+          "name": "Motive Force Surge",
+          "cost": 1,
+          "phase": "MOVEMENT",
+          "description": "[PLACEHOLDER] Use this Stratagem in your Movement phase, when an ADEPTUS MECHANICUS unit from your army is selected to make a Normal Move. Until the end of the phase, add 3\" to the Move characteristic of models in that unit."
+        },
+        {
+          "id": "forge_world_charge",
+          "name": "Forge-World Charge",
+          "cost": 2,
+          "phase": "FIGHT",
+          "description": "[PLACEHOLDER] Use this Stratagem in the Fight phase, when an ADEPTUS MECHANICUS unit from your army is selected to fight. Until the end of the phase, each time a model in that unit makes a melee attack, on an unmodified Hit roll of 6, that attack scores 2 additional hits."
+        }
+      ],
+      "enhancements": [
+        {
+          "id": "assault_motive_force",
+          "name": "Assault Motive Force",
+          "cost": 25,
+          "description": "[PLACEHOLDER] Add 2\" to the Move characteristic of the bearer's unit. In addition, the bearer's unit is eligible to declare a charge even if it Advanced this turn."
+        },
+        {
+          "id": "mechanicus_battle_cant",
+          "name": "Mechanicus Battle-Cant",
+          "cost": 15,
+          "description": "[PLACEHOLDER] While the bearer is leading a unit, each time a model in that unit makes a melee attack, add 1 to the Hit roll."
+        },
+        {
+          "id": "ferric_summons",
+          "name": "Ferric Summons",
+          "cost": 30,
+          "description": "[PLACEHOLDER] Once per battle, at the start of your Command phase, the bearer can use this ability. If they do, select one destroyed ADEPTUS MECHANICUS INFANTRY unit from your army. Set up that unit within 6\" of the bearer and more than 9\" from all enemy units."
+        }
+      ]
+    },
+    {
+      "id": "cohort_cybernetica",
+      "name": "Cohort Cybernetica",
+      "lore": "A Cohort Cybernetica unleashes the full potential of Mechanicus automata in overwhelming robotic formations.",
+      "rule": {
+        "name": "Cybernetica Battle Protocols",
+        "description": "[PLACEHOLDER] KASTELAN ROBOT units in your army start the battle with their Repulsor Grid active and their Battle Protocols already engaged, without requiring a CYBERNETICA DATASMITH to activate them."
+      },
+      "stratagems": [
+        {
+          "id": "firepower_protocol",
+          "name": "Firepower Protocol",
+          "cost": 1,
+          "phase": "SHOOTING",
+          "description": "[PLACEHOLDER] Use this Stratagem in your Shooting phase, when a KASTELAN ROBOTS unit from your army is selected to shoot. Until the end of the phase, each time a model in that unit makes a ranged attack, add 1 to the Hit roll."
+        },
+        {
+          "id": "aegis_protocol",
+          "name": "Aegis Protocol",
+          "cost": 1,
+          "phase": "OPPONENT_SHOOTING",
+          "description": "[PLACEHOLDER] Use this Stratagem in your opponent's Shooting phase, when a KASTELAN ROBOTS unit from your army is selected as the target. Until the end of the phase, improve the invulnerable save of models in that unit by 1."
+        },
+        {
+          "id": "destruction_protocol",
+          "name": "Destruction Protocol",
+          "cost": 2,
+          "phase": "FIGHT",
+          "description": "[PLACEHOLDER] Use this Stratagem in the Fight phase, when a KASTELAN ROBOTS unit from your army is selected to fight. Until the end of the phase, each time a model in that unit makes a melee attack, add 1 to the Damage characteristic of that attack."
+        }
+      ],
+      "enhancements": [
+        {
+          "id": "noospheric_commander",
+          "name": "Noospheric Commander",
+          "cost": 30,
+          "description": "[PLACEHOLDER] The bearer can issue orders to up to 2 CORE units per Command phase instead of 1."
+        },
+        {
+          "id": "superior_battle_protocols",
+          "name": "Superior Battle Protocols",
+          "cost": 20,
+          "description": "[PLACEHOLDER] KASTELAN ROBOTS units within 6\" of the bearer can benefit from two Battle Protocols simultaneously."
+        },
+        {
+          "id": "cortex_controller",
+          "name": "Cortex Controller",
+          "cost": 25,
+          "description": "[PLACEHOLDER] Once per battle round, the bearer can use this ability at the start of your Command phase. If they do, one friendly KASTELAN ROBOTS unit within 9\" immediately activates a Battle Protocol of your choice without spending a CP."
+        }
+      ]
+    },
+    {
+      "id": "elimination_maniple",
+      "name": "Elimination Maniple",
+      "lore": "The Elimination Maniple combines lethality and subtlety, deploying Sicarian operatives to shatter enemy command structures.",
+      "rule": {
+        "name": "Priority Target Deletion",
+        "description": "[PLACEHOLDER] ADEPTUS MECHANICUS units from your army can target CHARACTER units even if they are not the closest eligible target. In addition, each time a model in your army makes an attack against a CHARACTER unit, improve the AP characteristic of that attack by 1."
+      },
+      "stratagems": [
+        {
+          "id": "assassin_protocols",
+          "name": "Assassin Protocols",
+          "cost": 1,
+          "phase": "SHOOTING",
+          "description": "[PLACEHOLDER] Use this Stratagem in your Shooting phase, when an ADEPTUS MECHANICUS unit from your army is selected to shoot. Until the end of the phase, each time a model in that unit makes a ranged attack against a CHARACTER, that attack has the LETHAL HITS ability."
+        },
+        {
+          "id": "targeted_strike",
+          "name": "Targeted Strike",
+          "cost": 2,
+          "phase": "FIGHT",
+          "description": "[PLACEHOLDER] Use this Stratagem in the Fight phase, when a SICARIAN unit from your army is selected to fight. Until the end of the phase, each time a model in that unit makes a melee attack, that attack has the PRECISION ability."
+        },
+        {
+          "id": "noospheric_ghost",
+          "name": "Noospheric Ghost",
+          "cost": 1,
+          "phase": "MOVEMENT",
+          "description": "[PLACEHOLDER] Use this Stratagem in your Movement phase, when a SICARIAN unit from your army is selected to make a Normal Move. Until the end of the turn, enemy units cannot fire Overwatch against that unit, and it is not visible to enemy models more than 12\" away."
+        }
+      ],
+      "enhancements": [
+        {
+          "id": "target_lock_cortex",
+          "name": "Target-Lock Cortex",
+          "cost": 20,
+          "description": "[PLACEHOLDER] The bearer's unit has LETHAL HITS and PRECISION against CHARACTER units."
+        },
+        {
+          "id": "phase_dissonance_emitter",
+          "name": "Phase-Dissonance Emitter",
+          "cost": 25,
+          "description": "[PLACEHOLDER] Enemies within 6\" of the bearer cannot use Stratagems that would reduce damage or remove wounds."
+        },
+        {
+          "id": "ghost_shroud",
+          "name": "Ghost Shroud",
+          "cost": 15,
+          "description": "[PLACEHOLDER] The bearer's unit always counts as being in cover for the purposes of the Light Cover rule, and enemies must subtract 1 from Hit rolls that target the bearer's unit."
+        }
+      ]
+    },
+    {
+      "id": "archaeopter_support",
+      "name": "Archaeopter Support",
+      "lore": "Through dominance of the skies, the Archaeopter Support detachment coordinates devastating ground strikes and recon missions.",
+      "rule": {
+        "name": "Aerial Supremacy",
+        "description": "[PLACEHOLDER] ARCHAEOPTER units in your army can target units that Advanced or Fell Back. In addition, at the end of your Command phase, you can transfer one order to an ARCHAEOPTER unit within 12\" of a friendly OFFICER."
+      },
+      "stratagems": [
+        {
+          "id": "bombing_run",
+          "name": "Bombing Run",
+          "cost": 1,
+          "phase": "SHOOTING",
+          "description": "[PLACEHOLDER] Use this Stratagem in your Shooting phase, when an ARCHAEOPTER unit from your army is selected to shoot. Until the end of the phase, each time a model in that unit makes a ranged attack against a unit that is not in the Engagement Range of any friendly units, add 1 to the Damage characteristic of that attack."
+        },
+        {
+          "id": "targeting_sweep",
+          "name": "Targeting Sweep",
+          "cost": 1,
+          "phase": "COMMAND",
+          "description": "[PLACEHOLDER] Use this Stratagem in your Command phase. Select one ARCHAEOPTER unit from your army. Until the start of your next Command phase, ranged attacks made by that unit have the IGNORES COVER ability."
+        },
+        {
+          "id": "evasive_manoeuvres",
+          "name": "Evasive Manoeuvres",
+          "cost": 1,
+          "phase": "OPPONENT_SHOOTING",
+          "description": "[PLACEHOLDER] Use this Stratagem in your opponent's Shooting phase, when an ARCHAEOPTER unit from your army is selected as the target of a ranged attack. Until the end of the phase, each time an attack is made against that unit, subtract 1 from the Hit roll."
+        }
+      ],
+      "enhancements": [
+        {
+          "id": "skies_of_mars",
+          "name": "Skies of Mars",
+          "cost": 15,
+          "description": "[PLACEHOLDER] Add 4\" to the Move characteristic of the bearer's unit. In addition, the bearer's unit does not suffer the penalty for moving and shooting Heavy weapons."
+        },
+        {
+          "id": "aerial_strike_designator",
+          "name": "Aerial Strike Designator",
+          "cost": 20,
+          "description": "[PLACEHOLDER] Once per turn, the bearer can use this ability at the end of your Movement phase. If they do, select one enemy unit within 12\" of the bearer. Until the end of the turn, each time a friendly ADEPTUS MECHANICUS unit makes a ranged attack against that enemy unit, add 1 to the Wound roll."
+        },
+        {
+          "id": "machine_spirit_override",
+          "name": "Machine Spirit Override",
+          "cost": 25,
+          "description": "[PLACEHOLDER] The bearer's unit can shoot even if it is within Engagement Range of enemy units, and its ranged attacks are not subject to the -1 modifier for targeting units in Engagement Range."
+        }
+      ]
+    }
+  ],
+  "forge_worlds": [
+    {
+      "id": "mars",
+      "name": "Mars — Cradle of Technology",
+      "lore": "The birthplace of the Adeptus Mechanicus, Mars forges the finest warriors with unmatched access to ancient knowledge.",
+      "ability": {
+        "name": "Tears of the Dragon",
+        "description": "[PLACEHOLDER] Once per battle, in your Shooting phase, one MARS ADEPTUS MECHANICUS unit can re-roll all Hit and Wound rolls for that unit's attacks."
+      }
+    },
+    {
+      "id": "graia",
+      "name": "Graia — The Vigilant Forge",
+      "lore": "Forgeworld Graia produces warriors of exceptional endurance, their minds hardened by ceaseless warfare.",
+      "ability": {
+        "name": "Unyielding Resolve",
+        "description": "[PLACEHOLDER] GRAIA units ignore the penalty to their characteristics from the Damaged ability. In addition, each time a GRAIA model is destroyed, roll one D6: on a 6, that model is not removed from play and is instead left with 1 wound remaining."
+      }
+    },
+    {
+      "id": "metalica",
+      "name": "Metalica — The Iron Forge",
+      "lore": "Metalica produces warriors whose aggressive march-fire tactics overwhelm enemy positions before they can react.",
+      "ability": {
+        "name": "March and Fire",
+        "description": "[PLACEHOLDER] METALICA units do not suffer the -1 to BS for Advancing and shooting Assault weapons. In addition, add 1\" to the Move characteristic of METALICA INFANTRY units."
+      }
+    },
+    {
+      "id": "stygies_viii",
+      "name": "Stygies VIII — The Dark Forge",
+      "lore": "Shrouded in secrecy, Stygies VIII uses unorthodox methods and clandestine protocols to bring victory at any cost.",
+      "ability": {
+        "name": "Shrouded Hunters",
+        "description": "[PLACEHOLDER] STYGIES VIII units that are not within 12\" of any enemy units gain the benefits of Light Cover. In addition, STYGIES VIII INFANTRY units can be deployed using the Infiltrators rule."
+      }
+    },
+    {
+      "id": "lucius",
+      "name": "Lucius — The Hollow Mountain",
+      "lore": "The Hollow Mountain's warriors are masters of defensive warfare, their bodies reinforced with reactive armour plating.",
+      "ability": {
+        "name": "Relay Beacon",
+        "description": "[PLACEHOLDER] Once per battle, at the end of your opponent's Movement phase, you can remove one LUCIUS ADEPTUS MECHANICUS unit from the battlefield and set it up again anywhere that is more than 9\" from all enemy models."
+      }
+    }
+  ],
+  "doctrines": [
+    {
+      "id": "protector",
+      "name": "Protector Doctrina Imperative",
+      "description": "Ranged weapons gain [HEAVY]. Improve BS by 1 for ranged attacks. Melee attacks targeting BATTLELINE or units within 6\" of BATTLELINE suffer -1 to hit."
+    },
+    {
+      "id": "conqueror",
+      "name": "Conqueror Doctrina Imperative",
+      "description": "Melee weapons gain [ASSAULT]. Improve WS by 1 for melee attacks. Melee attacks made by units within 6\" of a BATTLELINE unit gain +1 AP."
+    }
+  ]
+}

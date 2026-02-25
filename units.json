@@ -1,0 +1,275 @@
+{
+  "units": [
+    {
+      "id": "skitarii_vanguard",
+      "name": "Skitarii Vanguard",
+      "role": "BATTLELINE",
+      "faction": "ADEPTUS MECHANICUS",
+      "keywords": ["INFANTRY", "SKITARII", "BATTLELINE"],
+      "is_leader": false,
+      "attachable_to": [],
+      "points_base": 65,
+      "points_per_model": 13,
+      "min_models": 5,
+      "max_models": 10,
+      "stats": { "M": "6\"", "T": 3, "Sv": "4+", "W": 1, "Ld": "7+", "OC": 2 },
+      "ranged_weapons": [
+        { "id": "radium_carbine", "name": "Radium Carbine", "range": "18\"", "A": 3, "BS": "4+", "S": 3, "AP": 0, "D": 1, "abilities": ["LETHAL HITS"], "default": true },
+        { "id": "arc_rifle", "name": "Arc Rifle (Alpha)", "range": "30\"", "A": 1, "BS": "3+", "S": 8, "AP": -2, "D": "D3", "abilities": ["ARC"], "default": false },
+        { "id": "plasma_caliver", "name": "Plasma Caliver (Alpha)", "range": "18\"", "A": 1, "BS": "3+", "S": 7, "AP": -2, "D": 2, "abilities": ["RAPID FIRE 1"], "default": false }
+      ],
+      "melee_weapons": [
+        { "id": "close_combat", "name": "Close Combat Weapon", "A": 1, "WS": "4+", "S": 3, "AP": 0, "D": 1, "abilities": [], "default": true },
+        { "id": "arc_maul", "name": "Arc Maul (Alpha)", "A": 2, "WS": "3+", "S": 6, "AP": -1, "D": 2, "abilities": ["ARC"], "default": false }
+      ],
+      "abilities": [
+        { "name": "Rad-Saturation", "description": "[PLACEHOLDER] Each time this unit shoots or fights, until the end of the phase, each time an enemy unit suffers one or more hits from this unit, that enemy unit is rad-saturated until the end of the turn." },
+        { "name": "Doctrina Imperatives", "description": "[PLACEHOLDER] This unit benefits from the active Doctrina Imperative chosen at the start of each battle round." }
+      ],
+      "lore": "Skitarii Vanguard march ahead of the main Mechanicus force, saturating the battlefield with ambient radiation from their radium carbines."
+    },
+    {
+      "id": "skitarii_rangers",
+      "name": "Skitarii Rangers",
+      "role": "BATTLELINE",
+      "faction": "ADEPTUS MECHANICUS",
+      "keywords": ["INFANTRY", "SKITARII", "BATTLELINE"],
+      "is_leader": false,
+      "attachable_to": [],
+      "points_base": 75,
+      "points_per_model": 15,
+      "min_models": 5,
+      "max_models": 10,
+      "stats": { "M": "6\"", "T": 3, "Sv": "4+", "W": 1, "Ld": "7+", "OC": 2 },
+      "ranged_weapons": [
+        { "id": "galvanic_rifle", "name": "Galvanic Rifle", "range": "30\"", "A": 2, "BS": "4+", "S": 4, "AP": -1, "D": 1, "abilities": ["HEAVY"], "default": true },
+        { "id": "arc_rifle_r", "name": "Arc Rifle (Alpha)", "range": "30\"", "A": 1, "BS": "3+", "S": 8, "AP": -2, "D": "D3", "abilities": ["ARC"], "default": false },
+        { "id": "transuranic_arquebus", "name": "Transuranic Arquebus (1 per 5)", "range": "60\"", "A": 1, "BS": "4+", "S": 7, "AP": -1, "D": "D3+3", "abilities": ["HEAVY", "PRECISION"], "default": false }
+      ],
+      "melee_weapons": [
+        { "id": "close_combat", "name": "Close Combat Weapon", "A": 1, "WS": "4+", "S": 3, "AP": 0, "D": 1, "abilities": [], "default": true },
+        { "id": "arc_maul_r", "name": "Arc Maul (Alpha)", "A": 2, "WS": "3+", "S": 6, "AP": -1, "D": 2, "abilities": ["ARC"], "default": false }
+      ],
+      "abilities": [
+        { "name": "Doctrina Imperatives", "description": "[PLACEHOLDER] This unit benefits from the active Doctrina Imperative chosen at the start of each battle round." },
+        { "name": "Clandestine Kills", "description": "[PLACEHOLDER] Each time a model in this unit makes a ranged attack that targets an enemy unit that is not within 12\" of any other friendly units, that attack has the PRECISION ability." }
+      ],
+      "lore": "Adept long-range marksmen, Skitarii Rangers pursue their quarry across vast distances before delivering killing shots with methodical precision."
+    },
+    {
+      "id": "tech_priest_dominus",
+      "name": "Tech-Priest Dominus",
+      "role": "CHARACTER",
+      "faction": "ADEPTUS MECHANICUS",
+      "keywords": ["INFANTRY", "CHARACTER", "TECH-PRIEST", "DOMINUS", "LEADER"],
+      "is_leader": true,
+      "attachable_to": ["skitarii_vanguard", "skitarii_rangers", "kataphron_breachers"],
+      "points_base": 95,
+      "points_per_model": 95,
+      "min_models": 1,
+      "max_models": 1,
+      "stats": { "M": "5\"", "T": 4, "Sv": "2+", "W": 5, "Ld": "6+", "OC": 1 },
+      "ranged_weapons": [
+        { "id": "volkite_blaster", "name": "Volkite Blaster", "range": "18\"", "A": 4, "BS": "2+", "S": 6, "AP": 0, "D": 2, "abilities": ["DEVASTATING WOUNDS"], "default": true },
+        { "id": "macrostubber", "name": "Macrostubber", "range": "12\"", "A": 5, "BS": "2+", "S": 4, "AP": 0, "D": 1, "abilities": ["PISTOL"], "default": true }
+      ],
+      "melee_weapons": [
+        { "id": "omnissian_axe", "name": "Omnissian Axe", "A": 4, "WS": "3+", "S": 6, "AP": -2, "D": 2, "abilities": [], "default": true }
+      ],
+      "abilities": [
+        { "name": "Leader", "description": "[PLACEHOLDER] While this model is leading a unit, models in that unit have the benefit of this character's aura abilities. It can be attached to SKITARII INFANTRY or KATAPHRON units." },
+        { "name": "Master of Machines", "description": "[PLACEHOLDER] At the start of your Command phase, one friendly ADEPTUS MECHANICUS VEHICLE or WALKER unit within 3\" of this model regains up to D3 lost wounds." },
+        { "name": "Fabricator Blessing", "description": "[PLACEHOLDER] While this model is leading a unit, each time a model in that unit makes an attack, re-roll a Hit roll of 1." }
+      ],
+      "lore": "The Dominus stands above lesser Tech-Priests, a living machine of war whose augmented body is as much weapon as it is flesh and steel."
+    },
+    {
+      "id": "tech_priest_manipulus",
+      "name": "Tech-Priest Manipulus",
+      "role": "CHARACTER",
+      "faction": "ADEPTUS MECHANICUS",
+      "keywords": ["INFANTRY", "CHARACTER", "TECH-PRIEST", "MANIPULUS", "LEADER"],
+      "is_leader": true,
+      "attachable_to": ["skitarii_vanguard", "skitarii_rangers", "sicarian_ruststalkers", "sicarian_infiltrators"],
+      "points_base": 65,
+      "points_per_model": 65,
+      "min_models": 1,
+      "max_models": 1,
+      "stats": { "M": "5\"", "T": 4, "Sv": "3+", "W": 4, "Ld": "6+", "OC": 1 },
+      "ranged_weapons": [
+        { "id": "transonic_cannon", "name": "Transonic Cannon", "range": "18\"", "A": 3, "BS": "3+", "S": 8, "AP": -2, "D": 2, "abilities": ["DEVASTATING WOUNDS"], "default": true }
+      ],
+      "melee_weapons": [
+        { "id": "omnissian_staff", "name": "Omnissian Staff", "A": 3, "WS": "3+", "S": 5, "AP": -1, "D": 2, "abilities": [], "default": true }
+      ],
+      "abilities": [
+        { "name": "Leader", "description": "[PLACEHOLDER] While this model is leading a unit, models in that unit have the benefit of this character's aura abilities. It can be attached to SKITARII INFANTRY or SICARIAN units." },
+        { "name": "Galvanic Field", "description": "[PLACEHOLDER] While this model is leading a unit, each time a model in that unit makes a ranged attack, on an unmodified Hit roll of 6, that attack scores 1 additional hit." },
+        { "name": "Mechadendrite Halo", "description": "[PLACEHOLDER] While this model is leading a unit, models in that unit have a 5+ invulnerable save." }
+      ],
+      "lore": "The Manipulus oversees the spiritual and physical maintenance of Skitarii cohorts, bolstering their combat effectiveness through noospheric communion."
+    },
+    {
+      "id": "kataphron_breachers",
+      "name": "Kataphron Breachers",
+      "role": "CORE",
+      "faction": "ADEPTUS MECHANICUS",
+      "keywords": ["INFANTRY", "KATAPHRON", "CORE"],
+      "is_leader": false,
+      "attachable_to": [],
+      "points_base": 120,
+      "points_per_model": 40,
+      "min_models": 3,
+      "max_models": 6,
+      "stats": { "M": "8\"", "T": 5, "Sv": "3+", "W": 3, "Ld": "7+", "OC": 1 },
+      "ranged_weapons": [
+        { "id": "heavy_arc_rifle", "name": "Heavy Arc Rifle", "range": "24\"", "A": 2, "BS": "3+", "S": 8, "AP": -2, "D": "D3", "abilities": ["ARC", "HEAVY"], "default": true },
+        { "id": "torsion_cannon", "name": "Torsion Cannon", "range": "18\"", "A": 1, "BS": "3+", "S": 8, "AP": -4, "D": "D3+3", "abilities": ["BLAST"], "default": false }
+      ],
+      "melee_weapons": [
+        { "id": "hydraulic_claw", "name": "Hydraulic Claw", "A": 2, "WS": "3+", "S": 8, "AP": -2, "D": 3, "abilities": [], "default": true },
+        { "id": "arc_claw", "name": "Arc Claw", "A": 3, "WS": "3+", "S": 6, "AP": -1, "D": 1, "abilities": ["ARC"], "default": false }
+      ],
+      "abilities": [
+        { "name": "Doctrina Imperatives", "description": "[PLACEHOLDER] This unit benefits from the active Doctrina Imperative chosen at the start of each battle round." },
+        { "name": "Semi-independent Body", "description": "[PLACEHOLDER] This unit is treated as two separate units for the purpose of transport capacity." }
+      ],
+      "lore": "Kataphron Breachers are heavy assault servitors, their cybernetic bulk reinforced with industrial hydraulics and torsion weaponry."
+    },
+    {
+      "id": "kastelan_robots",
+      "name": "Kastelan Robots",
+      "role": "CORE",
+      "faction": "ADEPTUS MECHANICUS",
+      "keywords": ["VEHICLE", "KASTELAN", "CORE"],
+      "is_leader": false,
+      "attachable_to": [],
+      "points_base": 190,
+      "points_per_model": 95,
+      "min_models": 2,
+      "max_models": 4,
+      "stats": { "M": "8\"", "T": 9, "Sv": "3+", "W": 6, "Ld": "7+", "OC": 3 },
+      "ranged_weapons": [
+        { "id": "heavy_phosphor_blaster", "name": "Heavy Phosphor Blaster", "range": "36\"", "A": 3, "BS": "4+", "S": 6, "AP": -2, "D": 1, "abilities": ["LETHAL HITS"], "default": true },
+        { "id": "phosphor_blasters", "name": "2x Phosphor Blaster", "range": "24\"", "A": 3, "BS": "4+", "S": 5, "AP": -1, "D": 1, "abilities": ["LETHAL HITS"], "default": false }
+      ],
+      "melee_weapons": [
+        { "id": "kastelan_fist", "name": "2x Kastelan Fist", "A": 4, "WS": "4+", "S": 14, "AP": -2, "D": 3, "abilities": ["TWIN-LINKED"], "default": true }
+      ],
+      "abilities": [
+        { "name": "Doctrina Imperatives", "description": "[PLACEHOLDER] This unit benefits from the active Doctrina Imperative chosen at the start of each battle round." },
+        { "name": "Repulsor Grid", "description": "[PLACEHOLDER] This unit has a 5+ invulnerable save against ranged attacks." },
+        { "name": "Battle Protocols", "description": "[PLACEHOLDER] At the start of your Command phase, if a friendly CYBERNETICA DATASMITH is within 6\" of this unit, you can change this unit's Battle Protocol." }
+      ],
+      "lore": "Ancient automata of immense power, Kastelan Robots are relics of a forgotten age, their minds locked into rigid behavioral protocols."
+    },
+    {
+      "id": "sicarian_ruststalkers",
+      "name": "Sicarian Ruststalkers",
+      "role": "CORE",
+      "faction": "ADEPTUS MECHANICUS",
+      "keywords": ["INFANTRY", "SKITARII", "SICARIAN", "CORE"],
+      "is_leader": false,
+      "attachable_to": [],
+      "points_base": 80,
+      "points_per_model": 16,
+      "min_models": 5,
+      "max_models": 10,
+      "stats": { "M": "8\"", "T": 3, "Sv": "4+", "W": 2, "Ld": "7+", "OC": 2 },
+      "ranged_weapons": [],
+      "melee_weapons": [
+        { "id": "transonic_razor", "name": "Transonic Razor & Chordclaw", "A": 4, "WS": "3+", "S": 4, "AP": -2, "D": 1, "abilities": ["DEVASTATING WOUNDS"], "default": true },
+        { "id": "transonic_blades", "name": "Pair of Transonic Blades (Princeps)", "A": 5, "WS": "3+", "S": 4, "AP": -1, "D": 1, "abilities": ["DEVASTATING WOUNDS"], "default": false }
+      ],
+      "abilities": [
+        { "name": "Doctrina Imperatives", "description": "[PLACEHOLDER] This unit benefits from the active Doctrina Imperative chosen at the start of each battle round." },
+        { "name": "Hyperactive Neosynaptic Networks", "description": "[PLACEHOLDER] This unit is eligible to shoot and declare a charge in a turn in which it Fell Back." },
+        { "name": "Talons of the Omnissiah", "description": "[PLACEHOLDER] Each time this unit makes a consolidation move, it can move up to 6\" instead of 3\"." }
+      ],
+      "lore": "Sicarian Ruststalkers are the shadows of the Skitarii Legion, assassins who stalk prey through the static of noospheric interference."
+    },
+    {
+      "id": "sicarian_infiltrators",
+      "name": "Sicarian Infiltrators",
+      "role": "CORE",
+      "faction": "ADEPTUS MECHANICUS",
+      "keywords": ["INFANTRY", "SKITARII", "SICARIAN", "CORE", "INFILTRATORS"],
+      "is_leader": false,
+      "attachable_to": [],
+      "points_base": 80,
+      "points_per_model": 16,
+      "min_models": 5,
+      "max_models": 10,
+      "stats": { "M": "8\"", "T": 3, "Sv": "4+", "W": 2, "Ld": "7+", "OC": 2 },
+      "ranged_weapons": [
+        { "id": "flechette_blaster", "name": "Flechette Blaster", "range": "12\"", "A": 5, "BS": "3+", "S": 3, "AP": 0, "D": 1, "abilities": ["PISTOL"], "default": true },
+        { "id": "stubcarbine", "name": "Stubcarbine (Princeps)", "range": "18\"", "A": 3, "BS": "3+", "S": 4, "AP": 0, "D": 1, "abilities": ["PISTOL"], "default": false }
+      ],
+      "melee_weapons": [
+        { "id": "taser_goad", "name": "Taser Goad", "A": 3, "WS": "3+", "S": 6, "AP": 0, "D": 1, "abilities": ["TASER"], "default": true },
+        { "id": "power_sword", "name": "Power Sword (Princeps)", "A": 3, "WS": "3+", "S": 5, "AP": -2, "D": 1, "abilities": [], "default": false }
+      ],
+      "abilities": [
+        { "name": "Doctrina Imperatives", "description": "[PLACEHOLDER] This unit benefits from the active Doctrina Imperative chosen at the start of each battle round." },
+        { "name": "Infiltrate", "description": "[PLACEHOLDER] During deployment, you can set up this unit anywhere on the battlefield that is more than 9\" horizontally away from the enemy deployment zone and all enemy models." },
+        { "name": "Appropriated Munitions", "description": "[PLACEHOLDER] Each time this unit ends a Normal Move, Advance or Charge, you can select one enemy unit within 1\" of it. Until the start of your next turn, that enemy unit cannot receive the benefits of cover." }
+      ],
+      "lore": "Sicarian Infiltrators are espionage specialists, their mechadendrite hoods flooding the noosphere with false signals as they slip behind enemy lines."
+    },
+    {
+      "id": "onager_dunecrawler",
+      "name": "Onager Dunecrawler",
+      "role": "CORE",
+      "faction": "ADEPTUS MECHANICUS",
+      "keywords": ["VEHICLE", "WALKER", "ONAGER", "CORE"],
+      "is_leader": false,
+      "attachable_to": [],
+      "points_base": 165,
+      "points_per_model": 165,
+      "min_models": 1,
+      "max_models": 1,
+      "stats": { "M": "8\"", "T": 9, "Sv": "3+", "W": 11, "Ld": "7+", "OC": 3 },
+      "ranged_weapons": [
+        { "id": "eradication_beamer", "name": "Eradication Beamer", "range": "30\"", "A": "D6", "BS": "3+", "S": 10, "AP": -3, "D": "D6", "abilities": ["BLAST", "MELTA 3"], "default": true },
+        { "id": "neutron_laser", "name": "Neutron Laser", "range": "48\"", "A": 3, "BS": "3+", "S": 14, "AP": -4, "D": "D6+1", "abilities": ["BLAST"], "default": false },
+        { "id": "icarus_array", "name": "Icarus Array", "range": "48\"", "A": "6+D6", "BS": "3+", "S": 8, "AP": -1, "D": 2, "abilities": ["BLAST", "ANTI-FLY 2+"], "default": false }
+      ],
+      "melee_weapons": [
+        { "id": "dunecrawler_legs", "name": "Dunecrawler's Legs", "A": 3, "WS": "5+", "S": 6, "AP": 0, "D": 1, "abilities": [], "default": true }
+      ],
+      "abilities": [
+        { "name": "Doctrina Imperatives", "description": "[PLACEHOLDER] This unit benefits from the active Doctrina Imperative chosen at the start of each battle round." },
+        { "name": "Emanatus Force Field", "description": "[PLACEHOLDER] Friendly ADEPTUS MECHANICUS INFANTRY units that are within 3\" of this unit have a 5+ invulnerable save." },
+        { "name": "Broad Spectrum Data-tether", "description": "[PLACEHOLDER] Friendly ADEPTUS MECHANICUS units within 6\" of this unit can use this unit's Leadership characteristic instead of their own when taking Battleshock tests." }
+      ],
+      "lore": "The Onager Dunecrawler is a heavily armoured walker that serves as fire support for Skitarii cohorts, its neutron laser capable of coring battle tanks."
+    },
+    {
+      "id": "archaeopter_stratoraptor",
+      "name": "Archaeopter Stratoraptor",
+      "role": "CORE",
+      "faction": "ADEPTUS MECHANICUS",
+      "keywords": ["VEHICLE", "FLY", "ARCHAEOPTER", "CORE"],
+      "is_leader": false,
+      "attachable_to": [],
+      "points_base": 150,
+      "points_per_model": 150,
+      "min_models": 1,
+      "max_models": 1,
+      "stats": { "M": "20\"", "T": 8, "Sv": "3+", "W": 10, "Ld": "7+", "OC": 0 },
+      "ranged_weapons": [
+        { "id": "twin_cognis_lascannon", "name": "Twin Cognis Lascannon", "range": "48\"", "A": 2, "BS": "3+", "S": 12, "AP": -3, "D": "D6+1", "abilities": ["TWIN-LINKED"], "default": true },
+        { "id": "cognis_heavy_stubber", "name": "Cognis Heavy Stubber", "range": "36\"", "A": 3, "BS": "3+", "S": 4, "AP": 0, "D": 1, "abilities": ["SUSTAINED HITS 1"], "default": true }
+      ],
+      "melee_weapons": [
+        { "id": "armoured_hull", "name": "Armoured Hull", "A": 3, "WS": "6+", "S": 6, "AP": 0, "D": 1, "abilities": [], "default": true }
+      ],
+      "abilities": [
+        { "name": "Doctrina Imperatives", "description": "[PLACEHOLDER] This unit benefits from the active Doctrina Imperative chosen at the start of each battle round." },
+        { "name": "Hard to Hit", "description": "[PLACEHOLDER] Each time a ranged attack targets this unit, subtract 1 from the Hit roll." },
+        { "name": "Hover", "description": "[PLACEHOLDER] At the start of the first battle round, before the first turn begins, you can remove this unit from the battlefield and redeploy it anywhere in your deployment zone." }
+      ],
+      "lore": "The Stratoraptor dominates the skies, its twin lascannons hunting armour and aircraft with equal ferocity."
+    }
+  ]
+}
