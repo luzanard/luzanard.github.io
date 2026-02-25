@@ -3,7 +3,7 @@
  */
 const Renderer = (() => {
 
-  // ─── Points bar ────────────────────────────────────────────────
+  // ── Points bar ──────────────────────────────────────────────────
   function updatePointsDisplay(totalPoints, pointsLimit) {
     const totalEl = document.getElementById('points-total');
     const limitEl = document.getElementById('points-limit');
@@ -13,24 +13,24 @@ const Renderer = (() => {
     totalEl.textContent = totalPoints;
     if (limitEl) limitEl.textContent = pointsLimit;
     const pct = Math.min(100, (totalPoints / pointsLimit) * 100);
-    if (fillEl) fillEl.style.width = `${pct}%`;
+    if (fillEl) fillEl.style.width = pct + '%';
     if (barEl) {
       barEl.classList.toggle('bar--warning', pct > 80 && pct < 100);
       barEl.classList.toggle('bar--over', pct >= 100);
     }
   }
 
-  // ─── Detachment selector ───────────────────────────────────────
-  function renderDetachmentSelector(detachments, activeDetachmentId) {
-    const container = document.getElementById('detachment-selector');
-    if (!container) return;
-    container.innerHTML = '';
+  // ── Detachment ──────────────────────────────────────────────────
+  function renderDetachmentSelector(detachments, activeId) {
+    const c = document.getElementById('detachment-selector');
+    if (!c) return;
+    c.innerHTML = '';
     detachments.forEach(d => {
       const btn = document.createElement('button');
-      btn.className = `detachment-btn${d.id === activeDetachmentId ? ' active' : ''}`;
+      btn.className = 'detachment-btn' + (d.id === activeId ? ' active' : '');
       btn.dataset.detachmentId = d.id;
-      btn.innerHTML = `<span class="detachment-name">${d.name}</span>`;
-      container.appendChild(btn);
+      btn.innerHTML = '<span class="detachment-name">' + d.name + '</span>';
+      c.appendChild(btn);
     });
   }
 
@@ -41,46 +41,43 @@ const Renderer = (() => {
       el.innerHTML = '<span class="placeholder-text">Select a Detachment to see its special rules.</span>';
       return;
     }
-    el.innerHTML = `
-      <div class="rule-block">
-        <span class="rule-title">${detachment.rule.name}</span>
-        <p class="rule-desc">${detachment.rule.description}</p>
-        ${detachment.stratagems?.length ? `
-          <div class="strat-block">
-            <span class="strat-label">Stratagems</span>
-            ${detachment.stratagems.map(s => `
-              <div class="strat-item">
-                <div class="strat-header">
-                  <span class="strat-name">${s.name}</span>
-                  <span class="strat-cost">${s.cost}CP</span>
-                  <span class="strat-phase">${s.phase}</span>
-                </div>
-                <p class="strat-desc">${s.description}</p>
-              </div>
-            `).join('')}
-          </div>
-        ` : ''}
-        ${detachment.enhancements?.length ? `
-          <div class="enh-block">
-            <span class="enh-label">Enhancements</span>
-            ${detachment.enhancements.map(e => `
-              <div class="enh-item">
-                <span class="enh-name">${e.name}</span>
-                <span class="enh-cost">${e.cost}pts</span>
-                <p class="enh-desc">${e.description}</p>
-              </div>
-            `).join('')}
-          </div>
-        ` : ''}
-      </div>`;
+    el.innerHTML =
+      '<div class="rule-block">' +
+      '<span class="rule-title">' + detachment.rule.name + '</span>' +
+      '<p class="rule-desc">' + detachment.rule.description + '</p>' +
+      (detachment.stratagems && detachment.stratagems.length ? _buildStratagemBlock(detachment.stratagems) : '') +
+      (detachment.enhancements && detachment.enhancements.length ? _buildEnhancementRefBlock(detachment.enhancements) : '') +
+      '</div>';
   }
 
-  // ─── Forge world selector ──────────────────────────────────────
+  function _buildStratagemBlock(strats) {
+    return '<div class="strat-block"><span class="strat-label">Stratagems</span>' +
+      strats.map(function(s) {
+        return '<div class="strat-item">' +
+          '<div class="strat-header">' +
+          '<span class="strat-name">' + s.name + '</span>' +
+          '<span class="strat-cost">' + s.cost + 'CP</span>' +
+          '<span class="strat-phase">' + s.phase + '</span>' +
+          '</div><p class="strat-desc">' + s.description + '</p></div>';
+      }).join('') + '</div>';
+  }
+
+  function _buildEnhancementRefBlock(enhs) {
+    return '<div class="enh-block"><span class="enh-label">Enhancements</span>' +
+      enhs.map(function(e) {
+        return '<div class="enh-item">' +
+          '<span class="enh-name">' + e.name + '</span>' +
+          '<span class="enh-cost">' + e.cost + 'pts</span>' +
+          '<p class="enh-desc">' + e.description + '</p></div>';
+      }).join('') + '</div>';
+  }
+
+  // ── Forge world selector ─────────────────────────────────────────
   function renderForgeWorldSelector(forgeWorlds, activeId, selectEl) {
     if (!selectEl) return;
     selectEl.innerHTML = '<option value="">— No Forge World —</option>';
-    forgeWorlds.forEach(fw => {
-      const opt = document.createElement('option');
+    forgeWorlds.forEach(function(fw) {
+      var opt = document.createElement('option');
       opt.value = fw.id;
       opt.textContent = fw.name;
       if (fw.id === activeId) opt.selected = true;
@@ -88,24 +85,26 @@ const Renderer = (() => {
     });
   }
 
-  // ─── Doctrine display ─────────────────────────────────────────
+  // ── Doctrine ────────────────────────────────────────────────────
   function updateDoctrineDisplay(protectorActive, conquerorActive) {
-    document.getElementById('doctrine-protector')?.classList.toggle('doctrine-btn--active', protectorActive);
-    document.getElementById('doctrine-conqueror')?.classList.toggle('doctrine-btn--active', conquerorActive);
-    const el = document.getElementById('active-doctrine-display');
-    if (!el) return;
+    var pe = document.getElementById('doctrine-protector');
+    var ce = document.getElementById('doctrine-conqueror');
+    var ae = document.getElementById('active-doctrine-display');
+    if (pe) pe.classList.toggle('doctrine-btn--active', protectorActive);
+    if (ce) ce.classList.toggle('doctrine-btn--active', conquerorActive);
+    if (!ae) return;
     if (protectorActive)
-      el.innerHTML = `<span class="doctrine-active-tag">⬡ PROTECTOR</span> Ranged +1 BS • HEAVY • -1 Hit vs Melee`;
+      ae.innerHTML = '<span class="doctrine-active-tag">⬡ PROTECTOR</span> Ranged +1 BS · HEAVY · -1 Hit vs Melee';
     else if (conquerorActive)
-      el.innerHTML = `<span class="doctrine-active-tag">⬡ CONQUEROR</span> Melee +1 WS • ASSAULT • +1 AP near BATTLELINE`;
+      ae.innerHTML = '<span class="doctrine-active-tag">⬡ CONQUEROR</span> Melee +1 WS · ASSAULT · +1 AP near BATTLELINE';
     else
-      el.textContent = 'No doctrine active';
+      ae.textContent = 'No doctrine active';
   }
 
-  // ─── Roster ───────────────────────────────────────────────────
+  // ── Roster ──────────────────────────────────────────────────────
   function renderRoster(rosterEntries, snapshot) {
-    const container = document.getElementById('roster-list');
-    const emptyEl   = document.getElementById('roster-empty');
+    var container = document.getElementById('roster-list');
+    var emptyEl   = document.getElementById('roster-empty');
     if (!container) return;
     if (rosterEntries.length === 0) {
       container.innerHTML = '';
@@ -114,325 +113,400 @@ const Renderer = (() => {
     }
     if (emptyEl) emptyEl.style.display = 'none';
 
-    // Preserve scroll positions of expanded panels per instanceId
-    const expanded = {};
-    container.querySelectorAll('.unit-card[data-instance-id]').forEach(card => {
-      const id = card.dataset.instanceId;
+    // Remember which panels are open
+    var expanded = {};
+    container.querySelectorAll('.unit-card[data-instance-id]').forEach(function(card) {
+      var id = card.dataset.instanceId;
       expanded[id] = {
-        abilities: card.querySelector('.abilities-panel')?.classList.contains('panel--open'),
-        weapons:   card.querySelector('.weapons-panel')?.classList.contains('panel--open'),
-        leader:    card.querySelector('.leader-panel')?.classList.contains('panel--open'),
-        enh:       card.querySelector('.enh-panel')?.classList.contains('panel--open')
+        weapons:   card.querySelector('.weapons-panel')  && card.querySelector('.weapons-panel').classList.contains('panel--open'),
+        abilities: card.querySelector('.abilities-panel') && card.querySelector('.abilities-panel').classList.contains('panel--open'),
+        leader:    card.querySelector('.leader-panel')   && card.querySelector('.leader-panel').classList.contains('panel--open'),
+        enh:       card.querySelector('.enh-panel')      && card.querySelector('.enh-panel').classList.contains('panel--open')
       };
     });
 
     container.innerHTML = '';
+    var activeDet = (snapshot.allProfiles.detachments || []).find(function(d) { return d.id === snapshot.detachmentId; }) || null;
 
-    const activeDetachment = snapshot.allProfiles?.detachments?.find(d => d.id === snapshot.detachmentId) || null;
-
-    // Build a quick map: instanceId → unit for leader lookups
-    const instanceMap = {};
-    rosterEntries.forEach(e => {
-      instanceMap[e.instanceId] = snapshot.allUnits.find(u => u.id === e.unitId);
-    });
-
-    rosterEntries.forEach(entry => {
-      const unit = snapshot.allUnits.find(u => u.id === entry.unitId);
+    rosterEntries.forEach(function(entry) {
+      var unit = snapshot.allUnits.find(function(u) { return u.id === entry.unitId; });
       if (!unit) return;
-      // Leaders are rendered as a sub-section inside their body unit; skip standalone render
-      // unless they have no attachment
-      const isAttached = rosterEntries.some(e => e.attachedLeaderId === entry.instanceId);
+      // Skip leaders that are currently attached — they show inside the body card
+      var isAttached = rosterEntries.some(function(e) { return e.attachedLeaderId === entry.instanceId; });
       if (unit.is_leader && isAttached) return;
-
-      const points = StatCalculator.calculatePoints(unit, entry.modelCount);
-      const card = _buildUnitCard(unit, entry, points, snapshot, activeDetachment, instanceMap, expanded);
+      var pts  = StatCalculator.calculatePoints(unit, entry.modelCount);
+      var card = _buildUnitCard(unit, entry, pts, snapshot, activeDet, expanded);
       container.appendChild(card);
     });
   }
 
-  function _buildUnitCard(unit, entry, points, snapshot, activeDetachment, instanceMap, expanded) {
-    const card = document.createElement('div');
+  function _buildUnitCard(unit, entry, points, snapshot, activeDet, expanded) {
+    var card = document.createElement('div');
     card.className = 'unit-card';
-    card.dataset.instanceId = entry.instanceId;
+    card.dataset.instanceId = String(entry.instanceId);
+    var roleClass = (unit.role || 'core').toLowerCase().replace(/\s+/g, '-');
 
-    const roleClass = (unit.role || 'core').toLowerCase().replace(/\s+/g, '-');
+    var leaderEntry = snapshot.roster.find(function(e) { return e.instanceId === entry.attachedLeaderId; }) || null;
+    var leaderUnit  = leaderEntry ? snapshot.allUnits.find(function(u) { return u.id === leaderEntry.unitId; }) : null;
+    var leaderPts   = leaderUnit ? StatCalculator.calculatePoints(leaderUnit, 1) : 0;
+    var totalPts    = points + leaderPts;
 
-    // Find attached leader if any
-    const attachedLeaderEntry = snapshot.roster.find(e => e.instanceId === entry.attachedLeaderId) || null;
-    const attachedLeaderUnit  = attachedLeaderEntry ? snapshot.allUnits.find(u => u.id === attachedLeaderEntry.unitId) : null;
+    var enhancements = activeDet ? (activeDet.enhancements || []) : [];
+    var usedEnhIds   = snapshot.roster.filter(function(e) { return e.enhancementId; }).map(function(e) { return e.enhancementId; });
 
-    // Points including attached leader
-    const leaderPts = attachedLeaderUnit ? StatCalculator.calculatePoints(attachedLeaderUnit, 1) : 0;
-    const totalPts  = points + leaderPts;
+    var exp = expanded[String(entry.instanceId)] || {};
 
-    // Enhancements available (from active detachment)
-    const enhancements = activeDetachment?.enhancements || [];
-    const usedEnhIds   = snapshot.roster.filter(e => e.enhancementId).map(e => e.enhancementId);
-    const unitEnhId    = entry.enhancementId || null;
+    card.innerHTML =
+      '<div class="unit-card__header">' +
+        '<div class="unit-card__title-group">' +
+          '<span class="unit-role unit-role--' + roleClass + '">' + unit.role + '</span>' +
+          '<h3 class="unit-card__name">' + unit.name + '</h3>' +
+          (leaderUnit ? '<span class="leader-badge">+ ' + leaderUnit.name + '</span>' : '') +
+          (unit.invuln ? '<span class="invuln-badge">INV ' + unit.invuln + '</span>' : '') +
+        '</div>' +
+        '<div class="unit-card__points"><span class="points-value">' + totalPts + '</span><span class="points-label"> pts</span></div>' +
+        '<button class="unit-remove-btn" data-instance-id="' + entry.instanceId + '" aria-label="Remove">✕</button>' +
+      '</div>' +
 
-    card.innerHTML = `
-      <!-- HEADER -->
-      <div class="unit-card__header">
-        <div class="unit-card__title-group">
-          <span class="unit-role unit-role--${roleClass}">${unit.role}</span>
-          <h3 class="unit-card__name">${unit.name}</h3>
-          ${attachedLeaderUnit ? `<span class="leader-badge">+ ${attachedLeaderUnit.name}</span>` : ''}
-        </div>
-        <div class="unit-card__points">
-          <span class="points-value">${totalPts}</span><span class="points-label"> pts</span>
-        </div>
-        <button class="unit-remove-btn" data-instance-id="${entry.instanceId}" aria-label="Remove">✕</button>
-      </div>
+      '<div class="unit-card__stats-row">' + _buildStatTable(unit.stats) + '</div>' +
 
-      <!-- STAT TABLE -->
-      <div class="unit-card__stats-row">
-        ${_buildStatTable(unit.stats)}
-      </div>
+      '<div class="unit-card__panels">' +
 
-      <!-- EXPANDABLE PANELS -->
-      <div class="unit-card__panels">
+        // Weapons
+        '<div class="panel-toggle" data-panel="weapons" data-instance-id="' + entry.instanceId + '">' +
+          '<span>⚔ Weapons &amp; Wargear</span><span class="toggle-arrow' + (exp.weapons ? ' toggle-arrow--open' : '') + '">▾</span>' +
+        '</div>' +
+        '<div class="weapons-panel panel' + (exp.weapons ? ' panel--open' : '') + '">' +
+          _buildWeaponSection(unit, entry) +
+        '</div>' +
 
-        <!-- Weapons panel -->
-        <div class="panel-toggle" data-panel="weapons" data-instance-id="${entry.instanceId}">
-          <span>⚔ Weapons</span><span class="toggle-arrow">▾</span>
-        </div>
-        <div class="weapons-panel panel${expanded[entry.instanceId]?.weapons ? ' panel--open' : ''}">
-          ${_buildWeaponSection(unit, entry)}
-        </div>
+        // Abilities
+        '<div class="panel-toggle" data-panel="abilities" data-instance-id="' + entry.instanceId + '">' +
+          '<span>◈ Abilities</span><span class="toggle-arrow' + (exp.abilities ? ' toggle-arrow--open' : '') + '">▾</span>' +
+        '</div>' +
+        '<div class="abilities-panel panel' + (exp.abilities ? ' panel--open' : '') + '">' +
+          _buildAbilitiesSection(unit.abilities || []) +
+        '</div>' +
 
-        <!-- Abilities panel -->
-        <div class="panel-toggle" data-panel="abilities" data-instance-id="${entry.instanceId}">
-          <span>◈ Abilities</span><span class="toggle-arrow">▾</span>
-        </div>
-        <div class="abilities-panel panel${expanded[entry.instanceId]?.abilities ? ' panel--open' : ''}">
-          ${_buildAbilitiesSection(unit.abilities || [])}
-        </div>
+        // Leader (not shown on leader cards)
+        (!unit.is_leader ?
+          '<div class="panel-toggle" data-panel="leader" data-instance-id="' + entry.instanceId + '">' +
+            '<span>👤 Attach Leader</span><span class="toggle-arrow' + (exp.leader ? ' toggle-arrow--open' : '') + '">▾</span>' +
+          '</div>' +
+          '<div class="leader-panel panel' + (exp.leader ? ' panel--open' : '') + '">' +
+            _buildLeaderSection(unit, entry, snapshot) +
+          '</div>'
+        : '') +
 
-        <!-- Leader panel (only for non-leader units that can accept leaders) -->
-        ${!unit.is_leader ? `
-        <div class="panel-toggle" data-panel="leader" data-instance-id="${entry.instanceId}">
-          <span>👤 Leader</span><span class="toggle-arrow">▾</span>
-        </div>
-        <div class="leader-panel panel${expanded[entry.instanceId]?.leader ? ' panel--open' : ''}">
-          ${_buildLeaderSection(unit, entry, snapshot)}
-        </div>
-        ` : ''}
+        // Enhancement
+        (!unit.is_leader && enhancements.length > 0 ?
+          '<div class="panel-toggle" data-panel="enh" data-instance-id="' + entry.instanceId + '">' +
+            '<span>✦ Enhancement</span><span class="toggle-arrow' + (exp.enh ? ' toggle-arrow--open' : '') + '">▾</span>' +
+          '</div>' +
+          '<div class="enh-panel panel' + (exp.enh ? ' panel--open' : '') + '">' +
+            _buildEnhancementSection(enhancements, entry.enhancementId, usedEnhIds, entry.instanceId) +
+          '</div>'
+        : '') +
 
-        <!-- Enhancement panel (only if detachment selected and enhancements exist) -->
-        ${!unit.is_leader && enhancements.length > 0 ? `
-        <div class="panel-toggle" data-panel="enh" data-instance-id="${entry.instanceId}">
-          <span>✦ Enhancement</span><span class="toggle-arrow">▾</span>
-        </div>
-        <div class="enh-panel panel${expanded[entry.instanceId]?.enh ? ' panel--open' : ''}">
-          ${_buildEnhancementSection(enhancements, unitEnhId, usedEnhIds, entry.instanceId)}
-        </div>
-        ` : ''}
+      '</div>' +
 
-      </div>
+      '<div class="unit-card__footer">' +
+        _buildModelCountControl(unit, entry) +
+        '<div class="unit-keywords">' +
+          unit.keywords.map(function(k) { return '<span class="keyword-tag">' + k + '</span>'; }).join('') +
+        '</div>' +
+      '</div>' +
 
-      <!-- FOOTER: model count + keywords -->
-      <div class="unit-card__footer">
-        <div class="unit-count-control">
-          <button class="count-btn count-btn--minus" data-instance-id="${entry.instanceId}">−</button>
-          <span class="count-label">${entry.modelCount}<span class="count-sublabel"> models</span></span>
-          <button class="count-btn count-btn--plus"  data-instance-id="${entry.instanceId}">+</button>
-        </div>
-        <div class="unit-keywords">
-          ${unit.keywords.map(k => `<span class="keyword-tag">${k}</span>`).join('')}
-        </div>
-      </div>
+      '<div class="unit-card__lore">' + unit.lore + '</div>';
 
-      <!-- LORE -->
-      <div class="unit-card__lore">${unit.lore}</div>
-    `;
     return card;
   }
 
-  // ─── Stat table (strings as-is from JSON) ─────────────────────
+  function _buildModelCountControl(unit, entry) {
+    // Fixed-size units (min === max, or points_per_model === 0 with no scaling)
+    if (unit.min_models === unit.max_models) {
+      return '<div class="unit-count-fixed"><span class="count-label">' + entry.modelCount + ' <span class="count-sublabel">models</span></span></div>';
+    }
+    return '<div class="unit-count-control">' +
+      '<button class="count-btn count-btn--minus" data-instance-id="' + entry.instanceId + '">−</button>' +
+      '<span class="count-label">' + entry.modelCount + '<span class="count-sublabel"> models</span></span>' +
+      '<button class="count-btn count-btn--plus"  data-instance-id="' + entry.instanceId + '">+</button>' +
+      '</div>';
+  }
+
+  // ── Stat table ───────────────────────────────────────────────────
   function _buildStatTable(stats) {
-    const order = ['M','T','Sv','W','Ld','OC'];
-    return `<div class="stat-table">
-      ${order.map(key => `
-        <div class="stat-cell">
-          <span class="stat-label">${key}</span>
-          <span class="stat-value">${stats[key] ?? '—'}</span>
-        </div>`).join('')}
-    </div>`;
+    var order = ['M','T','Sv','W','Ld','OC'];
+    return '<div class="stat-table">' +
+      order.map(function(key) {
+        return '<div class="stat-cell"><span class="stat-label">' + key + '</span><span class="stat-value">' + (stats[key] != null ? stats[key] : '—') + '</span></div>';
+      }).join('') +
+      '</div>';
   }
 
-  // ─── Weapon section with ranged / melee tabs + checkboxes ──────
+  // ── Weapon section ───────────────────────────────────────────────
   function _buildWeaponSection(unit, entry) {
-    const ranged = unit.ranged_weapons || [];
-    const melee  = unit.melee_weapons  || [];
+    var html = '';
+    var ranged = unit.ranged_weapons || [];
+    var melee  = unit.melee_weapons  || [];
 
-    const rangedRows = ranged.map(w => {
-      const checked = entry.selectedRanged.includes(w.id);
-      const ap = w.AP === 0 ? '0' : (w.AP > 0 ? `+${w.AP}` : `${w.AP}`);
-      return `
-        <tr class="weapon-ranged${checked ? '' : ' weapon-unselected'}">
-          <td class="weapon-check">
-            <label class="wchk" title="${checked ? 'Remove' : 'Select'}">
-              <input type="checkbox" class="weapon-toggle" data-instance-id="${entry.instanceId}" data-weapon-id="${w.id}" data-type="ranged" ${checked ? 'checked' : ''}>
-              <span class="wchk-box"></span>
-            </label>
-          </td>
-          <td class="weapon-name">${w.name}</td>
-          <td>${w.range}</td>
-          <td>${w.A}</td>
-          <td>${w.BS}</td>
-          <td>${w.S}</td>
-          <td>${ap}</td>
-          <td>${w.D}</td>
-          <td class="weapon-abilities">${(w.abilities||[]).join(', ') || '—'}</td>
-        </tr>`;
-    }).join('');
-
-    const meleeRows = melee.map(w => {
-      const checked = entry.selectedMelee.includes(w.id);
-      const ap = w.AP === 0 ? '0' : (w.AP > 0 ? `+${w.AP}` : `${w.AP}`);
-      return `
-        <tr class="weapon-melee${checked ? '' : ' weapon-unselected'}">
-          <td class="weapon-check">
-            <label class="wchk" title="${checked ? 'Remove' : 'Select'}">
-              <input type="checkbox" class="weapon-toggle" data-instance-id="${entry.instanceId}" data-weapon-id="${w.id}" data-type="melee" ${checked ? 'checked' : ''}>
-              <span class="wchk-box"></span>
-            </label>
-          </td>
-          <td class="weapon-name">${w.name}</td>
-          <td>Melee</td>
-          <td>${w.A}</td>
-          <td>${w.WS}</td>
-          <td>${w.S}</td>
-          <td>${ap}</td>
-          <td>${w.D}</td>
-          <td class="weapon-abilities">${(w.abilities||[]).join(', ') || '—'}</td>
-        </tr>`;
-    }).join('');
-
-    const hasRanged = ranged.length > 0;
-    const hasMelee  = melee.length > 0;
-
-    if (!hasRanged && !hasMelee) return '<p class="panel-empty">No weapons defined.</p>';
-
-    const header = `<tr>
-      <th></th><th>Weapon</th><th>RNG</th><th>A</th><th>BS/WS</th>
-      <th>S</th><th>AP</th><th>D</th><th>Abilities</th>
-    </tr>`;
-
-    return `<table class="weapon-table">
-      <thead>${header}</thead>
-      <tbody>
-        ${hasRanged ? `<tr class="weapon-section-header"><td colspan="9">RANGED</td></tr>${rangedRows}` : ''}
-        ${hasMelee  ? `<tr class="weapon-section-header"><td colspan="9">MELEE</td></tr>${meleeRows}` : ''}
-      </tbody>
-    </table>`;
-  }
-
-  // ─── Abilities section ────────────────────────────────────────
-  function _buildAbilitiesSection(abilities) {
-    if (!abilities.length) return '<p class="panel-empty">No abilities defined.</p>';
-    return abilities.map(a => `
-      <div class="ability-item">
-        <span class="ability-name">${a.name}</span>
-        <p class="ability-desc">${a.description}</p>
-      </div>`).join('');
-  }
-
-  // ─── Leader section ───────────────────────────────────────────
-  function _buildLeaderSection(unit, entry, snapshot) {
-    // Find all leaders in the roster that can attach to this unit type
-    const availableLeaders = snapshot.roster.filter(e => {
-      const u = snapshot.allUnits.find(x => x.id === e.unitId);
-      if (!u || !u.is_leader) return false;
-      // Leader must be able to attach to this unit
-      return u.attachable_to.includes(unit.id);
-    });
-
-    if (availableLeaders.length === 0) {
-      return `<p class="panel-empty">No eligible leaders in roster. Add a CHARACTER that can lead ${unit.name}.</p>`;
+    // --- Wargear options UI ---
+    if (unit.wargear_options && unit.wargear_options.length > 0) {
+      html += '<div class="wargear-options-block">' +
+        '<div class="wargear-options-title">WARGEAR OPTIONS</div>' +
+        unit.wargear_options.map(function(opt) {
+          return _buildWargearOption(opt, unit, entry);
+        }).join('') +
+        '</div>';
     }
 
-    const options = availableLeaders.map(le => {
-      const lu = snapshot.allUnits.find(x => x.id === le.unitId);
-      const pts = StatCalculator.calculatePoints(lu, 1);
-      const selected = entry.attachedLeaderId === le.instanceId;
-      return `<label class="leader-option${selected ? ' leader-option--active' : ''}">
-        <input type="radio" name="leader-${entry.instanceId}" class="leader-radio"
-          data-body-id="${entry.instanceId}" data-leader-id="${le.instanceId}" ${selected ? 'checked' : ''}>
-        <span class="leader-option__name">${lu.name}</span>
-        <span class="leader-option__pts">+${pts}pts</span>
-      </label>`;
-    }).join('');
+    // --- Wargear items (data-tether, omnispex etc.) ---
+    if (unit.wargear_items && unit.wargear_items.length > 0) {
+      html += '<div class="wargear-items-block">' +
+        '<div class="wargear-options-title">WARGEAR ITEMS</div>' +
+        unit.wargear_items.map(function(item) {
+          var selected = entry.selectedWargear.indexOf(item.id) !== -1;
+          return '<label class="wargear-item-row' + (selected ? ' wargear-item-row--active' : '') + '">' +
+            '<input type="checkbox" class="wargear-item-toggle" data-instance-id="' + entry.instanceId + '" data-item-id="' + item.id + '"' + (selected ? ' checked' : '') + '>' +
+            '<span class="wargear-item-name">' + item.name + '</span>' +
+            '<p class="wargear-item-desc">' + item.description + '</p>' +
+            '</label>';
+        }).join('') +
+        '</div>';
+    }
 
-    const detachBtn = entry.attachedLeaderId !== null
-      ? `<button class="detach-leader-btn" data-body-id="${entry.instanceId}">Detach Leader</button>`
-      : '';
+    // --- Weapon tables ---
+    if (ranged.length > 0) {
+      var rangedSelected = ranged.filter(function(w) { return entry.selectedRanged.indexOf(w.id) !== -1; });
+      if (rangedSelected.length > 0) {
+        html += _buildWeaponTable(rangedSelected, 'RANGED', entry, 'ranged');
+      }
+    }
+    if (melee.length > 0) {
+      var meleeSelected = melee.filter(function(w) { return entry.selectedMelee.indexOf(w.id) !== -1; });
+      if (meleeSelected.length > 0) {
+        html += _buildWeaponTable(meleeSelected, 'MELEE', entry, 'melee');
+      }
+    }
 
-    return `<div class="leader-options">${options}</div>${detachBtn}`;
+    return html || '<p class="panel-empty">No weapons.</p>';
   }
 
-  // ─── Enhancement section ──────────────────────────────────────
+  function _buildWargearOption(opt, unit, entry) {
+    var html = '<div class="wargear-opt-row">';
+    html += '<span class="wargear-opt-desc">' + opt.description + '</span>';
+
+    if (opt.type === 'any_swap') {
+      // Per-model swap — show toggle for each model
+      var replaceId = opt.replace;
+      var addIds    = Array.isArray(opt.with) ? opt.with : [opt.with];
+      // Show one button group per option
+      html += '<div class="wargear-swap-btns">';
+      // "Default" button
+      var defaultSelected = entry.selectedRanged.indexOf(replaceId) !== -1 || entry.selectedMelee.indexOf(replaceId) !== -1;
+      html += '<button class="wargear-swap-btn' + (defaultSelected ? ' wargear-swap-btn--active' : '') + '" ' +
+        'data-action="restore" data-instance-id="' + entry.instanceId + '" ' +
+        'data-restore-id="' + replaceId + '" data-remove-ids="' + addIds.join(',') + '" ' +
+        'data-type="' + _weaponType(unit, replaceId) + '">' +
+        _weaponName(unit, replaceId) + '</button>';
+      addIds.forEach(function(addId) {
+        var optSelected = entry.selectedRanged.indexOf(addId) !== -1 || entry.selectedMelee.indexOf(addId) !== -1;
+        html += '<button class="wargear-swap-btn' + (optSelected ? ' wargear-swap-btn--active' : '') + '" ' +
+          'data-action="swap" data-instance-id="' + entry.instanceId + '" ' +
+          'data-remove-id="' + replaceId + '" data-add-id="' + addId + '" ' +
+          'data-type="' + _weaponType(unit, addId) + '">' +
+          _weaponName(unit, addId) + '</button>';
+      });
+      html += '</div>';
+    }
+
+    else if (opt.type === 'limited_swap') {
+      // Up to 1 model: show toggle buttons
+      var replaceId2 = opt.replace;
+      var addIds2    = Array.isArray(opt.with) ? opt.with : [opt.with];
+      html += '<div class="wargear-swap-btns">';
+      var defaultSelected2 = !(addIds2.some(function(id) { return entry.selectedRanged.indexOf(id) !== -1 || entry.selectedMelee.indexOf(id) !== -1; }));
+      html += '<button class="wargear-swap-btn' + (defaultSelected2 ? ' wargear-swap-btn--active' : '') + '" ' +
+        'data-action="restore" data-instance-id="' + entry.instanceId + '" ' +
+        'data-restore-id="' + replaceId2 + '" data-remove-ids="' + addIds2.join(',') + '" ' +
+        'data-type="' + _weaponType(unit, replaceId2) + '">None</button>';
+      addIds2.forEach(function(addId) {
+        var optSel = entry.selectedRanged.indexOf(addId) !== -1 || entry.selectedMelee.indexOf(addId) !== -1;
+        html += '<button class="wargear-swap-btn' + (optSel ? ' wargear-swap-btn--active' : '') + '" ' +
+          'data-action="swap" data-instance-id="' + entry.instanceId + '" ' +
+          'data-remove-id="' + replaceId2 + '" data-add-id="' + addId + '" ' +
+          'data-type="' + _weaponType(unit, addId) + '">' +
+          _weaponName(unit, addId) + '</button>';
+      });
+      html += '</div>';
+    }
+
+    else if (opt.type === 'alpha_swap') {
+      var replaceId3 = opt.replace;
+      var addId3     = opt.with;
+      var alphaSwapped = entry.selectedRanged.indexOf(addId3) !== -1 || entry.selectedMelee.indexOf(addId3) !== -1;
+      html += '<div class="wargear-swap-btns">' +
+        '<button class="wargear-swap-btn' + (!alphaSwapped ? ' wargear-swap-btn--active' : '') + '" ' +
+          'data-action="restore" data-instance-id="' + entry.instanceId + '" ' +
+          'data-restore-id="' + replaceId3 + '" data-remove-ids="' + addId3 + '" ' +
+          'data-type="' + _weaponType(unit, replaceId3) + '">' + _weaponName(unit, replaceId3) + '</button>' +
+        '<button class="wargear-swap-btn' + (alphaSwapped ? ' wargear-swap-btn--active' : '') + '" ' +
+          'data-action="swap" data-instance-id="' + entry.instanceId + '" ' +
+          'data-remove-id="' + replaceId3 + '" data-add-id="' + addId3 + '" ' +
+          'data-type="' + _weaponType(unit, addId3) + '">' + _weaponName(unit, addId3) + '</button>' +
+        '</div>';
+    }
+
+    else if (opt.type === 'alpha_add') {
+      var addId4   = opt.add;
+      var hasAlpha = entry.selectedMelee.indexOf(addId4) !== -1 || entry.selectedRanged.indexOf(addId4) !== -1;
+      var wType    = _weaponType(unit, addId4);
+      html += '<div class="wargear-swap-btns">' +
+        '<button class="wargear-swap-btn' + (hasAlpha ? ' wargear-swap-btn--active' : '') + '" ' +
+          'data-action="toggle" data-instance-id="' + entry.instanceId + '" ' +
+          'data-weapon-id="' + addId4 + '" data-type="' + wType + '">' +
+          (hasAlpha ? '✓ ' : '') + _weaponName(unit, addId4) + '</button>' +
+        '</div>';
+    }
+
+    else if (opt.type === 'wargear_add_one_of') {
+      // wargear items handled separately above
+      html += '';
+    }
+
+    html += '</div>';
+    return html;
+  }
+
+  function _weaponType(unit, weaponId) {
+    if ((unit.ranged_weapons || []).find(function(w) { return w.id === weaponId; })) return 'ranged';
+    if ((unit.melee_weapons  || []).find(function(w) { return w.id === weaponId; })) return 'melee';
+    return 'ranged';
+  }
+
+  function _weaponName(unit, weaponId) {
+    var all = (unit.ranged_weapons || []).concat(unit.melee_weapons || []);
+    var w = all.find(function(x) { return x.id === weaponId; });
+    return w ? w.name : weaponId;
+  }
+
+  function _buildWeaponTable(weapons, sectionLabel, entry, type) {
+    var isMelee = (type === 'melee');
+    var header = '<tr><th>Weapon</th><th>' + (isMelee ? 'Melee' : 'RNG') + '</th><th>A</th><th>' + (isMelee ? 'WS' : 'BS') + '</th><th>S</th><th>AP</th><th>D</th><th>Abilities</th></tr>';
+    var rows = weapons.map(function(w) {
+      var range   = isMelee ? 'Melee' : (w.range || '—');
+      var skill   = isMelee ? (w.WS || '—') : (w.BS || '—');
+      var ap      = (w.AP === 0) ? '0' : (w.AP > 0 ? '+' + w.AP : String(w.AP));
+      var abi     = (w.abilities && w.abilities.length) ? w.abilities.join(', ') : '—';
+      var rowCls  = isMelee ? 'weapon-melee' : 'weapon-ranged';
+      return '<tr class="' + rowCls + '">' +
+        '<td class="weapon-name">' + w.name + (w.count ? '<span class="weapon-count"> [' + w.count + ']</span>' : '') + '</td>' +
+        '<td>' + range + '</td><td>' + w.A + '</td><td>' + skill + '</td>' +
+        '<td>' + w.S + '</td><td>' + ap + '</td><td>' + w.D + '</td>' +
+        '<td class="weapon-abilities">' + abi + '</td></tr>';
+    }).join('');
+    return '<div class="weapon-section-label">' + sectionLabel + '</div>' +
+      '<table class="weapon-table"><thead>' + header + '</thead><tbody>' + rows + '</tbody></table>';
+  }
+
+  // ── Abilities ────────────────────────────────────────────────────
+  function _buildAbilitiesSection(abilities) {
+    if (!abilities.length) return '<p class="panel-empty">No abilities defined.</p>';
+    return abilities.map(function(a) {
+      return '<div class="ability-item">' +
+        '<span class="ability-name">' + a.name + '</span>' +
+        '<p class="ability-desc">' + a.description + '</p>' +
+        '</div>';
+    }).join('');
+  }
+
+  // ── Leader section ───────────────────────────────────────────────
+  function _buildLeaderSection(unit, entry, snapshot) {
+    var eligible = snapshot.roster.filter(function(e) {
+      var u = snapshot.allUnits.find(function(x) { return x.id === e.unitId; });
+      return u && u.is_leader && (u.attachable_to || []).indexOf(unit.id) !== -1;
+    });
+    if (!eligible.length) {
+      return '<p class="panel-empty">No eligible leaders in roster.<br>Add a CHARACTER that can lead ' + unit.name + '.</p>';
+    }
+    var options = eligible.map(function(le) {
+      var lu  = snapshot.allUnits.find(function(x) { return x.id === le.unitId; });
+      var pts = StatCalculator.calculatePoints(lu, 1);
+      var sel = entry.attachedLeaderId === le.instanceId;
+      return '<label class="leader-option' + (sel ? ' leader-option--active' : '') + '">' +
+        '<input type="radio" name="leader-' + entry.instanceId + '" class="leader-radio" ' +
+          'data-body-id="' + entry.instanceId + '" data-leader-id="' + le.instanceId + '"' + (sel ? ' checked' : '') + '>' +
+        '<span class="leader-option__name">' + lu.name + '</span>' +
+        '<span class="leader-option__pts">+' + pts + 'pts</span>' +
+        '</label>';
+    }).join('');
+    var detachBtn = (entry.attachedLeaderId !== null)
+      ? '<button class="detach-leader-btn" data-body-id="' + entry.instanceId + '">Detach</button>' : '';
+    return '<div class="leader-options">' + options + '</div>' + detachBtn;
+  }
+
+  // ── Enhancement section ──────────────────────────────────────────
   function _buildEnhancementSection(enhancements, unitEnhId, usedEnhIds, instanceId) {
-    return enhancements.map(e => {
-      const isSelected = unitEnhId === e.id;
-      const isUsedElsewhere = !isSelected && usedEnhIds.includes(e.id);
-      return `<label class="enh-option${isSelected ? ' enh-option--active' : ''}${isUsedElsewhere ? ' enh-option--taken' : ''}">
-        <input type="checkbox" class="enh-toggle" data-instance-id="${instanceId}" data-enh-id="${e.id}"
-          ${isSelected ? 'checked' : ''} ${isUsedElsewhere ? 'disabled' : ''}>
-        <span class="enh-option__name">${e.name}</span>
-        <span class="enh-option__cost">${e.cost}pts</span>
-        <p class="enh-option__desc">${e.description}</p>
-        ${isUsedElsewhere ? '<span class="enh-taken-badge">Assigned to another unit</span>' : ''}
-      </label>`;
+    return enhancements.map(function(e) {
+      var isSelected     = unitEnhId === e.id;
+      var isUsedElsewhere = !isSelected && usedEnhIds.indexOf(e.id) !== -1;
+      return '<label class="enh-option' + (isSelected ? ' enh-option--active' : '') + (isUsedElsewhere ? ' enh-option--taken' : '') + '">' +
+        '<input type="checkbox" class="enh-toggle" data-instance-id="' + instanceId + '" data-enh-id="' + e.id + '"' +
+          (isSelected ? ' checked' : '') + (isUsedElsewhere ? ' disabled' : '') + '>' +
+        '<span class="enh-option__name">' + e.name + '</span>' +
+        '<span class="enh-option__cost">' + e.cost + 'pts</span>' +
+        '<p class="enh-option__desc">' + e.description + '</p>' +
+        (isUsedElsewhere ? '<span class="enh-taken-badge">Assigned to another unit</span>' : '') +
+        '</label>';
     }).join('');
   }
 
-  // ─── Unit picker modal ────────────────────────────────────────
+  // ── Unit picker modal ────────────────────────────────────────────
   function renderUnitPickerModal(units, activeDetachmentId) {
-    const container = document.getElementById('unit-picker-list');
+    var container = document.getElementById('unit-picker-list');
     if (!container) return;
     container.innerHTML = '';
 
-    // Group: leaders first, then by role
-    const sorted = [...units].sort((a, b) => {
+    var sorted = units.slice().sort(function(a, b) {
       if (a.is_leader && !b.is_leader) return -1;
       if (!a.is_leader && b.is_leader) return 1;
       return a.role.localeCompare(b.role);
     });
 
-    sorted.forEach(unit => {
-      const eligible = !activeDetachmentId ||
-        (unit.detachment_eligible?.includes(activeDetachmentId) ?? true);
-      const card = document.createElement('div');
-      card.className = `picker-card${!eligible ? ' picker-card--ineligible' : ''}${unit.is_leader ? ' picker-card--leader' : ''}`;
+    sorted.forEach(function(unit) {
+      var card = document.createElement('div');
+      card.className = 'picker-card' + (unit.is_leader ? ' picker-card--leader' : '');
       card.dataset.unitId = unit.id;
-      card.innerHTML = `
-        <div class="picker-card__header">
-          <span class="picker-role">${unit.role}${unit.is_leader ? ' · LEADER' : ''}</span>
-          <span class="picker-pts">${unit.points_base}pts</span>
-        </div>
-        <h4 class="picker-name">${unit.name}</h4>
-        ${unit.is_leader ? `<p class="picker-attaches">Leads: ${unit.attachable_to.map(id => id.replace(/_/g,' ')).join(', ') || 'Any'}</p>` : ''}
-        <div class="picker-keywords">${unit.keywords.map(k => `<span class="keyword-tag keyword-tag--small">${k}</span>`).join('')}</div>
-        <p class="picker-lore">${unit.lore}</p>
-        ${!eligible ? '<span class="ineligible-badge">Not eligible for selected detachment</span>' : ''}
-      `;
+      var pts = unit.points_base;
+      var ptsStr = unit.points_6
+        ? pts + 'pts / ' + unit.points_6 + 'pts (6)'
+        : pts + 'pts';
+      card.innerHTML =
+        '<div class="picker-card__header">' +
+          '<span class="picker-role">' + unit.role + (unit.is_leader ? ' · LEADER' : '') + '</span>' +
+          '<span class="picker-pts">' + ptsStr + '</span>' +
+        '</div>' +
+        '<h4 class="picker-name">' + unit.name + '</h4>' +
+        (unit.is_leader ? '<p class="picker-attaches">Leads: ' + (unit.attachable_to || []).map(function(id){ return id.replace(/_/g,' '); }).join(', ') + '</p>' : '') +
+        '<div class="picker-keywords">' + unit.keywords.map(function(k) { return '<span class="keyword-tag keyword-tag--small">' + k + '</span>'; }).join('') + '</div>' +
+        '<p class="picker-lore">' + unit.lore + '</p>';
       container.appendChild(card);
     });
   }
 
-  // ─── Toast ────────────────────────────────────────────────────
-  function showToast(message, type = 'info') {
-    const tc = document.getElementById('toast-container');
+  // ── Toast ────────────────────────────────────────────────────────
+  function showToast(message, type) {
+    type = type || 'info';
+    var tc = document.getElementById('toast-container');
     if (!tc) return;
-    const t = document.createElement('div');
-    t.className = `toast toast--${type}`;
+    var t = document.createElement('div');
+    t.className = 'toast toast--' + type;
     t.textContent = message;
     tc.appendChild(t);
-    requestAnimationFrame(() => t.classList.add('toast--visible'));
-    setTimeout(() => {
+    requestAnimationFrame(function() { t.classList.add('toast--visible'); });
+    setTimeout(function() {
       t.classList.remove('toast--visible');
-      setTimeout(() => t.remove(), 400);
+      setTimeout(function() { t.remove(); }, 400);
     }, 2500);
   }
 

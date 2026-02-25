@@ -15,61 +15,61 @@ const EventHandlers = (() => {
   }
 
   function _bindDoctrineButtons() {
-    document.getElementById('doctrine-protector')?.addEventListener('click', () => {
-      const snap = StateManager.getSnapshot();
+    document.getElementById('doctrine-protector')?.addEventListener('click', function() {
+      var snap = StateManager.getSnapshot();
       StateManager.setDoctrine(snap.doctrineId === 'protector' ? null : 'protector');
     });
-    document.getElementById('doctrine-conqueror')?.addEventListener('click', () => {
-      const snap = StateManager.getSnapshot();
+    document.getElementById('doctrine-conqueror')?.addEventListener('click', function() {
+      var snap = StateManager.getSnapshot();
       StateManager.setDoctrine(snap.doctrineId === 'conqueror' ? null : 'conqueror');
     });
   }
 
   function _bindDetachmentButtons() {
-    document.getElementById('detachment-selector')?.addEventListener('click', e => {
-      const btn = e.target.closest('[data-detachment-id]');
+    document.getElementById('detachment-selector')?.addEventListener('click', function(e) {
+      var btn = e.target.closest('[data-detachment-id]');
       if (!btn) return;
-      const id = btn.dataset.detachmentId;
-      const snap = StateManager.getSnapshot();
-      StateManager.setDetachment(snap.detachmentId === id ? null : id);
+      var snap = StateManager.getSnapshot();
+      StateManager.setDetachment(snap.detachmentId === btn.dataset.detachmentId ? null : btn.dataset.detachmentId);
     });
   }
 
   function _bindForgeWorldSelector() {
-    document.getElementById('forge-world-select')?.addEventListener('change', e => {
+    document.getElementById('forge-world-select')?.addEventListener('change', function(e) {
       StateManager.setForgeWorld(e.target.value || null);
     });
   }
 
   function _bindAddUnitButton() {
-    const btn   = document.getElementById('add-unit-btn');
-    const modal = document.getElementById('unit-picker-modal');
+    var btn   = document.getElementById('add-unit-btn');
+    var modal = document.getElementById('unit-picker-modal');
     if (!btn || !modal) return;
-    btn.addEventListener('click', () => {
-      const snap = StateManager.getSnapshot();
+    btn.addEventListener('click', function() {
+      var snap = StateManager.getSnapshot();
       Renderer.renderUnitPickerModal(snap.allUnits, snap.detachmentId);
       modal.classList.add('modal--open');
     });
   }
 
   function _bindModalClose() {
-    const modal = document.getElementById('unit-picker-modal');
+    var modal = document.getElementById('unit-picker-modal');
     if (!modal) return;
-    modal.addEventListener('click', e => { if (e.target === modal) modal.classList.remove('modal--open'); });
-    modal.querySelector('.modal-close-btn')?.addEventListener('click', () => modal.classList.remove('modal--open'));
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') modal.classList.remove('modal--open'); });
+    modal.addEventListener('click', function(e) { if (e.target === modal) modal.classList.remove('modal--open'); });
+    var closeBtn = modal.querySelector('.modal-close-btn');
+    if (closeBtn) closeBtn.addEventListener('click', function() { modal.classList.remove('modal--open'); });
+    document.addEventListener('keydown', function(e) { if (e.key === 'Escape') modal.classList.remove('modal--open'); });
   }
 
   function _bindUnitPickerCards() {
-    document.getElementById('unit-picker-list')?.addEventListener('click', e => {
-      const card = e.target.closest('[data-unit-id]');
-      if (!card || card.classList.contains('picker-card--ineligible')) return;
-      const unitId = card.dataset.unitId;
+    document.getElementById('unit-picker-list')?.addEventListener('click', function(e) {
+      var card = e.target.closest('[data-unit-id]');
+      if (!card) return;
+      var unitId = card.dataset.unitId;
       try {
         StateManager.addUnit(unitId);
-        const unit = StateManager.getUnitById(unitId);
-        Renderer.showToast(`${unit?.name} added to roster`, 'success');
-      } catch (err) {
+        var unit = StateManager.getUnitById(unitId);
+        Renderer.showToast((unit ? unit.name : unitId) + ' added', 'success');
+      } catch(err) {
         Renderer.showToast(err.message, 'error');
       }
       document.getElementById('unit-picker-modal')?.classList.remove('modal--open');
@@ -77,79 +77,107 @@ const EventHandlers = (() => {
   }
 
   function _bindRosterDelegation() {
-    const roster = document.getElementById('roster-list');
+    var roster = document.getElementById('roster-list');
     if (!roster) return;
 
-    roster.addEventListener('click', e => {
-      // Remove unit
-      if (e.target.closest('.unit-remove-btn')) {
-        const id = parseInt(e.target.closest('.unit-remove-btn').dataset.instanceId, 10);
-        StateManager.removeUnit(id);
+    roster.addEventListener('click', function(e) {
+      // Remove
+      var removeBtn = e.target.closest('.unit-remove-btn');
+      if (removeBtn) {
+        StateManager.removeUnit(parseInt(removeBtn.dataset.instanceId, 10));
         return;
       }
-      // Model count
-      if (e.target.closest('.count-btn--plus')) {
-        const id = parseInt(e.target.closest('.count-btn--plus').dataset.instanceId, 10);
-        const e2 = StateManager.getRosterEntries().find(r => r.instanceId === id);
-        if (e2) StateManager.updateModelCount(id, e2.modelCount + 1);
+
+      // Model count +/-
+      var plusBtn = e.target.closest('.count-btn--plus');
+      if (plusBtn) {
+        var id  = parseInt(plusBtn.dataset.instanceId, 10);
+        var ent = StateManager.getRosterEntries().find(function(r) { return r.instanceId === id; });
+        if (ent) StateManager.updateModelCount(id, ent.modelCount + 1);
         return;
       }
-      if (e.target.closest('.count-btn--minus')) {
-        const id = parseInt(e.target.closest('.count-btn--minus').dataset.instanceId, 10);
-        const e2 = StateManager.getRosterEntries().find(r => r.instanceId === id);
-        if (e2) StateManager.updateModelCount(id, e2.modelCount - 1);
+      var minusBtn = e.target.closest('.count-btn--minus');
+      if (minusBtn) {
+        var id2  = parseInt(minusBtn.dataset.instanceId, 10);
+        var ent2 = StateManager.getRosterEntries().find(function(r) { return r.instanceId === id2; });
+        if (ent2) StateManager.updateModelCount(id2, ent2.modelCount - 1);
         return;
       }
+
       // Panel toggle
-      if (e.target.closest('.panel-toggle')) {
-        const toggle = e.target.closest('.panel-toggle');
-        const panelType = toggle.dataset.panel;
-        const instanceId = toggle.dataset.instanceId;
-        const card = toggle.closest('.unit-card');
-        const panel = card.querySelector(`.${panelType}-panel`);
+      var toggle = e.target.closest('.panel-toggle');
+      if (toggle) {
+        var panelType = toggle.dataset.panel;
+        var card = toggle.closest('.unit-card');
+        var panel = card && card.querySelector('.' + panelType + '-panel');
         if (panel) {
-          panel.classList.toggle('panel--open');
-          toggle.querySelector('.toggle-arrow')?.classList.toggle('toggle-arrow--open', panel.classList.contains('panel--open'));
+          var isOpen = panel.classList.toggle('panel--open');
+          var arrow  = toggle.querySelector('.toggle-arrow');
+          if (arrow) arrow.classList.toggle('toggle-arrow--open', isOpen);
         }
         return;
       }
-      // Detach leader button
-      if (e.target.closest('.detach-leader-btn')) {
-        const bodyId = parseInt(e.target.closest('.detach-leader-btn').dataset.bodyId, 10);
-        StateManager.attachLeader(bodyId, null);
+
+      // Detach leader
+      var detachBtn = e.target.closest('.detach-leader-btn');
+      if (detachBtn) {
+        StateManager.attachLeader(parseInt(detachBtn.dataset.bodyId, 10), null);
+        return;
+      }
+
+      // Wargear swap buttons
+      var swapBtn = e.target.closest('.wargear-swap-btn');
+      if (swapBtn) {
+        var action     = swapBtn.dataset.action;
+        var instanceId = parseInt(swapBtn.dataset.instanceId, 10);
+        var wtype      = swapBtn.dataset.type || 'ranged';
+
+        if (action === 'swap') {
+          StateManager.swapWeapon(instanceId, swapBtn.dataset.removeId, swapBtn.dataset.addId, wtype);
+        } else if (action === 'restore') {
+          var restoreId  = swapBtn.dataset.restoreId;
+          var removeIds  = (swapBtn.dataset.removeIds || '').split(',').filter(Boolean);
+          // Remove all alternatives, restore default
+          removeIds.forEach(function(rid) {
+            StateManager.restoreWeapon(instanceId, restoreId, rid, wtype);
+          });
+        } else if (action === 'toggle') {
+          StateManager.toggleWeapon(instanceId, swapBtn.dataset.weaponId, wtype);
+        }
         return;
       }
     });
 
-    // Weapon toggle checkboxes (change event for checkboxes)
-    roster.addEventListener('change', e => {
-      // Weapon checkbox
-      if (e.target.matches('.weapon-toggle')) {
-        const instanceId = parseInt(e.target.dataset.instanceId, 10);
-        const weaponId   = e.target.dataset.weaponId;
-        const type       = e.target.dataset.type;
-        StateManager.toggleWeapon(instanceId, weaponId, type);
-        return;
-      }
+    roster.addEventListener('change', function(e) {
       // Leader radio
       if (e.target.matches('.leader-radio')) {
-        const bodyId   = parseInt(e.target.dataset.bodyId,   10);
-        const leaderId = parseInt(e.target.dataset.leaderId, 10);
-        StateManager.attachLeader(bodyId, leaderId);
+        StateManager.attachLeader(
+          parseInt(e.target.dataset.bodyId,   10),
+          parseInt(e.target.dataset.leaderId, 10)
+        );
         return;
       }
       // Enhancement checkbox
       if (e.target.matches('.enh-toggle')) {
-        const instanceId = parseInt(e.target.dataset.instanceId, 10);
-        const enhId      = e.target.dataset.enhId;
-        StateManager.setUnitEnhancement(instanceId, enhId);
+        StateManager.setUnitEnhancement(
+          parseInt(e.target.dataset.instanceId, 10),
+          e.target.dataset.enhId
+        );
+        return;
+      }
+      // Wargear item checkbox
+      if (e.target.matches('.wargear-item-toggle')) {
+        StateManager.toggleWargearItem(
+          parseInt(e.target.dataset.instanceId, 10),
+          e.target.dataset.itemId
+        );
         return;
       }
     });
   }
 
   function _bindPointsLimitSelector() {
-    document.getElementById('points-limit-select')?.addEventListener('change', e => {
+    document.getElementById('points-limit-select')?.addEventListener('change', function(e) {
       StateManager.setPointsLimit(parseInt(e.target.value, 10));
     });
   }

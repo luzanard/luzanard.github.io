@@ -1474,3 +1474,137 @@ body {
   --color-verd:    #2a5a4a;
   --color-verd-lt: #3a7a65;
 }
+
+/* ================================================================
+   WARGEAR OPTIONS
+   ================================================================ */
+
+.wargear-options-block,
+.wargear-items-block {
+  background: var(--color-forge);
+  border: 1px solid var(--color-cold-metal);
+  border-radius: 3px;
+  padding: 10px 12px;
+  margin-bottom: 10px;
+}
+
+.wargear-options-title {
+  font-family: var(--font-heading);
+  font-size: .55rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--color-rust-hot);
+  margin-bottom: 8px;
+}
+
+.wargear-opt-row {
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(58,58,74,.4);
+}
+.wargear-opt-row:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+.wargear-opt-desc {
+  display: block;
+  font-size: .68rem;
+  color: var(--color-text-muted);
+  font-style: italic;
+  margin-bottom: 6px;
+  line-height: 1.5;
+}
+
+.wargear-swap-btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.wargear-swap-btn {
+  font-family: var(--font-data);
+  font-size: .62rem;
+  padding: 4px 10px;
+  background: var(--color-ash);
+  border: 1px solid var(--color-cold-metal);
+  color: var(--color-text-muted);
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all .15s;
+  white-space: nowrap;
+}
+.wargear-swap-btn:hover { border-color: var(--color-rust); color: var(--color-parchment); }
+.wargear-swap-btn--active {
+  background: rgba(107,15,15,.35);
+  border-color: var(--color-ember);
+  color: var(--color-parchment);
+  box-shadow: 0 0 6px rgba(196,80,10,.25);
+}
+
+/* Wargear items */
+.wargear-item-row {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  background: var(--color-ash);
+  border: 1px solid var(--color-cold-metal);
+  border-radius: 3px;
+  padding: 8px 10px;
+  margin-bottom: 6px;
+  cursor: pointer;
+  transition: all .15s;
+}
+.wargear-item-row input[type=checkbox] { position: absolute; opacity: 0; }
+.wargear-item-row:hover { border-color: var(--color-rust); }
+.wargear-item-row--active {
+  border-color: var(--color-ember);
+  background: rgba(107,15,15,.2);
+}
+.wargear-item-name {
+  font-family: var(--font-heading);
+  font-size: .7rem;
+  font-weight: 700;
+  color: var(--color-parchment);
+}
+.wargear-item-desc {
+  font-size: .68rem;
+  color: var(--color-parchment-dk);
+  line-height: 1.5;
+}
+
+/* Weapon section label */
+.weapon-section-label {
+  font-family: var(--font-data);
+  font-size: .55rem;
+  letter-spacing: 3px;
+  color: var(--color-rust-hot);
+  text-transform: uppercase;
+  padding: 4px 0 2px;
+  margin-top: 6px;
+}
+
+/* Weapon count badge */
+.weapon-count {
+  font-size: .6rem;
+  color: var(--color-text-muted);
+  font-weight: 400;
+  margin-left: 4px;
+}
+
+/* Invuln badge */
+.invuln-badge {
+  font-family: var(--font-data);
+  font-size: .58rem;
+  color: var(--color-verdigris-lt, #3a7a65);
+  background: rgba(42,90,74,.25);
+  border: 1px solid rgba(58,122,101,.4);
+  padding: 1px 6px;
+  border-radius: 2px;
+  letter-spacing: 1px;
+  margin-left: 6px;
+}
+
+/* Fixed model count (non-adjustable) */
+.unit-count-fixed {
+  font-family: var(--font-data);
+  font-size: .72rem;
+  color: var(--color-text-muted);
+}
