@@ -5,7 +5,13 @@
       "name": "Tech-Priest Dominus",
       "role": "CHARACTER",
       "faction": "ADEPTUS MECHANICUS",
-      "keywords": ["INFANTRY", "CHARACTER", "CULT MECHANICUS", "TECH-PRIEST", "DOMINUS"],
+      "keywords": [
+        "INFANTRY",
+        "CHARACTER",
+        "CULT MECHANICUS",
+        "TECH-PRIEST",
+        "DOMINUS"
+      ],
       "is_leader": true,
       "attachable_to": [
         "corpuscarii_electro_priests",
@@ -20,13 +26,25 @@
       "points_per_model": 0,
       "min_models": 1,
       "max_models": 1,
-      "stats": { "M": "6\"", "T": 4, "Sv": "2+", "W": 4, "Ld": "7+", "OC": 1 },
+      "stats": {
+        "M": "6\"",
+        "T": 4,
+        "Sv": "2+",
+        "W": 4,
+        "Ld": "7+",
+        "OC": 1
+      },
       "invuln": "5+",
       "ranged_weapons": [
         {
           "id": "eradication_ray_dissipated",
-          "name": "Eradication ray – dissipated",
-          "range": "24\"", "A": "D3", "BS": "3+", "S": 6, "AP": -1, "D": 1,
+          "name": "Eradication ray \u2013 dissipated",
+          "range": "24\"",
+          "A": "D3",
+          "BS": "3+",
+          "S": 6,
+          "AP": -1,
+          "D": 1,
           "abilities": [],
           "wargear_group": "main_gun",
           "replaces": "volkite_blaster",
@@ -34,8 +52,13 @@
         },
         {
           "id": "eradication_ray_focused",
-          "name": "Eradication ray – focused",
-          "range": "12\"", "A": "D3", "BS": "3+", "S": 6, "AP": -2, "D": 2,
+          "name": "Eradication ray \u2013 focused",
+          "range": "12\"",
+          "A": "D3",
+          "BS": "3+",
+          "S": 6,
+          "AP": -2,
+          "D": 2,
           "abilities": [],
           "wargear_group": "main_gun",
           "replaces": "volkite_blaster",
@@ -45,16 +68,31 @@
         {
           "id": "macrostubber",
           "name": "Macrostubber",
-          "range": "12\"", "A": 5, "BS": "3+", "S": 4, "AP": 0, "D": 1,
-          "abilities": ["PISTOL"],
+          "range": "12\"",
+          "A": 5,
+          "BS": "3+",
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "abilities": [
+            "PISTOL"
+          ],
           "wargear_group": "sidearm",
           "default": true
         },
         {
           "id": "phosphor_serpenta",
           "name": "Phosphor serpenta",
-          "range": "18\"", "A": 1, "BS": "3+", "S": 5, "AP": -1, "D": 2,
-          "abilities": ["IGNORES COVER", "PISTOL"],
+          "range": "18\"",
+          "A": 1,
+          "BS": "3+",
+          "S": 5,
+          "AP": -1,
+          "D": 2,
+          "abilities": [
+            "IGNORES COVER",
+            "PISTOL"
+          ],
           "wargear_group": "sidearm",
           "replaces": "macrostubber",
           "default": false
@@ -62,8 +100,15 @@
         {
           "id": "volkite_blaster",
           "name": "Volkite blaster",
-          "range": "24\"", "A": 3, "BS": "3+", "S": 5, "AP": 0, "D": 2,
-          "abilities": ["DEVASTATING WOUNDS"],
+          "range": "24\"",
+          "A": 3,
+          "BS": "3+",
+          "S": 5,
+          "AP": 0,
+          "D": 2,
+          "abilities": [
+            "DEVASTATING WOUNDS"
+          ],
           "wargear_group": "main_gun",
           "default": true
         }
@@ -72,43 +117,95 @@
         {
           "id": "omnissian_axe",
           "name": "Omnissian axe",
-          "A": 4, "WS": "3+", "S": 6, "AP": -2, "D": 2,
+          "A": 4,
+          "WS": "3+",
+          "S": 6,
+          "AP": -2,
+          "D": 2,
           "abilities": [],
           "default": true
         }
       ],
       "wargear_rules": [
-        { "type": "swap_one_for_one", "replace_id": "macrostubber", "options": ["phosphor_serpenta"] },
-        { "type": "swap_one_for_one", "replace_id": "volkite_blaster", "options": ["eradication_ray_dissipated"] }
+        {
+          "type": "swap_one_for_one",
+          "replace_id": "macrostubber",
+          "options": [
+            "phosphor_serpenta"
+          ]
+        },
+        {
+          "type": "swap_one_for_one",
+          "replace_id": "volkite_blaster",
+          "options": [
+            "eradication_ray_dissipated"
+          ]
+        }
       ],
       "abilities": [
-        { "name": "Leader", "description": "This model can be attached to: Corpuscarii Electro-Priests, Fulgurite Electro-Priests, Kataphron Breachers, Kataphron Destroyers, Servitor Battleclade, Skitarii Rangers, Skitarii Vanguard." },
-        { "name": "Lord of the Machine Cult", "description": "While this model is leading a unit, models in that unit have the Feel No Pain 5+ ability. If that unit has the ELECTRO-PRIESTS keyword, models in that unit have the Feel No Pain 4+ ability instead." },
-        { "name": "Data-spike", "description": "At the start of the Fight phase, you can select one enemy VEHICLE unit within Engagement Range of this model's unit and roll one D6: on a 4+, that enemy unit suffers D6 mortal wounds and, until the end of the phase, the Weapon Skill characteristic of melee weapons equipped by that enemy unit is worsened by 1." },
-        { "name": "Doctrina Imperatives", "description": "This unit benefits from the active Doctrina Imperative chosen at the start of each battle round." }
+        {
+          "name": "Leader",
+          "description": "This model can be attached to: Corpuscarii Electro-Priests, Fulgurite Electro-Priests, Kataphron Breachers, Kataphron Destroyers, Servitor Battleclade, Skitarii Rangers, Skitarii Vanguard."
+        },
+        {
+          "name": "Lord of the Machine Cult",
+          "description": "While this model is leading a unit, models in that unit have the Feel No Pain 5+ ability. If that unit has the ELECTRO-PRIESTS keyword, models in that unit have the Feel No Pain 4+ ability instead."
+        },
+        {
+          "name": "Data-spike",
+          "description": "At the start of the Fight phase, you can select one enemy VEHICLE unit within Engagement Range of this model's unit and roll one D6: on a 4+, that enemy unit suffers D6 mortal wounds and, until the end of the phase, the Weapon Skill characteristic of melee weapons equipped by that enemy unit is worsened by 1."
+        },
+        {
+          "name": "Doctrina Imperatives",
+          "description": "This unit benefits from the active Doctrina Imperative chosen at the start of each battle round."
+        }
       ],
-      "lore": "The Dominus stands above lesser Tech-Priests, a living machine of war whose augmented body is as much weapon as it is flesh and steel."
+      "lore": "The Dominus stands above lesser Tech-Priests, a living machine of war whose augmented body is as much weapon as it is flesh and steel.",
+      "wargear_options": []
     },
     {
       "id": "skitarii_marshal",
       "name": "Skitarii Marshal",
       "role": "CHARACTER",
       "faction": "ADEPTUS MECHANICUS",
-      "keywords": ["INFANTRY", "CHARACTER", "SKITARII", "MARSHAL"],
+      "keywords": [
+        "INFANTRY",
+        "CHARACTER",
+        "SKITARII",
+        "MARSHAL"
+      ],
       "is_leader": true,
-      "attachable_to": ["skitarii_rangers", "skitarii_vanguard"],
+      "attachable_to": [
+        "skitarii_rangers",
+        "skitarii_vanguard"
+      ],
       "points_base": 35,
       "points_per_model": 0,
       "min_models": 1,
       "max_models": 1,
-      "stats": { "M": "6\"", "T": 3, "Sv": "4+", "W": 3, "Ld": "6+", "OC": 1 },
+      "stats": {
+        "M": "6\"",
+        "T": 3,
+        "Sv": "4+",
+        "W": 3,
+        "Ld": "6+",
+        "OC": 1
+      },
       "invuln": "5+",
       "ranged_weapons": [
         {
           "id": "mechanicus_pistol_marshal",
           "name": "Mechanicus pistol",
-          "range": "12\"", "A": 1, "BS": "3+", "S": 6, "AP": -1, "D": 1,
-          "abilities": ["DEVASTATING WOUNDS", "PISTOL"],
+          "range": "12\"",
+          "A": 1,
+          "BS": "3+",
+          "S": 6,
+          "AP": -1,
+          "D": 1,
+          "abilities": [
+            "DEVASTATING WOUNDS",
+            "PISTOL"
+          ],
           "default": true
         }
       ],
@@ -116,39 +213,73 @@
         {
           "id": "control_stave",
           "name": "Control stave",
-          "A": 4, "WS": "3+", "S": 6, "AP": -1, "D": 1,
+          "A": 4,
+          "WS": "3+",
+          "S": 6,
+          "AP": -1,
+          "D": 1,
           "abilities": [],
           "default": true
         }
       ],
       "wargear_rules": [],
       "abilities": [
-        { "name": "Leader", "description": "This model can be attached to: Skitarii Rangers, Skitarii Vanguard." },
-        { "name": "Control Edict", "description": "While this model is leading a unit, each time a model in that unit makes an attack, you can re-roll the Hit roll." },
-        { "name": "Servo-skull Uplink", "description": "Once per battle, at the start of any phase, you can select one friendly SKITARII unit that is Battle-shocked and within 6\" of this model. That unit is no longer Battle-shocked." },
-        { "name": "Doctrina Imperatives", "description": "This unit benefits from the active Doctrina Imperative chosen at the start of each battle round." }
+        {
+          "name": "Leader",
+          "description": "This model can be attached to: Skitarii Rangers, Skitarii Vanguard."
+        },
+        {
+          "name": "Control Edict",
+          "description": "While this model is leading a unit, each time a model in that unit makes an attack, you can re-roll the Hit roll."
+        },
+        {
+          "name": "Servo-skull Uplink",
+          "description": "Once per battle, at the start of any phase, you can select one friendly SKITARII unit that is Battle-shocked and within 6\" of this model. That unit is no longer Battle-shocked."
+        },
+        {
+          "name": "Doctrina Imperatives",
+          "description": "This unit benefits from the active Doctrina Imperative chosen at the start of each battle round."
+        }
       ],
-      "lore": "The Skitarii Marshal coordinates the maniples of the Omnissiah's legions, their control stave crackling with disciplinary imperatives."
+      "lore": "The Skitarii Marshal coordinates the maniples of the Omnissiah's legions, their control stave crackling with disciplinary imperatives.",
+      "wargear_options": []
     },
     {
       "id": "skitarii_rangers",
       "name": "Skitarii Rangers",
       "role": "BATTLELINE",
       "faction": "ADEPTUS MECHANICUS",
-      "keywords": ["INFANTRY", "BATTLELINE", "SKITARII", "RANGERS"],
+      "keywords": [
+        "INFANTRY",
+        "BATTLELINE",
+        "SKITARII",
+        "RANGERS"
+      ],
       "is_leader": false,
       "attachable_to": [],
       "points_base": 85,
       "points_per_model": 0,
       "min_models": 10,
       "max_models": 10,
-      "stats": { "M": "6\"", "T": 3, "Sv": "4+", "W": 1, "Ld": "7+", "OC": 2 },
+      "stats": {
+        "M": "6\"",
+        "T": 3,
+        "Sv": "4+",
+        "W": 1,
+        "Ld": "7+",
+        "OC": 2
+      },
       "invuln": "5+",
       "ranged_weapons": [
         {
           "id": "galvanic_rifle",
           "name": "Galvanic rifle",
-          "range": "30\"", "A": 2, "BS": "4+", "S": 4, "AP": 0, "D": 1,
+          "range": "30\"",
+          "A": 2,
+          "BS": "4+",
+          "S": 4,
+          "AP": 0,
+          "D": 1,
           "abilities": [],
           "default": true,
           "count": "9"
@@ -156,8 +287,16 @@
         {
           "id": "mechanicus_pistol_alpha",
           "name": "Mechanicus pistol (Alpha)",
-          "range": "12\"", "A": 1, "BS": "4+", "S": 6, "AP": -1, "D": 1,
-          "abilities": ["DEVASTATING WOUNDS", "PISTOL"],
+          "range": "12\"",
+          "A": 1,
+          "BS": "4+",
+          "S": 6,
+          "AP": -1,
+          "D": 1,
+          "abilities": [
+            "DEVASTATING WOUNDS",
+            "PISTOL"
+          ],
           "wargear_group": "alpha_ranged",
           "replaces": "galvanic_rifle",
           "default": false,
@@ -166,16 +305,30 @@
         {
           "id": "arc_rifle",
           "name": "Arc rifle",
-          "range": "30\"", "A": 1, "BS": "4+", "S": 8, "AP": -1, "D": "D3",
-          "abilities": ["ANTI-VEHICLE 4+", "DEVASTATING WOUNDS", "RAPID FIRE 1"],
+          "range": "30\"",
+          "A": 1,
+          "BS": "4+",
+          "S": 8,
+          "AP": -1,
+          "D": "D3",
+          "abilities": [
+            "ANTI-VEHICLE 4+",
+            "DEVASTATING WOUNDS",
+            "RAPID FIRE 1"
+          ],
           "max_per_unit": 1,
           "default": false,
           "count": "up to 1"
         },
         {
           "id": "plasma_caliver_standard",
-          "name": "Plasma caliver – standard",
-          "range": "30\"", "A": 2, "BS": "4+", "S": 7, "AP": -2, "D": 1,
+          "name": "Plasma caliver \u2013 standard",
+          "range": "30\"",
+          "A": 2,
+          "BS": "4+",
+          "S": 7,
+          "AP": -2,
+          "D": 1,
           "abilities": [],
           "max_per_unit": 1,
           "wargear_group": "plasma_caliver",
@@ -184,9 +337,16 @@
         },
         {
           "id": "plasma_caliver_supercharge",
-          "name": "Plasma caliver – supercharge",
-          "range": "30\"", "A": 2, "BS": "4+", "S": 8, "AP": -3, "D": 2,
-          "abilities": ["HAZARDOUS"],
+          "name": "Plasma caliver \u2013 supercharge",
+          "range": "30\"",
+          "A": 2,
+          "BS": "4+",
+          "S": 8,
+          "AP": -3,
+          "D": 2,
+          "abilities": [
+            "HAZARDOUS"
+          ],
           "max_per_unit": 1,
           "wargear_group": "plasma_caliver",
           "default": false,
@@ -196,8 +356,16 @@
         {
           "id": "transuranic_arquebus",
           "name": "Transuranic arquebus",
-          "range": "36\"", "A": 1, "BS": "4+", "S": 7, "AP": -2, "D": "D3",
-          "abilities": ["HEAVY", "PRECISION"],
+          "range": "36\"",
+          "A": 1,
+          "BS": "4+",
+          "S": 7,
+          "AP": -2,
+          "D": "D3",
+          "abilities": [
+            "HEAVY",
+            "PRECISION"
+          ],
           "max_per_unit": 1,
           "default": false,
           "count": "up to 1"
@@ -207,14 +375,22 @@
         {
           "id": "close_combat_ranger",
           "name": "Close combat weapon",
-          "A": 1, "WS": "4+", "S": 3, "AP": 0, "D": 1,
+          "A": 1,
+          "WS": "4+",
+          "S": 3,
+          "AP": 0,
+          "D": 1,
           "abilities": [],
           "default": true
         },
         {
           "id": "alpha_combat_weapon_ranger",
           "name": "Alpha combat weapon",
-          "A": 2, "WS": "4+", "S": 5, "AP": -1, "D": 1,
+          "A": 2,
+          "WS": "4+",
+          "S": 5,
+          "AP": -1,
+          "D": 1,
           "abilities": [],
           "max_per_unit": 1,
           "default": false,
@@ -222,21 +398,66 @@
         }
       ],
       "wargear_options": [
-        { "description": "Alpha's galvanic rifle can be replaced with Mechanicus pistol", "type": "alpha_swap", "replace": "galvanic_rifle", "with": "mechanicus_pistol_alpha" },
-        { "description": "Alpha can take Alpha combat weapon (additional)", "type": "alpha_add", "add": "alpha_combat_weapon_ranger" },
-        { "description": "1 model: galvanic rifle → arc rifle", "type": "limited_swap", "limit": 1, "replace": "galvanic_rifle", "with": "arc_rifle" },
-        { "description": "1 model: galvanic rifle → plasma caliver", "type": "limited_swap", "limit": 1, "replace": "galvanic_rifle", "with": ["plasma_caliver_standard", "plasma_caliver_supercharge"] },
-        { "description": "1 model: galvanic rifle → transuranic arquebus", "type": "limited_swap", "limit": 1, "replace": "galvanic_rifle", "with": "transuranic_arquebus" },
-        { "description": "1 model with galvanic rifle: add enhanced data-tether OR omnispex (that model cannot swap rifle)", "type": "wargear_add_one_of", "limit": 1, "options": ["enhanced_data_tether", "omnispex"] }
+        {
+          "description": "Alpha's galvanic rifle can be replaced with Mechanicus pistol",
+          "type": "alpha_swap",
+          "replace": "galvanic_rifle",
+          "with": "mechanicus_pistol_alpha"
+        },
+        {
+          "description": "Alpha can take Alpha combat weapon (additional)",
+          "type": "alpha_add",
+          "add": "alpha_combat_weapon_ranger"
+        },
+        {
+          "type": "special_weapon_choice",
+          "description": "1 model may replace their standard weapon with ONE of the following:",
+          "replace": "galvanic_rifle",
+          "limit": 1,
+          "options": [
+            "arc_rifle",
+            "plasma_caliver_standard",
+            "plasma_caliver_supercharge",
+            "transuranic_arquebus"
+          ]
+        },
+        {
+          "description": "1 model with galvanic rifle: add enhanced data-tether OR omnispex (that model cannot swap rifle)",
+          "type": "wargear_add_one_of",
+          "limit": 1,
+          "options": [
+            "enhanced_data_tether",
+            "omnispex"
+          ]
+        }
       ],
       "wargear_items": [
-        { "id": "enhanced_data_tether", "name": "Enhanced data-tether", "description": "Each time you select the bearer's unit as the target of a Stratagem, roll one D6: on a 5+, you gain 1CP.", "points": 0 },
-        { "id": "omnispex", "name": "Omnispex", "description": "Ranged weapons equipped by models in the bearer's unit have the [IGNORES COVER] ability.", "points": 0 }
+        {
+          "id": "enhanced_data_tether",
+          "name": "Enhanced data-tether",
+          "description": "Each time you select the bearer's unit as the target of a Stratagem, roll one D6: on a 5+, you gain 1CP.",
+          "points": 0
+        },
+        {
+          "id": "omnispex",
+          "name": "Omnispex",
+          "description": "Ranged weapons equipped by models in the bearer's unit have the [IGNORES COVER] ability.",
+          "points": 0
+        }
       ],
       "abilities": [
-        { "name": "Scouts 6\"", "description": "After deployment, this unit can make a Normal Move of up to 6\", but must end that move more than 9\" from all enemy units." },
-        { "name": "Objective Scouted", "description": "At the end of your Command phase, if this unit is within range of an objective marker you control, that objective marker remains under your control, even if you have no models within range of it, until your opponent controls it at the start or end of any turn." },
-        { "name": "Doctrina Imperatives", "description": "This unit benefits from the active Doctrina Imperative chosen at the start of each battle round." }
+        {
+          "name": "Scouts 6\"",
+          "description": "After deployment, this unit can make a Normal Move of up to 6\", but must end that move more than 9\" from all enemy units."
+        },
+        {
+          "name": "Objective Scouted",
+          "description": "At the end of your Command phase, if this unit is within range of an objective marker you control, that objective marker remains under your control, even if you have no models within range of it, until your opponent controls it at the start or end of any turn."
+        },
+        {
+          "name": "Doctrina Imperatives",
+          "description": "This unit benefits from the active Doctrina Imperative chosen at the start of each battle round."
+        }
       ],
       "lore": "Adept long-range marksmen, Skitarii Rangers pursue their quarry across vast distances before delivering killing shots with methodical precision."
     },
@@ -245,29 +466,56 @@
       "name": "Skitarii Vanguard",
       "role": "BATTLELINE",
       "faction": "ADEPTUS MECHANICUS",
-      "keywords": ["INFANTRY", "BATTLELINE", "SKITARII", "VANGUARD"],
+      "keywords": [
+        "INFANTRY",
+        "BATTLELINE",
+        "SKITARII",
+        "VANGUARD"
+      ],
       "is_leader": false,
       "attachable_to": [],
       "points_base": 95,
       "points_per_model": 0,
       "min_models": 10,
       "max_models": 10,
-      "stats": { "M": "6\"", "T": 3, "Sv": "4+", "W": 1, "Ld": "7+", "OC": 2 },
+      "stats": {
+        "M": "6\"",
+        "T": 3,
+        "Sv": "4+",
+        "W": 1,
+        "Ld": "7+",
+        "OC": 2
+      },
       "invuln": "5+",
       "ranged_weapons": [
         {
           "id": "radium_carbine",
           "name": "Radium carbine",
-          "range": "18\"", "A": 3, "BS": "4+", "S": 3, "AP": 0, "D": 1,
-          "abilities": ["ANTI-INFANTRY 4+"],
+          "range": "18\"",
+          "A": 3,
+          "BS": "4+",
+          "S": 3,
+          "AP": 0,
+          "D": 1,
+          "abilities": [
+            "ANTI-INFANTRY 4+"
+          ],
           "default": true,
           "count": "9"
         },
         {
           "id": "mechanicus_pistol_vanguard_alpha",
           "name": "Mechanicus pistol (Alpha)",
-          "range": "12\"", "A": 1, "BS": "4+", "S": 6, "AP": -1, "D": 1,
-          "abilities": ["DEVASTATING WOUNDS", "PISTOL"],
+          "range": "12\"",
+          "A": 1,
+          "BS": "4+",
+          "S": 6,
+          "AP": -1,
+          "D": 1,
+          "abilities": [
+            "DEVASTATING WOUNDS",
+            "PISTOL"
+          ],
           "wargear_group": "alpha_ranged",
           "replaces": "radium_carbine",
           "default": false,
@@ -276,16 +524,30 @@
         {
           "id": "arc_rifle_vanguard",
           "name": "Arc rifle",
-          "range": "30\"", "A": 1, "BS": "4+", "S": 8, "AP": -1, "D": "D3",
-          "abilities": ["ANTI-VEHICLE 4+", "DEVASTATING WOUNDS", "RAPID FIRE 1"],
+          "range": "30\"",
+          "A": 1,
+          "BS": "4+",
+          "S": 8,
+          "AP": -1,
+          "D": "D3",
+          "abilities": [
+            "ANTI-VEHICLE 4+",
+            "DEVASTATING WOUNDS",
+            "RAPID FIRE 1"
+          ],
           "max_per_unit": 1,
           "default": false,
           "count": "up to 1"
         },
         {
           "id": "plasma_caliver_standard_vanguard",
-          "name": "Plasma caliver – standard",
-          "range": "30\"", "A": 2, "BS": "4+", "S": 7, "AP": -2, "D": 1,
+          "name": "Plasma caliver \u2013 standard",
+          "range": "30\"",
+          "A": 2,
+          "BS": "4+",
+          "S": 7,
+          "AP": -2,
+          "D": 1,
           "abilities": [],
           "max_per_unit": 1,
           "wargear_group": "plasma_caliver_v",
@@ -294,9 +556,16 @@
         },
         {
           "id": "plasma_caliver_supercharge_vanguard",
-          "name": "Plasma caliver – supercharge",
-          "range": "30\"", "A": 2, "BS": "4+", "S": 8, "AP": -3, "D": 2,
-          "abilities": ["HAZARDOUS"],
+          "name": "Plasma caliver \u2013 supercharge",
+          "range": "30\"",
+          "A": 2,
+          "BS": "4+",
+          "S": 8,
+          "AP": -3,
+          "D": 2,
+          "abilities": [
+            "HAZARDOUS"
+          ],
           "max_per_unit": 1,
           "wargear_group": "plasma_caliver_v",
           "default": false,
@@ -306,8 +575,16 @@
         {
           "id": "transuranic_arquebus_vanguard",
           "name": "Transuranic arquebus",
-          "range": "36\"", "A": 1, "BS": "4+", "S": 7, "AP": -2, "D": "D3",
-          "abilities": ["HEAVY", "PRECISION"],
+          "range": "36\"",
+          "A": 1,
+          "BS": "4+",
+          "S": 7,
+          "AP": -2,
+          "D": "D3",
+          "abilities": [
+            "HEAVY",
+            "PRECISION"
+          ],
           "max_per_unit": 1,
           "default": false,
           "count": "up to 1"
@@ -317,14 +594,22 @@
         {
           "id": "close_combat_vanguard",
           "name": "Close combat weapon",
-          "A": 1, "WS": "4+", "S": 3, "AP": 0, "D": 1,
+          "A": 1,
+          "WS": "4+",
+          "S": 3,
+          "AP": 0,
+          "D": 1,
           "abilities": [],
           "default": true
         },
         {
           "id": "alpha_combat_weapon_vanguard",
           "name": "Alpha combat weapon",
-          "A": 2, "WS": "4+", "S": 5, "AP": -1, "D": 1,
+          "A": 2,
+          "WS": "4+",
+          "S": 5,
+          "AP": -1,
+          "D": 1,
           "abilities": [],
           "max_per_unit": 1,
           "default": false,
@@ -332,20 +617,62 @@
         }
       ],
       "wargear_options": [
-        { "description": "Alpha's radium carbine can be replaced with Mechanicus pistol", "type": "alpha_swap", "replace": "radium_carbine", "with": "mechanicus_pistol_vanguard_alpha" },
-        { "description": "Alpha can take Alpha combat weapon (additional)", "type": "alpha_add", "add": "alpha_combat_weapon_vanguard" },
-        { "description": "1 model: radium carbine → arc rifle", "type": "limited_swap", "limit": 1, "replace": "radium_carbine", "with": "arc_rifle_vanguard" },
-        { "description": "1 model: radium carbine → plasma caliver", "type": "limited_swap", "limit": 1, "replace": "radium_carbine", "with": ["plasma_caliver_standard_vanguard", "plasma_caliver_supercharge_vanguard"] },
-        { "description": "1 model: radium carbine → transuranic arquebus", "type": "limited_swap", "limit": 1, "replace": "radium_carbine", "with": "transuranic_arquebus_vanguard" },
-        { "description": "1 model with radium carbine: add enhanced data-tether OR omnispex (that model cannot swap carbine)", "type": "wargear_add_one_of", "limit": 1, "options": ["enhanced_data_tether_v", "omnispex_v"] }
+        {
+          "description": "Alpha's radium carbine can be replaced with Mechanicus pistol",
+          "type": "alpha_swap",
+          "replace": "radium_carbine",
+          "with": "mechanicus_pistol_vanguard_alpha"
+        },
+        {
+          "description": "Alpha can take Alpha combat weapon (additional)",
+          "type": "alpha_add",
+          "add": "alpha_combat_weapon_vanguard"
+        },
+        {
+          "type": "special_weapon_choice",
+          "description": "1 model may replace their standard weapon with ONE of the following:",
+          "replace": "radium_carbine",
+          "limit": 1,
+          "options": [
+            "arc_rifle_vanguard",
+            "plasma_caliver_standard_vanguard",
+            "plasma_caliver_supercharge_vanguard",
+            "transuranic_arquebus_vanguard"
+          ]
+        },
+        {
+          "description": "1 model with radium carbine: add enhanced data-tether OR omnispex (that model cannot swap carbine)",
+          "type": "wargear_add_one_of",
+          "limit": 1,
+          "options": [
+            "enhanced_data_tether_v",
+            "omnispex_v"
+          ]
+        }
       ],
       "wargear_items": [
-        { "id": "enhanced_data_tether_v", "name": "Enhanced data-tether", "description": "Each time you select the bearer's unit as the target of a Stratagem, roll one D6: on a 5+, you gain 1CP.", "points": 0 },
-        { "id": "omnispex_v", "name": "Omnispex", "description": "Ranged weapons equipped by models in the bearer's unit have the [IGNORES COVER] ability.", "points": 0 }
+        {
+          "id": "enhanced_data_tether_v",
+          "name": "Enhanced data-tether",
+          "description": "Each time you select the bearer's unit as the target of a Stratagem, roll one D6: on a 5+, you gain 1CP.",
+          "points": 0
+        },
+        {
+          "id": "omnispex_v",
+          "name": "Omnispex",
+          "description": "Ranged weapons equipped by models in the bearer's unit have the [IGNORES COVER] ability.",
+          "points": 0
+        }
       ],
       "abilities": [
-        { "name": "Rad-saturation (Aura)", "description": "While an enemy unit (excluding VEHICLE units) is within 3\" of this unit, subtract 1 from the Objective Control characteristic of models in that unit." },
-        { "name": "Doctrina Imperatives", "description": "This unit benefits from the active Doctrina Imperative chosen at the start of each battle round." }
+        {
+          "name": "Rad-saturation (Aura)",
+          "description": "While an enemy unit (excluding VEHICLE units) is within 3\" of this unit, subtract 1 from the Objective Control characteristic of models in that unit."
+        },
+        {
+          "name": "Doctrina Imperatives",
+          "description": "This unit benefits from the active Doctrina Imperative chosen at the start of each battle round."
+        }
       ],
       "lore": "Skitarii Vanguard march ahead of the main Mechanicus force, saturating the battlefield with ambient radiation from their radium carbines."
     },
@@ -354,7 +681,12 @@
       "name": "Kataphron Breachers",
       "role": "CORE",
       "faction": "ADEPTUS MECHANICUS",
-      "keywords": ["INFANTRY", "CULT MECHANICUS", "KATAPHRON", "BREACHERS"],
+      "keywords": [
+        "INFANTRY",
+        "CULT MECHANICUS",
+        "KATAPHRON",
+        "BREACHERS"
+      ],
       "is_leader": false,
       "attachable_to": [],
       "points_base": 160,
@@ -362,22 +694,45 @@
       "points_6": 320,
       "min_models": 3,
       "max_models": 6,
-      "stats": { "M": "5\"", "T": 7, "Sv": "3+", "W": 3, "Ld": "7+", "OC": 1 },
+      "stats": {
+        "M": "5\"",
+        "T": 7,
+        "Sv": "3+",
+        "W": 3,
+        "Ld": "7+",
+        "OC": 1
+      },
       "invuln": "6+",
       "ranged_weapons": [
         {
           "id": "heavy_arc_rifle",
           "name": "Heavy arc rifle",
-          "range": "30\"", "A": 2, "BS": "4+", "S": 8, "AP": -2, "D": 3,
-          "abilities": ["ANTI-VEHICLE 4+", "RAPID FIRE 2"],
+          "range": "30\"",
+          "A": 2,
+          "BS": "4+",
+          "S": 8,
+          "AP": -2,
+          "D": 3,
+          "abilities": [
+            "ANTI-VEHICLE 4+",
+            "RAPID FIRE 2"
+          ],
           "default": true,
           "wargear_group": "ranged_main"
         },
         {
           "id": "torsion_cannon",
           "name": "Torsion cannon",
-          "range": "36\"", "A": "D3", "BS": "4+", "S": 6, "AP": -2, "D": 2,
-          "abilities": ["ANTI-INFANTRY 2+", "BLAST"],
+          "range": "36\"",
+          "A": "D3",
+          "BS": "4+",
+          "S": 6,
+          "AP": -2,
+          "D": 2,
+          "abilities": [
+            "ANTI-INFANTRY 2+",
+            "BLAST"
+          ],
           "default": false,
           "wargear_group": "ranged_main"
         }
@@ -386,28 +741,54 @@
         {
           "id": "arc_claw",
           "name": "Arc claw",
-          "A": 4, "WS": "4+", "S": 5, "AP": -1, "D": 1,
-          "abilities": ["ANTI-VEHICLE 4+"],
+          "A": 4,
+          "WS": "4+",
+          "S": 5,
+          "AP": -1,
+          "D": 1,
+          "abilities": [
+            "ANTI-VEHICLE 4+"
+          ],
           "default": true,
           "wargear_group": "melee_main"
         },
         {
           "id": "hydraulic_claw",
           "name": "Hydraulic claw",
-          "A": 2, "WS": "4+", "S": 8, "AP": -2, "D": 3,
+          "A": 2,
+          "WS": "4+",
+          "S": 8,
+          "AP": -2,
+          "D": 3,
           "abilities": [],
           "default": false,
           "wargear_group": "melee_main"
         }
       ],
       "wargear_options": [
-        { "description": "Any number of models: heavy arc rifle → torsion cannon", "type": "any_swap", "replace": "heavy_arc_rifle", "with": "torsion_cannon" },
-        { "description": "Any number of models: arc claw → hydraulic claw", "type": "any_swap", "replace": "arc_claw", "with": "hydraulic_claw" }
+        {
+          "description": "Any number of models: heavy arc rifle \u2192 torsion cannon",
+          "type": "any_swap",
+          "replace": "heavy_arc_rifle",
+          "with": "torsion_cannon"
+        },
+        {
+          "description": "Any number of models: arc claw \u2192 hydraulic claw",
+          "type": "any_swap",
+          "replace": "arc_claw",
+          "with": "hydraulic_claw"
+        }
       ],
       "wargear_items": [],
       "abilities": [
-        { "name": "Breaching Command", "description": "Each time a model in this unit makes an attack, re-roll a Hit roll of 1. While this unit is within 6\" of one or more friendly ADEPTUS MECHANICUS BATTLELINE units, you can re-roll the Hit roll instead." },
-        { "name": "Doctrina Imperatives", "description": "This unit benefits from the active Doctrina Imperative chosen at the start of each battle round." }
+        {
+          "name": "Breaching Command",
+          "description": "Each time a model in this unit makes an attack, re-roll a Hit roll of 1. While this unit is within 6\" of one or more friendly ADEPTUS MECHANICUS BATTLELINE units, you can re-roll the Hit roll instead."
+        },
+        {
+          "name": "Doctrina Imperatives",
+          "description": "This unit benefits from the active Doctrina Imperative chosen at the start of each battle round."
+        }
       ],
       "lore": "Kataphron Breachers are heavy assault servitors, their cybernetic bulk reinforced with industrial hydraulics and directed-energy weaponry."
     },
@@ -416,7 +797,12 @@
       "name": "Kataphron Destroyers",
       "role": "CORE",
       "faction": "ADEPTUS MECHANICUS",
-      "keywords": ["INFANTRY", "CULT MECHANICUS", "KATAPHRON", "DESTROYERS"],
+      "keywords": [
+        "INFANTRY",
+        "CULT MECHANICUS",
+        "KATAPHRON",
+        "DESTROYERS"
+      ],
       "is_leader": false,
       "attachable_to": [],
       "points_base": 105,
@@ -424,30 +810,56 @@
       "points_6": 210,
       "min_models": 3,
       "max_models": 6,
-      "stats": { "M": "5\"", "T": 6, "Sv": "3+", "W": 3, "Ld": "7+", "OC": 1 },
+      "stats": {
+        "M": "5\"",
+        "T": 6,
+        "Sv": "3+",
+        "W": 3,
+        "Ld": "7+",
+        "OC": 1
+      },
       "invuln": "6+",
       "ranged_weapons": [
         {
           "id": "heavy_grav_cannon",
           "name": "Heavy grav-cannon",
-          "range": "30\"", "A": 4, "BS": "4+", "S": 6, "AP": -1, "D": 2,
-          "abilities": ["ANTI-VEHICLE 2+"],
+          "range": "30\"",
+          "A": 4,
+          "BS": "4+",
+          "S": 6,
+          "AP": -1,
+          "D": 2,
+          "abilities": [
+            "ANTI-VEHICLE 2+"
+          ],
           "default": true,
           "wargear_group": "ranged_main"
         },
         {
           "id": "kataphron_plasma_culverin_standard",
-          "name": "Kataphron plasma culverin – standard",
-          "range": "36\"", "A": 4, "BS": "4+", "S": 7, "AP": -2, "D": 1,
+          "name": "Kataphron plasma culverin \u2013 standard",
+          "range": "36\"",
+          "A": 4,
+          "BS": "4+",
+          "S": 7,
+          "AP": -2,
+          "D": 1,
           "abilities": [],
           "default": false,
           "wargear_group": "ranged_main"
         },
         {
           "id": "kataphron_plasma_culverin_supercharge",
-          "name": "Kataphron plasma culverin – supercharge",
-          "range": "36\"", "A": 4, "BS": "4+", "S": 8, "AP": -3, "D": 2,
-          "abilities": ["HAZARDOUS"],
+          "name": "Kataphron plasma culverin \u2013 supercharge",
+          "range": "36\"",
+          "A": 4,
+          "BS": "4+",
+          "S": 8,
+          "AP": -3,
+          "D": 2,
+          "abilities": [
+            "HAZARDOUS"
+          ],
           "default": false,
           "wargear_group": "ranged_main",
           "paired_with": "kataphron_plasma_culverin_standard"
@@ -455,16 +867,32 @@
         {
           "id": "phosphor_blaster_destroyer",
           "name": "Phosphor blaster",
-          "range": "24\"", "A": 1, "BS": "4+", "S": 5, "AP": 0, "D": 1,
-          "abilities": ["IGNORES COVER", "RAPID FIRE 1"],
+          "range": "24\"",
+          "A": 1,
+          "BS": "4+",
+          "S": 5,
+          "AP": 0,
+          "D": 1,
+          "abilities": [
+            "IGNORES COVER",
+            "RAPID FIRE 1"
+          ],
           "default": true,
           "wargear_group": "secondary_ranged"
         },
         {
           "id": "cognis_flamer",
           "name": "Cognis flamer",
-          "range": "12\"", "A": "D6", "BS": "N/A", "S": 4, "AP": 0, "D": 1,
-          "abilities": ["IGNORES COVER", "TORRENT"],
+          "range": "12\"",
+          "A": "D6",
+          "BS": "N/A",
+          "S": 4,
+          "AP": 0,
+          "D": 1,
+          "abilities": [
+            "IGNORES COVER",
+            "TORRENT"
+          ],
           "default": false,
           "wargear_group": "secondary_ranged"
         }
@@ -473,19 +901,42 @@
         {
           "id": "close_combat_destroyer",
           "name": "Close combat weapon",
-          "A": 2, "WS": "4+", "S": 5, "AP": 0, "D": 1,
+          "A": 2,
+          "WS": "4+",
+          "S": 5,
+          "AP": 0,
+          "D": 1,
           "abilities": [],
           "default": true
         }
       ],
       "wargear_options": [
-        { "description": "Any number of models: heavy grav-cannon → Kataphron plasma culverin", "type": "any_swap", "replace": "heavy_grav_cannon", "with": ["kataphron_plasma_culverin_standard", "kataphron_plasma_culverin_supercharge"] },
-        { "description": "Any number of models: phosphor blaster → cognis flamer", "type": "any_swap", "replace": "phosphor_blaster_destroyer", "with": "cognis_flamer" }
+        {
+          "description": "Any number of models: heavy grav-cannon \u2192 Kataphron plasma culverin",
+          "type": "any_swap",
+          "replace": "heavy_grav_cannon",
+          "with": [
+            "kataphron_plasma_culverin_standard",
+            "kataphron_plasma_culverin_supercharge"
+          ]
+        },
+        {
+          "description": "Any number of models: phosphor blaster \u2192 cognis flamer",
+          "type": "any_swap",
+          "replace": "phosphor_blaster_destroyer",
+          "with": "cognis_flamer"
+        }
       ],
       "wargear_items": [],
       "abilities": [
-        { "name": "Sentinel Directives", "description": "Each time you target this unit with the Fire Overwatch Stratagem, hits are scored on unmodified Hit rolls of 5+ when resolving that Stratagem." },
-        { "name": "Doctrina Imperatives", "description": "This unit benefits from the active Doctrina Imperative chosen at the start of each battle round." }
+        {
+          "name": "Sentinel Directives",
+          "description": "Each time you target this unit with the Fire Overwatch Stratagem, hits are scored on unmodified Hit rolls of 5+ when resolving that Stratagem."
+        },
+        {
+          "name": "Doctrina Imperatives",
+          "description": "This unit benefits from the active Doctrina Imperative chosen at the start of each battle round."
+        }
       ],
       "lore": "Kataphron Destroyers are long-range fire support servitors, their frames bristling with plasma and grav weaponry to annihilate armoured targets."
     }

@@ -198,8 +198,8 @@ const Renderer = (() => {
           '</div>'
         : '') +
 
-        // Enhancement
-        (!unit.is_leader && enhancements.length > 0 ?
+        // Enhancement — only CHARACTER units can take detachment enhancements
+        (!unit.is_leader && (unit.keywords || []).indexOf('CHARACTER') !== -1 && enhancements.length > 0 ?
           '<div class="panel-toggle" data-panel="enh" data-instance-id="' + entry.instanceId + '">' +
             '<span>✦ Enhancement</span><span class="toggle-arrow' + (exp.enh ? ' toggle-arrow--open' : '') + '">▾</span>' +
           '</div>' +
@@ -244,7 +244,7 @@ const Renderer = (() => {
       '</div>';
   }
 
-  // ── Weapon section ───────────────────────────────────────────────
+  // ── Weapon section ───────────────────────────────────────────
   function _buildWeaponSection(unit, entry) {
     var html = '';
     var ranged = unit.ranged_weapons || [];
@@ -260,14 +260,20 @@ const Renderer = (() => {
         '</div>';
     }
 
-    // --- Wargear items (data-tether, omnispex etc.) ---
+    // --- Wargear items (data-tether, omnispex) ---
     if (unit.wargear_items && unit.wargear_items.length > 0) {
+      // Only one of them can be selected (wargear_add_one_of rule)
+      var hasOneOfRule = (unit.wargear_options || []).some(function(o) { return o.type === 'wargear_add_one_of'; });
       html += '<div class="wargear-items-block">' +
-        '<div class="wargear-options-title">WARGEAR ITEMS</div>' +
+        '<div class="wargear-options-title">WARGEAR ITEMS <span style="font-weight:400;letter-spacing:1px;color:var(--color-text-muted)">(Choose one)</span></div>' +
         unit.wargear_items.map(function(item) {
-          var selected = entry.selectedWargear.indexOf(item.id) !== -1;
-          return '<label class="wargear-item-row' + (selected ? ' wargear-item-row--active' : '') + '">' +
-            '<input type="checkbox" class="wargear-item-toggle" data-instance-id="' + entry.instanceId + '" data-item-id="' + item.id + '"' + (selected ? ' checked' : '') + '>' +
+          var selected   = entry.selectedWargear.indexOf(item.id) !== -1;
+          var otherSel   = hasOneOfRule && !selected && entry.selectedWargear.some(function(id) {
+            return unit.wargear_items.some(function(wi) { return wi.id === id; });
+          });
+          return '<label class="wargear-item-row' + (selected ? ' wargear-item-row--active' : '') + (otherSel ? ' wargear-item-row--disabled' : '') + '">' +
+            '<input type="checkbox" class="wargear-item-toggle" data-instance-id="' + entry.instanceId + '" data-item-id="' + item.id + '"' +
+              (selected ? ' checked' : '') + (otherSel ? ' disabled' : '') + '>' +
             '<span class="wargear-item-name">' + item.name + '</span>' +
             '<p class="wargear-item-desc">' + item.description + '</p>' +
             '</label>';
@@ -275,18 +281,20 @@ const Renderer = (() => {
         '</div>';
     }
 
-    // --- Weapon tables ---
-    if (ranged.length > 0) {
-      var rangedSelected = ranged.filter(function(w) { return entry.selectedRanged.indexOf(w.id) !== -1; });
-      if (rangedSelected.length > 0) {
-        html += _buildWeaponTable(rangedSelected, 'RANGED', entry, 'ranged');
-      }
+    // --- Weapon tables: show currently selected weapons ---
+    // Build a combined selected set
+    var allSelected = entry.selectedRanged.concat(entry.selectedMelee);
+
+    // Ranged
+    var rangedSelected = ranged.filter(function(w) { return allSelected.indexOf(w.id) !== -1; });
+    if (rangedSelected.length > 0) {
+      html += _buildWeaponTable(rangedSelected, 'RANGED', 'ranged');
     }
-    if (melee.length > 0) {
-      var meleeSelected = melee.filter(function(w) { return entry.selectedMelee.indexOf(w.id) !== -1; });
-      if (meleeSelected.length > 0) {
-        html += _buildWeaponTable(meleeSelected, 'MELEE', entry, 'melee');
-      }
+
+    // Melee
+    var meleeSelected = melee.filter(function(w) { return allSelected.indexOf(w.id) !== -1; });
+    if (meleeSelected.length > 0) {
+      html += _buildWeaponTable(meleeSelected, 'MELEE', 'melee');
     }
 
     return html || '<p class="panel-empty">No weapons.</p>';
@@ -296,83 +304,106 @@ const Renderer = (() => {
     var html = '<div class="wargear-opt-row">';
     html += '<span class="wargear-opt-desc">' + opt.description + '</span>';
 
+    // ── any_swap: per-model swap, toggle between default and replacement ──
     if (opt.type === 'any_swap') {
-      // Per-model swap — show toggle for each model
-      var replaceId = opt.replace;
-      var addIds    = Array.isArray(opt.with) ? opt.with : [opt.with];
-      // Show one button group per option
+      var replaceId  = opt.replace;
+      var addIds     = Array.isArray(opt.with) ? opt.with : [opt.with];
+      var allIds     = [replaceId].concat(addIds);
+      // Find which one is currently active (if any replacement selected; else default)
+      var activeId   = addIds.find(function(id) {
+        return entry.selectedRanged.indexOf(id) !== -1 || entry.selectedMelee.indexOf(id) !== -1;
+      }) || replaceId;
+
       html += '<div class="wargear-swap-btns">';
-      // "Default" button
-      var defaultSelected = entry.selectedRanged.indexOf(replaceId) !== -1 || entry.selectedMelee.indexOf(replaceId) !== -1;
-      html += '<button class="wargear-swap-btn' + (defaultSelected ? ' wargear-swap-btn--active' : '') + '" ' +
-        'data-action="restore" data-instance-id="' + entry.instanceId + '" ' +
-        'data-restore-id="' + replaceId + '" data-remove-ids="' + addIds.join(',') + '" ' +
-        'data-type="' + _weaponType(unit, replaceId) + '">' +
-        _weaponName(unit, replaceId) + '</button>';
-      addIds.forEach(function(addId) {
-        var optSelected = entry.selectedRanged.indexOf(addId) !== -1 || entry.selectedMelee.indexOf(addId) !== -1;
-        html += '<button class="wargear-swap-btn' + (optSelected ? ' wargear-swap-btn--active' : '') + '" ' +
-          'data-action="swap" data-instance-id="' + entry.instanceId + '" ' +
-          'data-remove-id="' + replaceId + '" data-add-id="' + addId + '" ' +
-          'data-type="' + _weaponType(unit, addId) + '">' +
-          _weaponName(unit, addId) + '</button>';
+      allIds.forEach(function(id) {
+        var isActive = (id === activeId);
+        var action   = (id === replaceId) ? 'restore' : 'swap';
+        var attrs    = (id === replaceId)
+          ? 'data-restore-id="' + replaceId + '" data-remove-ids="' + addIds.join(',') + '" data-type="' + _weaponType(unit, replaceId) + '"'
+          : 'data-remove-id="' + replaceId + '" data-add-id="' + id + '" data-type="' + _weaponType(unit, id) + '"';
+        html += '<button class="wargear-swap-btn' + (isActive ? ' wargear-swap-btn--active' : '') + '" ' +
+          'data-action="' + action + '" data-instance-id="' + entry.instanceId + '" ' + attrs + '>' +
+          _weaponName(unit, id) + '</button>';
       });
       html += '</div>';
     }
 
-    else if (opt.type === 'limited_swap') {
-      // Up to 1 model: show toggle buttons
-      var replaceId2 = opt.replace;
-      var addIds2    = Array.isArray(opt.with) ? opt.with : [opt.with];
-      html += '<div class="wargear-swap-btns">';
-      var defaultSelected2 = !(addIds2.some(function(id) { return entry.selectedRanged.indexOf(id) !== -1 || entry.selectedMelee.indexOf(id) !== -1; }));
-      html += '<button class="wargear-swap-btn' + (defaultSelected2 ? ' wargear-swap-btn--active' : '') + '" ' +
-        'data-action="restore" data-instance-id="' + entry.instanceId + '" ' +
-        'data-restore-id="' + replaceId2 + '" data-remove-ids="' + addIds2.join(',') + '" ' +
-        'data-type="' + _weaponType(unit, replaceId2) + '">None</button>';
-      addIds2.forEach(function(addId) {
-        var optSel = entry.selectedRanged.indexOf(addId) !== -1 || entry.selectedMelee.indexOf(addId) !== -1;
-        html += '<button class="wargear-swap-btn' + (optSel ? ' wargear-swap-btn--active' : '') + '" ' +
-          'data-action="swap" data-instance-id="' + entry.instanceId + '" ' +
-          'data-remove-id="' + replaceId2 + '" data-add-id="' + addId + '" ' +
-          'data-type="' + _weaponType(unit, addId) + '">' +
-          _weaponName(unit, addId) + '</button>';
+    // ── special_weapon_choice: exactly ONE of several options, mutually exclusive ──
+    else if (opt.type === 'special_weapon_choice') {
+      var allOptionIds = opt.options;
+      var replaceId2   = opt.replace;
+      // Which option is currently selected (if any)?
+      var chosenId = allOptionIds.find(function(id) {
+        return entry.selectedRanged.indexOf(id) !== -1 || entry.selectedMelee.indexOf(id) !== -1;
+      }) || null;
+
+      // Group plasma caliver profiles so they appear as one paired entry
+      var pairedGroups = {};  // leaderId → [leaderId, pairedId]
+      var pairedChildren = {};
+      (unit.ranged_weapons || []).concat(unit.melee_weapons || []).forEach(function(w) {
+        if (w.paired_with && allOptionIds.indexOf(w.id) !== -1) {
+          pairedGroups[w.paired_with] = pairedGroups[w.paired_with] || [];
+          pairedGroups[w.paired_with].push(w.id);
+          pairedChildren[w.id] = true;
+        }
       });
+
+      html += '<div class="wargear-swap-btns wargear-swap-btns--choice">';
+
+      // "None" button
+      html += '<button class="wargear-swap-btn' + (!chosenId ? ' wargear-swap-btn--active' : '') + '" ' +
+        'data-action="special-none" data-instance-id="' + entry.instanceId + '" ' +
+        'data-all-options="' + allOptionIds.join(',') + '">None</button>';
+
+      allOptionIds.forEach(function(id) {
+        if (pairedChildren[id]) return; // skip — shown under its pair parent
+        var isChosen = (chosenId === id || (pairedGroups[id] && pairedGroups[id].indexOf(chosenId) !== -1));
+        var paired   = pairedGroups[id] || [];
+        var label    = _weaponName(unit, id);
+        // For a paired group (plasma caliver std/supercharge), show both profiles in label
+        if (paired.length > 0) {
+          label = _weaponNameShort(unit, id) + ' / supercharge';
+        }
+        html += '<button class="wargear-swap-btn' + (isChosen ? ' wargear-swap-btn--active' : '') + '" ' +
+          'data-action="special-pick" data-instance-id="' + entry.instanceId + '" ' +
+          'data-chosen-id="' + id + '" ' +
+          'data-all-options="' + allOptionIds.join(',') + '">' + label + '</button>';
+      });
+
       html += '</div>';
     }
 
+    // ── alpha_swap ──
     else if (opt.type === 'alpha_swap') {
       var replaceId3 = opt.replace;
       var addId3     = opt.with;
-      var alphaSwapped = entry.selectedRanged.indexOf(addId3) !== -1 || entry.selectedMelee.indexOf(addId3) !== -1;
+      var swapped    = entry.selectedRanged.indexOf(addId3) !== -1 || entry.selectedMelee.indexOf(addId3) !== -1;
       html += '<div class="wargear-swap-btns">' +
-        '<button class="wargear-swap-btn' + (!alphaSwapped ? ' wargear-swap-btn--active' : '') + '" ' +
+        '<button class="wargear-swap-btn' + (!swapped ? ' wargear-swap-btn--active' : '') + '" ' +
           'data-action="restore" data-instance-id="' + entry.instanceId + '" ' +
           'data-restore-id="' + replaceId3 + '" data-remove-ids="' + addId3 + '" ' +
           'data-type="' + _weaponType(unit, replaceId3) + '">' + _weaponName(unit, replaceId3) + '</button>' +
-        '<button class="wargear-swap-btn' + (alphaSwapped ? ' wargear-swap-btn--active' : '') + '" ' +
+        '<button class="wargear-swap-btn' + (swapped ? ' wargear-swap-btn--active' : '') + '" ' +
           'data-action="swap" data-instance-id="' + entry.instanceId + '" ' +
           'data-remove-id="' + replaceId3 + '" data-add-id="' + addId3 + '" ' +
           'data-type="' + _weaponType(unit, addId3) + '">' + _weaponName(unit, addId3) + '</button>' +
         '</div>';
     }
 
+    // ── alpha_add: additional weapon for the Alpha model ──
     else if (opt.type === 'alpha_add') {
-      var addId4   = opt.add;
-      var hasAlpha = entry.selectedMelee.indexOf(addId4) !== -1 || entry.selectedRanged.indexOf(addId4) !== -1;
-      var wType    = _weaponType(unit, addId4);
+      var addId4  = opt.add;
+      var hasIt   = entry.selectedMelee.indexOf(addId4) !== -1 || entry.selectedRanged.indexOf(addId4) !== -1;
+      var wType4  = _weaponType(unit, addId4);
       html += '<div class="wargear-swap-btns">' +
-        '<button class="wargear-swap-btn' + (hasAlpha ? ' wargear-swap-btn--active' : '') + '" ' +
+        '<button class="wargear-swap-btn' + (hasIt ? ' wargear-swap-btn--active' : '') + '" ' +
           'data-action="toggle" data-instance-id="' + entry.instanceId + '" ' +
-          'data-weapon-id="' + addId4 + '" data-type="' + wType + '">' +
-          (hasAlpha ? '✓ ' : '') + _weaponName(unit, addId4) + '</button>' +
+          'data-weapon-id="' + addId4 + '" data-type="' + wType4 + '">' +
+          (hasIt ? '✓ ' : '+ ') + _weaponName(unit, addId4) + '</button>' +
         '</div>';
     }
 
-    else if (opt.type === 'wargear_add_one_of') {
-      // wargear items handled separately above
-      html += '';
-    }
+    // ── wargear_add_one_of: handled by wargear_items block above ──
 
     html += '</div>';
     return html;
@@ -380,8 +411,7 @@ const Renderer = (() => {
 
   function _weaponType(unit, weaponId) {
     if ((unit.ranged_weapons || []).find(function(w) { return w.id === weaponId; })) return 'ranged';
-    if ((unit.melee_weapons  || []).find(function(w) { return w.id === weaponId; })) return 'melee';
-    return 'ranged';
+    return 'melee';
   }
 
   function _weaponName(unit, weaponId) {
@@ -390,17 +420,25 @@ const Renderer = (() => {
     return w ? w.name : weaponId;
   }
 
-  function _buildWeaponTable(weapons, sectionLabel, entry, type) {
+  function _weaponNameShort(unit, weaponId) {
+    var n = _weaponName(unit, weaponId);
+    // Strip " – standard" suffix for brevity in buttons
+    return n.replace(' – standard', '').replace(' – dissipated', ' (dis.)').replace(' – focused', ' (foc.)');
+  }
+
+  function _buildWeaponTable(weapons, sectionLabel, type) {
     var isMelee = (type === 'melee');
-    var header = '<tr><th>Weapon</th><th>' + (isMelee ? 'Melee' : 'RNG') + '</th><th>A</th><th>' + (isMelee ? 'WS' : 'BS') + '</th><th>S</th><th>AP</th><th>D</th><th>Abilities</th></tr>';
+    var header = '<tr><th>Weapon</th><th>' + (isMelee ? 'Melee' : 'RNG') + '</th><th>A</th><th>' +
+      (isMelee ? 'WS' : 'BS') + '</th><th>S</th><th>AP</th><th>D</th><th>Abilities</th></tr>';
     var rows = weapons.map(function(w) {
-      var range   = isMelee ? 'Melee' : (w.range || '—');
-      var skill   = isMelee ? (w.WS || '—') : (w.BS || '—');
-      var ap      = (w.AP === 0) ? '0' : (w.AP > 0 ? '+' + w.AP : String(w.AP));
-      var abi     = (w.abilities && w.abilities.length) ? w.abilities.join(', ') : '—';
-      var rowCls  = isMelee ? 'weapon-melee' : 'weapon-ranged';
+      var range  = isMelee ? 'Melee' : (w.range || '—');
+      var skill  = isMelee ? (w.WS || '—') : (w.BS || '—');
+      var ap     = (w.AP === 0) ? '0' : (w.AP > 0 ? '+' + w.AP : String(w.AP));
+      var abi    = (w.abilities && w.abilities.length) ? w.abilities.join(', ') : '—';
+      var rowCls = isMelee ? 'weapon-melee' : 'weapon-ranged';
+      var countBadge = w.count ? '<span class="weapon-count"> [' + w.count + ']</span>' : '';
       return '<tr class="' + rowCls + '">' +
-        '<td class="weapon-name">' + w.name + (w.count ? '<span class="weapon-count"> [' + w.count + ']</span>' : '') + '</td>' +
+        '<td class="weapon-name">' + w.name + countBadge + '</td>' +
         '<td>' + range + '</td><td>' + w.A + '</td><td>' + skill + '</td>' +
         '<td>' + w.S + '</td><td>' + ap + '</td><td>' + w.D + '</td>' +
         '<td class="weapon-abilities">' + abi + '</td></tr>';

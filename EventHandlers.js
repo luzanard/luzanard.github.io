@@ -137,12 +137,18 @@ const EventHandlers = (() => {
         } else if (action === 'restore') {
           var restoreId  = swapBtn.dataset.restoreId;
           var removeIds  = (swapBtn.dataset.removeIds || '').split(',').filter(Boolean);
-          // Remove all alternatives, restore default
           removeIds.forEach(function(rid) {
             StateManager.restoreWeapon(instanceId, restoreId, rid, wtype);
           });
         } else if (action === 'toggle') {
           StateManager.toggleWeapon(instanceId, swapBtn.dataset.weaponId, wtype);
+        } else if (action === 'special-pick') {
+          var chosenId   = swapBtn.dataset.chosenId;
+          var allOptions = (swapBtn.dataset.allOptions || '').split(',').filter(Boolean);
+          StateManager.setSpecialWeapon(instanceId, chosenId, allOptions);
+        } else if (action === 'special-none') {
+          var allOptions2 = (swapBtn.dataset.allOptions || '').split(',').filter(Boolean);
+          StateManager.setSpecialWeapon(instanceId, null, allOptions2);
         }
         return;
       }
@@ -165,12 +171,22 @@ const EventHandlers = (() => {
         );
         return;
       }
-      // Wargear item checkbox
+      // Wargear item checkbox — one-at-a-time (deselect others first)
       if (e.target.matches('.wargear-item-toggle')) {
-        StateManager.toggleWargearItem(
-          parseInt(e.target.dataset.instanceId, 10),
-          e.target.dataset.itemId
-        );
+        var iid   = parseInt(e.target.dataset.instanceId, 10);
+        var iitem = e.target.dataset.itemId;
+        var snap  = StateManager.getSnapshot();
+        var ent   = snap.roster.find(function(r) { return r.instanceId === iid; });
+        var unit2 = snap.allUnits.find(function(u) { return u.id === (ent && ent.unitId); });
+        // Clear other wargear items from same unit before toggling
+        if (unit2 && unit2.wargear_items) {
+          unit2.wargear_items.forEach(function(wi) {
+            if (wi.id !== iitem && ent && ent.selectedWargear.indexOf(wi.id) !== -1) {
+              StateManager.toggleWargearItem(iid, wi.id);
+            }
+          });
+        }
+        StateManager.toggleWargearItem(iid, iitem);
         return;
       }
     });

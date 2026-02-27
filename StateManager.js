@@ -112,6 +112,28 @@ const StateManager = (() => {
     _emit('rosterChanged', getSnapshot());
   }
 
+  // special_weapon_choice: pick exactly one from a mutually exclusive group
+  // chosenId=null means deselect all (revert to none)
+  function setSpecialWeapon(instanceId, chosenId, allOptionIds) {
+    const entry = _state.roster.find(u => u.instanceId === instanceId);
+    if (!entry) return;
+    const unit = _state.allUnits.find(u => u.id === entry.unitId);
+    // Clear all options from selection lists
+    allOptionIds.forEach(id => {
+      let idx = entry.selectedRanged.indexOf(id);
+      if (idx !== -1) entry.selectedRanged.splice(idx, 1);
+      idx = entry.selectedMelee.indexOf(id);
+      if (idx !== -1) entry.selectedMelee.splice(idx, 1);
+    });
+    if (chosenId) {
+      const isRanged = (unit.ranged_weapons || []).some(w => w.id === chosenId);
+      if (isRanged) entry.selectedRanged.push(chosenId);
+      else           entry.selectedMelee.push(chosenId);
+    }
+    _emit('rosterChanged', getSnapshot());
+  }
+
+
   // Toggle a wargear item (data-tether, omnispex etc.)
   function toggleWargearItem(instanceId, itemId) {
     const entry = _state.roster.find(u => u.instanceId === instanceId);
@@ -174,7 +196,7 @@ const StateManager = (() => {
 
   return {
     init, addUnit, removeUnit, updateModelCount,
-    attachLeader, toggleWeapon, swapWeapon, restoreWeapon,
+    attachLeader, toggleWeapon, swapWeapon, restoreWeapon, setSpecialWeapon,
     toggleWargearItem, setUnitEnhancement,
     setDetachment, setDoctrine, setForgeWorld, setPointsLimit,
     getTotalPoints, getUnitById, getRosterEntries, getSnapshot,

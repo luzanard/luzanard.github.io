@@ -1608,3 +1608,19 @@ body {
   font-size: .72rem;
   color: var(--color-text-muted);
 }
+
+/* ── Wargear item disabled state ── */
+.wargear-item-row--disabled {
+  opacity: .38;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ── Special weapon choice: make the button group wrap nicely ── */
+.wargear-swap-btns--choice {
+  gap: 5px;
+  flex-wrap: wrap;
+}
+.wargear-swap-btns--choice .wargear-swap-btn {
+  flex: 0 0 auto;
+}
