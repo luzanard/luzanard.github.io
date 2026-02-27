@@ -12,6 +12,7 @@ const EventHandlers = (() => {
     _bindUnitPickerCards();
     _bindRosterDelegation();
     _bindPointsLimitSelector();
+    _bindStratModal();
   }
 
   function _bindDoctrineButtons() {
@@ -197,6 +198,56 @@ const EventHandlers = (() => {
       StateManager.setPointsLimit(parseInt(e.target.value, 10));
     });
   }
+
+  function _bindStratModal() {
+    var openBtn  = document.getElementById('open-strat-modal-btn');
+    var modal    = document.getElementById('strat-modal');
+    if (!openBtn || !modal) return;
+
+    function openModal() {
+      var snap = StateManager.getSnapshot();
+      Renderer.renderStratModal(snap);
+      modal.classList.add('strat-modal--open');
+    }
+
+    openBtn.addEventListener('click', openModal);
+
+    // Close on backdrop click or X button
+    modal.addEventListener('click', function(e) {
+      if (e.target === modal) modal.classList.remove('strat-modal--open');
+    });
+    var closeBtn = modal.querySelector('.strat-modal-close');
+    if (closeBtn) closeBtn.addEventListener('click', function() { modal.classList.remove('strat-modal--open'); });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') modal.classList.remove('strat-modal--open');
+    });
+
+    // Tab switching
+    modal.addEventListener('click', function(e) {
+      var tab = e.target.closest('.strat-tab');
+      if (tab) {
+        modal.querySelectorAll('.strat-tab').forEach(function(t) { t.classList.remove('strat-tab--active'); });
+        modal.querySelectorAll('.strat-tab-panel').forEach(function(p) { p.classList.remove('strat-tab-panel--active'); });
+        tab.classList.add('strat-tab--active');
+        var panelId = 'strat-tab-' + tab.dataset.tab;
+        var panel   = document.getElementById(panelId);
+        if (panel) panel.classList.add('strat-tab-panel--active');
+        return;
+      }
+
+      // Detachment select buttons inside the modal
+      var detBtn = e.target.closest('.det-select-btn');
+      if (detBtn) {
+        var detId = detBtn.dataset.detachmentId;
+        var snap  = StateManager.getSnapshot();
+        StateManager.setDetachment(snap.detachmentId === detId ? null : detId);
+        // Re-render modal content with new state
+        Renderer.renderStratModal(StateManager.getSnapshot());
+        return;
+      }
+    });
+  }
+
 
   return { init };
 })();

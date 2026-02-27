@@ -1624,3 +1624,500 @@ body {
 .wargear-swap-btns--choice .wargear-swap-btn {
   flex: 0 0 auto;
 }
+
+/* ================================================================
+   WEAPON PROFILES — always visible, same weight as stat block
+   ================================================================ */
+.unit-card__weapon-profiles {
+  background: var(--color-iron);
+  border-bottom: var(--border-medium);
+  padding: 0 var(--space-md) var(--space-sm);
+}
+
+.weapon-table--profile {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-data);
+  font-size: 0.78rem;           /* bigger — same visual weight as stat block */
+}
+
+.weapon-table--profile thead tr {
+  background: var(--color-slag);
+}
+
+.weapon-table--profile th {
+  font-family: var(--font-data);
+  font-size: 0.6rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  padding: 5px 8px;
+  text-align: center;
+  border-bottom: 1px solid var(--color-cold-metal);
+  white-space: nowrap;
+}
+.weapon-table--profile th.col-left { text-align: left; }
+
+.weapon-table--profile td {
+  padding: 5px 8px;
+  text-align: center;
+  border-bottom: 1px solid rgba(58,58,74,0.4);
+  color: var(--color-parchment-dk);
+  white-space: nowrap;
+}
+.weapon-table--profile td.col-left,
+.weapon-table--profile td.weapon-name { text-align: left; }
+.weapon-table--profile tr:last-child td { border-bottom: none; }
+
+.weapon-table--profile .weapon-name {
+  color: var(--color-parchment);
+  font-weight: 700;
+  white-space: normal;
+}
+.weapon-table--profile .weapon-abilities {
+  color: var(--color-verdigris-lt);
+  font-style: italic;
+  font-size: 0.68rem;
+  text-align: left;
+  white-space: normal;
+}
+.weapon-table--profile .weapon-ranged td { background: rgba(10,10,20,0.35); }
+.weapon-table--profile .weapon-melee  td { background: rgba(107,15,15,0.1); }
+
+.weapon-section-label {
+  font-family: var(--font-data);
+  font-size: 0.56rem;
+  letter-spacing: 3px;
+  color: var(--color-rust-hot);
+  text-transform: uppercase;
+  padding: 8px 0 3px;
+}
+.weapon-section-label:first-child { padding-top: var(--space-sm); }
+
+/* ================================================================
+   STRATAGEM MODAL OPEN BUTTON (sidebar)
+   ================================================================ */
+.strat-modal-open-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: linear-gradient(135deg, var(--color-ash), var(--color-slag));
+  border: 1px solid var(--color-rust);
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: left;
+}
+.strat-modal-open-btn:hover {
+  border-color: var(--color-ember);
+  box-shadow: var(--glow-ember);
+  background: linear-gradient(135deg, var(--color-slag), var(--color-steel));
+}
+.strat-btn-icon {
+  font-size: 1.4rem;
+  color: var(--color-rust-hot);
+  flex-shrink: 0;
+  filter: drop-shadow(0 0 6px var(--color-rust));
+}
+.strat-btn-text { display: flex; flex-direction: column; gap: 2px; }
+.strat-btn-primary {
+  font-family: var(--font-heading);
+  font-size: 0.72rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--color-parchment);
+}
+.strat-btn-sub {
+  font-size: 0.65rem;
+  color: var(--color-text-muted);
+  font-style: italic;
+}
+
+/* ================================================================
+   STRATAGEM & DETACHMENTS FULL-SCREEN MODAL
+   ================================================================ */
+.strat-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.92);
+  z-index: 600;
+  display: none;
+  align-items: stretch;
+  justify-content: center;
+}
+.strat-modal-backdrop.strat-modal--open {
+  display: flex;
+}
+
+.strat-modal-panel {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  background: var(--color-iron);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-left: 1px solid var(--color-cold-metal);
+  border-right: 1px solid var(--color-cold-metal);
+}
+
+/* Header */
+.strat-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 32px;
+  background: linear-gradient(135deg, var(--color-ash), var(--color-forge));
+  border-bottom: 2px solid var(--color-rust);
+  flex-shrink: 0;
+}
+.strat-modal-title-group {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.strat-modal-cog {
+  font-size: 2rem;
+  color: var(--color-rust);
+  filter: drop-shadow(0 0 8px var(--color-rust));
+  animation: cogSpin 8s linear infinite;
+}
+.strat-modal-title {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  color: var(--color-parchment);
+  letter-spacing: 2px;
+}
+.strat-modal-subtitle {
+  font-family: var(--font-data);
+  font-size: 0.62rem;
+  color: var(--color-text-muted);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+.strat-modal-close {
+  background: none;
+  border: 1px solid var(--color-cold-metal);
+  color: var(--color-text-muted);
+  font-size: 1rem;
+  width: 36px; height: 36px;
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  transition: all 0.15s;
+  display: flex; align-items: center; justify-content: center;
+}
+.strat-modal-close:hover { border-color: var(--color-rust); color: var(--color-rust-hot); }
+
+/* Tab bar */
+.strat-tabs {
+  display: flex;
+  background: var(--color-forge);
+  border-bottom: 1px solid var(--color-cold-metal);
+  flex-shrink: 0;
+  overflow-x: auto;
+}
+.strat-tab {
+  font-family: var(--font-heading);
+  font-size: 0.68rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  padding: 14px 24px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s;
+  flex-shrink: 0;
+}
+.strat-tab:hover { color: var(--color-parchment); }
+.strat-tab--active {
+  color: var(--color-parchment);
+  border-bottom-color: var(--color-rust-hot);
+}
+
+/* Body / panels */
+.strat-modal-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px 32px;
+}
+.strat-tab-panel { display: none; }
+.strat-tab-panel--active { display: block; }
+
+.strat-section-intro {
+  font-size: 0.8rem;
+  color: var(--color-parchment-dk);
+  font-style: italic;
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+.strat-section-intro strong { color: var(--color-gold-pale); font-style: normal; }
+
+/* ── Detachment cards ── */
+.det-card {
+  background: var(--color-forge);
+  border: 1px solid var(--color-cold-metal);
+  border-radius: var(--radius-md);
+  margin-bottom: 16px;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+.det-card--active {
+  border-color: var(--color-ember);
+  box-shadow: 0 0 16px rgba(232,74,32,0.15);
+}
+.det-card::before {
+  content: '';
+  display: block;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-rust), var(--color-blood));
+}
+.det-card--active::before {
+  background: linear-gradient(90deg, var(--color-ember), var(--color-rust-hot));
+}
+
+.det-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px 12px;
+}
+.det-card__title-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.det-card__name {
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-parchment);
+  letter-spacing: 1px;
+}
+.det-active-badge {
+  font-family: var(--font-data);
+  font-size: 0.55rem;
+  letter-spacing: 3px;
+  color: var(--color-ember);
+  background: rgba(232,74,32,0.12);
+  border: 1px solid var(--color-ember);
+  padding: 2px 8px;
+  border-radius: 2px;
+}
+
+.det-select-btn {
+  font-family: var(--font-heading);
+  font-size: 0.62rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 6px 16px;
+  background: var(--color-ash);
+  border: 1px solid var(--color-cold-metal);
+  color: var(--color-text-muted);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.15s;
+  flex-shrink: 0;
+}
+.det-select-btn:hover { border-color: var(--color-rust); color: var(--color-parchment); }
+.det-select-btn--active {
+  background: rgba(232,74,32,0.15);
+  border-color: var(--color-ember);
+  color: var(--color-ember);
+}
+
+.det-card__lore {
+  padding: 0 20px 12px;
+  font-size: 0.72rem;
+  font-style: italic;
+  color: var(--color-text-faint);
+  line-height: 1.6;
+}
+
+.det-card__rule {
+  padding: 12px 20px;
+  background: var(--color-ash);
+  border-top: 1px solid var(--color-steel);
+}
+.det-rule-label {
+  display: inline-block;
+  font-family: var(--font-data);
+  font-size: 0.52rem;
+  letter-spacing: 3px;
+  color: var(--color-rust-hot);
+  margin-bottom: 4px;
+  text-transform: uppercase;
+}
+.det-rule-name {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--color-gold-pale);
+  margin-bottom: 6px;
+}
+.det-rule-desc {
+  font-size: 0.75rem;
+  color: var(--color-parchment-dk);
+  line-height: 1.7;
+}
+
+.det-card__enhancements {
+  padding: 12px 20px;
+  border-top: 1px solid var(--color-steel);
+}
+.det-enh-label {
+  display: block;
+  font-family: var(--font-data);
+  font-size: 0.52rem;
+  letter-spacing: 3px;
+  color: var(--color-verdigris-lt);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+.det-enh-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 12px;
+  padding: 7px 0;
+  border-bottom: 1px solid rgba(58,58,74,0.3);
+}
+.det-enh-row:last-child { border-bottom: none; }
+.det-enh-name {
+  font-family: var(--font-heading);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--color-verdigris-lt);
+  flex: 1 1 auto;
+}
+.det-enh-cost {
+  font-family: var(--font-data);
+  font-size: 0.68rem;
+  color: var(--color-gold);
+  flex-shrink: 0;
+}
+.det-enh-desc {
+  flex: 0 0 100%;
+  font-size: 0.72rem;
+  color: var(--color-parchment-dk);
+  line-height: 1.6;
+}
+
+/* ── Stratagem cards grid ── */
+.strat-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 14px;
+}
+
+.strat-card {
+  background: var(--color-forge);
+  border: 1px solid var(--color-cold-metal);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.strat-card:hover {
+  border-color: var(--color-rust);
+  box-shadow: 0 2px 12px rgba(139,42,26,0.2);
+}
+
+.strat-card__top {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 14px 16px 10px;
+  background: var(--color-ash);
+  border-bottom: 1px solid var(--color-steel);
+}
+
+.strat-card__cost {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  background: var(--color-rust);
+  border-radius: var(--radius-sm);
+  padding: 4px 10px;
+  min-width: 40px;
+  box-shadow: 0 0 8px rgba(139,42,26,0.4);
+}
+.strat-cp {
+  font-family: var(--font-data);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--color-parchment);
+  line-height: 1.1;
+}
+.strat-cp-label {
+  font-family: var(--font-data);
+  font-size: 0.48rem;
+  letter-spacing: 2px;
+  color: rgba(200,184,154,0.7);
+  text-transform: uppercase;
+}
+
+.strat-card__info { flex: 1; min-width: 0; }
+.strat-card__name {
+  font-family: var(--font-heading);
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--color-parchment);
+  letter-spacing: 0.5px;
+  margin-bottom: 5px;
+}
+.strat-card__tags { display: flex; gap: 5px; flex-wrap: wrap; }
+
+.strat-phase-tag {
+  font-family: var(--font-data);
+  font-size: 0.52rem;
+  letter-spacing: 2px;
+  padding: 2px 7px;
+  border-radius: 2px;
+  text-transform: uppercase;
+  border: 1px solid;
+}
+.phase--shooting       { color: #6ab0e0; border-color: #3a6a8a; background: rgba(58,106,138,0.2); }
+.phase--fight          { color: #e07070; border-color: #8a3a3a; background: rgba(138,58,58,0.2); }
+.phase--command        { color: #b8a040; border-color: #7a6a20; background: rgba(122,106,32,0.2); }
+.phase--movement       { color: #70c070; border-color: #3a7a3a; background: rgba(58,122,58,0.2); }
+.phase--charge         { color: #e0a060; border-color: #8a5a20; background: rgba(138,90,32,0.2); }
+.phase--morale         { color: #a080c0; border-color: #5a3a7a; background: rgba(90,58,122,0.2); }
+.phase--any            { color: var(--color-text-muted); border-color: var(--color-steel); background: transparent; }
+.phase--opponent       { color: #d08080; border-color: #7a4a4a; background: rgba(122,74,74,0.2); }
+
+.strat-type-tag {
+  font-family: var(--font-data);
+  font-size: 0.52rem;
+  letter-spacing: 2px;
+  padding: 2px 7px;
+  border-radius: 2px;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  border: 1px solid var(--color-steel);
+  background: var(--color-slag);
+}
+
+.strat-card__desc {
+  padding: 12px 16px;
+  font-size: 0.73rem;
+  color: var(--color-parchment-dk);
+  line-height: 1.7;
+  white-space: pre-line;
+}
+
+.strat-no-det {
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  color: var(--color-text-muted);
+  text-align: center;
+  padding: 40px 20px;
+  text-transform: uppercase;
+}

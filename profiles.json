@@ -316,7 +316,7 @@
   "forge_worlds": [
     {
       "id": "mars",
-      "name": "Mars — Cradle of Technology",
+      "name": "Mars \u2014 Cradle of Technology",
       "lore": "The birthplace of the Adeptus Mechanicus, Mars forges the finest warriors with unmatched access to ancient knowledge.",
       "ability": {
         "name": "Tears of the Dragon",
@@ -325,7 +325,7 @@
     },
     {
       "id": "graia",
-      "name": "Graia — The Vigilant Forge",
+      "name": "Graia \u2014 The Vigilant Forge",
       "lore": "Forgeworld Graia produces warriors of exceptional endurance, their minds hardened by ceaseless warfare.",
       "ability": {
         "name": "Unyielding Resolve",
@@ -334,7 +334,7 @@
     },
     {
       "id": "metalica",
-      "name": "Metalica — The Iron Forge",
+      "name": "Metalica \u2014 The Iron Forge",
       "lore": "Metalica produces warriors whose aggressive march-fire tactics overwhelm enemy positions before they can react.",
       "ability": {
         "name": "March and Fire",
@@ -343,7 +343,7 @@
     },
     {
       "id": "stygies_viii",
-      "name": "Stygies VIII — The Dark Forge",
+      "name": "Stygies VIII \u2014 The Dark Forge",
       "lore": "Shrouded in secrecy, Stygies VIII uses unorthodox methods and clandestine protocols to bring victory at any cost.",
       "ability": {
         "name": "Shrouded Hunters",
@@ -352,7 +352,7 @@
     },
     {
       "id": "lucius",
-      "name": "Lucius — The Hollow Mountain",
+      "name": "Lucius \u2014 The Hollow Mountain",
       "lore": "The Hollow Mountain's warriors are masters of defensive warfare, their bodies reinforced with reactive armour plating.",
       "ability": {
         "name": "Relay Beacon",
@@ -370,6 +370,138 @@
       "id": "conqueror",
       "name": "Conqueror Doctrina Imperative",
       "description": "Melee weapons gain [ASSAULT]. Improve WS by 1 for melee attacks. Melee attacks made by units within 6\" of a BATTLELINE unit gain +1 AP."
+    }
+  ],
+  "core_stratagems": [
+    {
+      "id": "command_reroll",
+      "name": "Command Re-roll",
+      "cost": 1,
+      "phase": "ANY",
+      "type": "CORE",
+      "description": "Use this Stratagem before making a Hit roll, a Wound roll, a Damage roll, a saving throw, an Advance roll, a Charge roll, a Desperate Escape test, a Hazardous test, or a Leadership test for a unit in your army. Re-roll that roll."
+    },
+    {
+      "id": "counter_offensive",
+      "name": "Counter-offensive",
+      "cost": 2,
+      "phase": "FIGHT",
+      "type": "CORE",
+      "description": "Use this Stratagem after an enemy unit has fought. Select one unit from your army that is within Engagement Range of one or more enemy units and that has not already been selected to fight this phase. That unit fights next."
+    },
+    {
+      "id": "epic_challenge",
+      "name": "Epic Challenge",
+      "cost": 1,
+      "phase": "FIGHT",
+      "type": "CORE",
+      "description": "Use this Stratagem in the Fight phase, when a CHARACTER unit from your army that is within Engagement Range of an enemy CHARACTER unit is selected to fight. Until the end of the phase, all melee attacks made by models in that unit can only target CHARACTER units."
+    },
+    {
+      "id": "grenade",
+      "name": "Grenade",
+      "cost": 1,
+      "phase": "SHOOTING",
+      "type": "CORE",
+      "description": "Use this Stratagem in your Shooting phase. Select one unit from your army that has not been selected to shoot this phase. One model in that unit can make a ranged attack using the profile below, even if it has Advanced. After this attack is resolved, that model's unit cannot shoot again this phase.\nGrenade: Range 8\", A1, BS4+, S4, AP0, D1, [BLAST], [ONE USE]."
+    },
+    {
+      "id": "heroic_intervention",
+      "name": "Heroic Intervention",
+      "cost": 1,
+      "phase": "MOVEMENT",
+      "type": "CORE",
+      "description": "Use this Stratagem in your opponent's Charge phase, after an enemy unit ends a Charge move. Select one unit from your army that is not within Engagement Range of any enemy units but is within 6\" of that enemy unit. Your unit can make a Heroic Intervention: it can move up to 3\", and must end that move closer to the charging enemy unit."
+    },
+    {
+      "id": "insane_bravery",
+      "name": "Insane Bravery",
+      "cost": 1,
+      "phase": "MORALE",
+      "type": "CORE",
+      "description": "Use this Stratagem in the Morale phase, after a Battle-shock test has been failed for a unit in your army. That unit is not Battle-shocked as a result of that test."
+    },
+    {
+      "id": "overwatch",
+      "name": "Fire Overwatch",
+      "cost": 1,
+      "phase": "ANY",
+      "type": "CORE",
+      "description": "Use this Stratagem in your opponent's Movement or Charge phase, when an enemy unit is set up or when an enemy unit starts or ends a Normal Move, an Advance, a Fall Back, or a Charge move. Select one unit from your army that is within 24\" of that enemy unit and would be eligible to shoot if it were your Shooting phase. That unit can shoot at that enemy unit as if it were your Shooting phase. Hits are only scored on unmodified Hit rolls of 6."
+    },
+    {
+      "id": "rapid_ingress",
+      "name": "Rapid Ingress",
+      "cost": 1,
+      "phase": "MOVEMENT",
+      "type": "CORE",
+      "description": "Use this Stratagem in your opponent's Movement phase, end of any of your opponent's phases, or start of the Reinforcements step of your opponent's Movement phase. Select one unit from your army that is in Reserves. That unit can arrive from Reserves as if it were the Reinforcements step of your Movement phase. A unit cannot arrive using this Stratagem during the first battle round."
+    },
+    {
+      "id": "smokescreen",
+      "name": "Smokescreen",
+      "cost": 1,
+      "phase": "ANY",
+      "type": "CORE",
+      "description": "Use this Stratagem in any phase, when a SMOKE unit from your army is selected as the target of a ranged attack. Until the end of the phase, each time a ranged attack targets that unit, subtract 1 from the Hit roll."
+    },
+    {
+      "id": "tank_shock",
+      "name": "Tank Shock",
+      "cost": 1,
+      "phase": "CHARGE",
+      "type": "CORE",
+      "description": "Use this Stratagem in the Charge phase, after a VEHICLE unit from your army ends a Charge move. Select one enemy unit within Engagement Range of that VEHICLE unit. Roll a number of D6 equal to the Move characteristic of that VEHICLE unit. For each result that equals or exceeds the Toughness characteristic of that enemy unit, that enemy unit suffers 1 mortal wound."
+    }
+  ],
+  "faction_stratagems": [
+    {
+      "id": "mechadendrite_seizure",
+      "name": "Mechadendrite Seizure",
+      "cost": 1,
+      "phase": "FIGHT",
+      "type": "FACTION",
+      "description": "[PLACEHOLDER] Use this Stratagem in the Fight phase, when an ADEPTUS MECHANICUS unit from your army is selected to fight. Until the end of the phase, each time a model in that unit makes a melee attack against a VEHICLE, that attack has the ANTI-VEHICLE 3+ ability."
+    },
+    {
+      "id": "binharic_cant",
+      "name": "Binharic Cant",
+      "cost": 1,
+      "phase": "COMMAND",
+      "type": "FACTION",
+      "description": "[PLACEHOLDER] Use this Stratagem at the start of your Command phase. Select one ADEPTUS MECHANICUS CORE unit from your army. Until the start of your next Command phase, each time a model in that unit makes an attack, improve the AP of that attack by 1."
+    },
+    {
+      "id": "solar_flare",
+      "name": "Solar Flare",
+      "cost": 2,
+      "phase": "SHOOTING",
+      "type": "FACTION",
+      "description": "[PLACEHOLDER] Use this Stratagem in your Shooting phase, when an ADEPTUS MECHANICUS VEHICLE unit from your army is selected to shoot. Until the end of the phase, each time that vehicle makes a ranged attack, it can target a unit it cannot see. Those attacks suffer no penalty for targeting units not visible to the attacker."
+    },
+    {
+      "id": "data_siphon",
+      "name": "Data Siphon",
+      "cost": 1,
+      "phase": "SHOOTING",
+      "type": "FACTION",
+      "description": "[PLACEHOLDER] Use this Stratagem in your Shooting phase, after an ADEPTUS MECHANICUS unit from your army has shot. If one or more attacks made by that unit destroyed one or more enemy units, that unit can immediately make 1 additional ranged attack against another visible enemy unit within 18\"."
+    },
+    {
+      "id": "canticle_of_the_omnissiah",
+      "name": "Canticle of the Omnissiah",
+      "cost": 1,
+      "phase": "COMMAND",
+      "type": "FACTION",
+      "description": "[PLACEHOLDER] Use this Stratagem at the start of your Command phase. Until the start of your next Command phase, each time a Battle-shock test is taken for an ADEPTUS MECHANICUS unit from your army, add 1 to that test."
+    },
+    {
+      "id": "machine_curse",
+      "name": "Machine Curse",
+      "cost": 2,
+      "phase": "FIGHT",
+      "type": "FACTION",
+      "description": "[PLACEHOLDER] Use this Stratagem in the Fight phase, when an enemy VEHICLE unit is selected to fight. Select one ADEPTUS MECHANICUS unit from your army that is within Engagement Range of that enemy VEHICLE unit. Until the end of the phase, subtract 1 from the Attacks characteristic of models in that enemy VEHICLE unit."
     }
   ]
 }
