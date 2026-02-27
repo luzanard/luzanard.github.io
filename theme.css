@@ -2121,3 +2121,29 @@ body {
   padding: 40px 20px;
   text-transform: uppercase;
 }
+
+/* ================================================================
+   ACTIVE DETACHMENT SIDEBAR DISPLAY
+   ================================================================ */
+.active-det-display {
+  background: rgba(232,74,32,0.08);
+  border: 1px solid var(--color-rust);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+}
+.active-det-name {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--color-parchment);
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+}
+.active-det-rule {
+  font-family: var(--font-data);
+  font-size: 0.62rem;
+  color: var(--color-rust-hot);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}

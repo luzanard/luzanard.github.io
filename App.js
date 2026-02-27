@@ -13,12 +13,6 @@
 
     StateManager.init(unitsData.units, profilesData, configData);
 
-    Renderer.renderDetachmentSelector(profilesData.detachments, null);
-    Renderer.renderDetachmentRule(null);
-    Renderer.renderForgeWorldSelector(
-      profilesData.forge_worlds, null,
-      document.getElementById('forge-world-select')
-    );
     Renderer.updatePointsDisplay(0, configData.default_limit);
     Renderer.updateDoctrineDisplay(false, false);
 
@@ -36,7 +30,6 @@
     StateManager.on('rosterChanged',     _onStateChange);
     StateManager.on('doctrineChanged',   _onStateChange);
     StateManager.on('detachmentChanged', _onDetachmentChange);
-    StateManager.on('forgeWorldChanged', _onForgeWorldChange);
     StateManager.on('pointsChanged',     _onStateChange);
 
     EventHandlers.init();
@@ -49,7 +42,7 @@
     if (loadingEl) {
       loadingEl.innerHTML =
         '<div class="loading-error">' +
-        '<span class="cog-icon">⚙</span>' +
+        '<span style="font-size:2rem">⚙</span>' +
         '<p>COGITATOR FAILURE</p>' +
         '<small>' + err.message + '</small>' +
         '</div>';
@@ -66,39 +59,23 @@
   }
 
   function _onDetachmentChange(snapshot) {
-    const det = (snapshot.allProfiles.detachments || []).find(d => d.id === snapshot.detachmentId) || null;
-    Renderer.renderDetachmentSelector(snapshot.allProfiles.detachments, snapshot.detachmentId);
-    Renderer.renderDetachmentRule(det);
-    _onStateChange(snapshot);
-  }
-
-  function _onForgeWorldChange(snapshot) {
-    const fw = (snapshot.allProfiles.forge_worlds || []).find(f => f.id === snapshot.forgeWorldId) || null;
-    // Show forge world ability below the select
-    let abilEl = document.getElementById('fw-ability-display');
-    if (!abilEl) {
-      const sec = document.getElementById('forge-world-section');
-      if (sec) {
-        abilEl = document.createElement('div');
-        abilEl.id = 'fw-ability-display';
-        sec.appendChild(abilEl);
-      }
-    }
-    if (abilEl) {
-      if (fw && fw.ability) {
-        abilEl.innerHTML =
-          '<div class="fw-ability">' +
-          '<span class="fw-ability-name">' + fw.ability.name + '</span>' +
-          fw.ability.description +
-          '</div>';
-      } else {
-        abilEl.innerHTML = '';
-      }
+    // Update active detachment display in sidebar
+    const sec     = document.getElementById('active-det-section');
+    const display = document.getElementById('active-det-display');
+    const det     = (snapshot.allProfiles.detachments || []).find(d => d.id === snapshot.detachmentId) || null;
+    if (sec)     sec.style.display = det ? '' : 'none';
+    if (display) display.innerHTML = det
+      ? '<span class="active-det-name">' + det.name + '</span>' +
+        '<p class="active-det-rule">' + det.rule.name + '</p>'
+      : '';
+    // Re-render strat modal if open
+    if (document.getElementById('strat-modal').classList.contains('strat-modal--open')) {
+      Renderer.renderStratModal(snapshot);
     }
     _onStateChange(snapshot);
   }
 
   function _capitalize(str) {
-    return str.replace(/\b\w/g, function(c) { return c.toUpperCase(); });
+    return str.replace(/\b\w/g, c => c.toUpperCase());
   }
 })();

@@ -5,101 +5,81 @@ const EventHandlers = (() => {
 
   function init() {
     _bindDoctrineButtons();
-    _bindDetachmentButtons();
-    _bindForgeWorldSelector();
     _bindAddUnitButton();
-    _bindModalClose();
-    _bindUnitPickerCards();
+    _bindUnitPickerModal();
     _bindRosterDelegation();
     _bindPointsLimitSelector();
     _bindStratModal();
   }
 
+  // ── Doctrine ────────────────────────────────────────────────────
   function _bindDoctrineButtons() {
-    document.getElementById('doctrine-protector')?.addEventListener('click', function() {
+    document.getElementById('doctrine-protector').addEventListener('click', function() {
       var snap = StateManager.getSnapshot();
       StateManager.setDoctrine(snap.doctrineId === 'protector' ? null : 'protector');
     });
-    document.getElementById('doctrine-conqueror')?.addEventListener('click', function() {
+    document.getElementById('doctrine-conqueror').addEventListener('click', function() {
       var snap = StateManager.getSnapshot();
       StateManager.setDoctrine(snap.doctrineId === 'conqueror' ? null : 'conqueror');
     });
   }
 
-  function _bindDetachmentButtons() {
-    document.getElementById('detachment-selector')?.addEventListener('click', function(e) {
-      var btn = e.target.closest('[data-detachment-id]');
-      if (!btn) return;
-      var snap = StateManager.getSnapshot();
-      StateManager.setDetachment(snap.detachmentId === btn.dataset.detachmentId ? null : btn.dataset.detachmentId);
-    });
-  }
-
-  function _bindForgeWorldSelector() {
-    document.getElementById('forge-world-select')?.addEventListener('change', function(e) {
-      StateManager.setForgeWorld(e.target.value || null);
-    });
-  }
-
+  // ── Unit picker modal ────────────────────────────────────────────
   function _bindAddUnitButton() {
-    var btn   = document.getElementById('add-unit-btn');
-    var modal = document.getElementById('unit-picker-modal');
-    if (!btn || !modal) return;
-    btn.addEventListener('click', function() {
+    document.getElementById('add-unit-btn').addEventListener('click', function() {
       var snap = StateManager.getSnapshot();
       Renderer.renderUnitPickerModal(snap.allUnits, snap.detachmentId);
-      modal.classList.add('modal--open');
+      document.getElementById('unit-picker-modal').classList.add('modal--open');
     });
   }
 
-  function _bindModalClose() {
+  function _bindUnitPickerModal() {
     var modal = document.getElementById('unit-picker-modal');
-    if (!modal) return;
-    modal.addEventListener('click', function(e) { if (e.target === modal) modal.classList.remove('modal--open'); });
-    var closeBtn = modal.querySelector('.modal-close-btn');
-    if (closeBtn) closeBtn.addEventListener('click', function() { modal.classList.remove('modal--open'); });
-    document.addEventListener('keydown', function(e) { if (e.key === 'Escape') modal.classList.remove('modal--open'); });
-  }
 
-  function _bindUnitPickerCards() {
-    document.getElementById('unit-picker-list')?.addEventListener('click', function(e) {
+    // Close on backdrop click
+    modal.addEventListener('click', function(e) {
+      if (e.target === modal) modal.classList.remove('modal--open');
+    });
+    // Close button
+    modal.querySelector('.modal-close-btn').addEventListener('click', function() {
+      modal.classList.remove('modal--open');
+    });
+    // Add unit on card click
+    document.getElementById('unit-picker-list').addEventListener('click', function(e) {
       var card = e.target.closest('[data-unit-id]');
       if (!card) return;
-      var unitId = card.dataset.unitId;
       try {
-        StateManager.addUnit(unitId);
-        var unit = StateManager.getUnitById(unitId);
-        Renderer.showToast((unit ? unit.name : unitId) + ' added', 'success');
+        StateManager.addUnit(card.dataset.unitId);
+        var unit = StateManager.getUnitById(card.dataset.unitId);
+        Renderer.showToast((unit ? unit.name : card.dataset.unitId) + ' added', 'success');
       } catch(err) {
         Renderer.showToast(err.message, 'error');
       }
-      document.getElementById('unit-picker-modal')?.classList.remove('modal--open');
+      modal.classList.remove('modal--open');
     });
   }
 
+  // ── Roster delegation ────────────────────────────────────────────
   function _bindRosterDelegation() {
     var roster = document.getElementById('roster-list');
-    if (!roster) return;
 
     roster.addEventListener('click', function(e) {
-      // Remove
-      var removeBtn = e.target.closest('.unit-remove-btn');
-      if (removeBtn) {
-        StateManager.removeUnit(parseInt(removeBtn.dataset.instanceId, 10));
-        return;
-      }
 
-      // Model count +/-
+      // Remove unit
+      var removeBtn = e.target.closest('.unit-remove-btn');
+      if (removeBtn) { StateManager.removeUnit(parseInt(removeBtn.dataset.instanceId, 10)); return; }
+
+      // Model count
       var plusBtn = e.target.closest('.count-btn--plus');
       if (plusBtn) {
-        var id  = parseInt(plusBtn.dataset.instanceId, 10);
+        var id = parseInt(plusBtn.dataset.instanceId, 10);
         var ent = StateManager.getRosterEntries().find(function(r) { return r.instanceId === id; });
         if (ent) StateManager.updateModelCount(id, ent.modelCount + 1);
         return;
       }
       var minusBtn = e.target.closest('.count-btn--minus');
       if (minusBtn) {
-        var id2  = parseInt(minusBtn.dataset.instanceId, 10);
+        var id2 = parseInt(minusBtn.dataset.instanceId, 10);
         var ent2 = StateManager.getRosterEntries().find(function(r) { return r.instanceId === id2; });
         if (ent2) StateManager.updateModelCount(id2, ent2.modelCount - 1);
         return;
@@ -109,8 +89,8 @@ const EventHandlers = (() => {
       var toggle = e.target.closest('.panel-toggle');
       if (toggle) {
         var panelType = toggle.dataset.panel;
-        var card = toggle.closest('.unit-card');
-        var panel = card && card.querySelector('.' + panelType + '-panel');
+        var cardEl    = toggle.closest('.unit-card');
+        var panel     = cardEl && cardEl.querySelector('.' + panelType + '-panel');
         if (panel) {
           var isOpen = panel.classList.toggle('panel--open');
           var arrow  = toggle.querySelector('.toggle-arrow');
@@ -121,10 +101,7 @@ const EventHandlers = (() => {
 
       // Detach leader
       var detachBtn = e.target.closest('.detach-leader-btn');
-      if (detachBtn) {
-        StateManager.attachLeader(parseInt(detachBtn.dataset.bodyId, 10), null);
-        return;
-      }
+      if (detachBtn) { StateManager.attachLeader(parseInt(detachBtn.dataset.bodyId, 10), null); return; }
 
       // Wargear swap buttons
       var swapBtn = e.target.closest('.wargear-swap-btn');
@@ -132,24 +109,18 @@ const EventHandlers = (() => {
         var action     = swapBtn.dataset.action;
         var instanceId = parseInt(swapBtn.dataset.instanceId, 10);
         var wtype      = swapBtn.dataset.type || 'ranged';
-
         if (action === 'swap') {
           StateManager.swapWeapon(instanceId, swapBtn.dataset.removeId, swapBtn.dataset.addId, wtype);
         } else if (action === 'restore') {
-          var restoreId  = swapBtn.dataset.restoreId;
-          var removeIds  = (swapBtn.dataset.removeIds || '').split(',').filter(Boolean);
-          removeIds.forEach(function(rid) {
-            StateManager.restoreWeapon(instanceId, restoreId, rid, wtype);
+          (swapBtn.dataset.removeIds || '').split(',').filter(Boolean).forEach(function(rid) {
+            StateManager.restoreWeapon(instanceId, swapBtn.dataset.restoreId, rid, wtype);
           });
         } else if (action === 'toggle') {
           StateManager.toggleWeapon(instanceId, swapBtn.dataset.weaponId, wtype);
         } else if (action === 'special-pick') {
-          var chosenId   = swapBtn.dataset.chosenId;
-          var allOptions = (swapBtn.dataset.allOptions || '').split(',').filter(Boolean);
-          StateManager.setSpecialWeapon(instanceId, chosenId, allOptions);
+          StateManager.setSpecialWeapon(instanceId, swapBtn.dataset.chosenId, (swapBtn.dataset.allOptions || '').split(',').filter(Boolean));
         } else if (action === 'special-none') {
-          var allOptions2 = (swapBtn.dataset.allOptions || '').split(',').filter(Boolean);
-          StateManager.setSpecialWeapon(instanceId, null, allOptions2);
+          StateManager.setSpecialWeapon(instanceId, null, (swapBtn.dataset.allOptions || '').split(',').filter(Boolean));
         }
         return;
       }
@@ -158,30 +129,23 @@ const EventHandlers = (() => {
     roster.addEventListener('change', function(e) {
       // Leader radio
       if (e.target.matches('.leader-radio')) {
-        StateManager.attachLeader(
-          parseInt(e.target.dataset.bodyId,   10),
-          parseInt(e.target.dataset.leaderId, 10)
-        );
+        StateManager.attachLeader(parseInt(e.target.dataset.bodyId, 10), parseInt(e.target.dataset.leaderId, 10));
         return;
       }
       // Enhancement checkbox
       if (e.target.matches('.enh-toggle')) {
-        StateManager.setUnitEnhancement(
-          parseInt(e.target.dataset.instanceId, 10),
-          e.target.dataset.enhId
-        );
+        StateManager.setUnitEnhancement(parseInt(e.target.dataset.instanceId, 10), e.target.dataset.enhId);
         return;
       }
-      // Wargear item checkbox — one-at-a-time (deselect others first)
+      // Wargear item — one at a time
       if (e.target.matches('.wargear-item-toggle')) {
-        var iid   = parseInt(e.target.dataset.instanceId, 10);
+        var iid  = parseInt(e.target.dataset.instanceId, 10);
         var iitem = e.target.dataset.itemId;
-        var snap  = StateManager.getSnapshot();
-        var ent   = snap.roster.find(function(r) { return r.instanceId === iid; });
-        var unit2 = snap.allUnits.find(function(u) { return u.id === (ent && ent.unitId); });
-        // Clear other wargear items from same unit before toggling
-        if (unit2 && unit2.wargear_items) {
-          unit2.wargear_items.forEach(function(wi) {
+        var snap = StateManager.getSnapshot();
+        var ent  = snap.roster.find(function(r) { return r.instanceId === iid; });
+        var u    = snap.allUnits.find(function(x) { return x.id === (ent && ent.unitId); });
+        if (u && u.wargear_items) {
+          u.wargear_items.forEach(function(wi) {
             if (wi.id !== iitem && ent && ent.selectedWargear.indexOf(wi.id) !== -1) {
               StateManager.toggleWargearItem(iid, wi.id);
             }
@@ -193,61 +157,64 @@ const EventHandlers = (() => {
     });
   }
 
+  // ── Points limit ─────────────────────────────────────────────────
   function _bindPointsLimitSelector() {
-    document.getElementById('points-limit-select')?.addEventListener('change', function(e) {
+    document.getElementById('points-limit-select').addEventListener('change', function(e) {
       StateManager.setPointsLimit(parseInt(e.target.value, 10));
     });
   }
 
+  // ── Stratagems modal — single unified handler ────────────────────
   function _bindStratModal() {
-    var openBtn  = document.getElementById('open-strat-modal-btn');
-    var modal    = document.getElementById('strat-modal');
-    if (!openBtn || !modal) return;
+    var openBtn = document.getElementById('open-strat-modal-btn');
+    var modal   = document.getElementById('strat-modal');
 
-    function openModal() {
-      var snap = StateManager.getSnapshot();
-      Renderer.renderStratModal(snap);
+    // Open
+    openBtn.addEventListener('click', function() {
+      Renderer.renderStratModal(StateManager.getSnapshot());
       modal.classList.add('strat-modal--open');
-    }
-
-    openBtn.addEventListener('click', openModal);
-
-    // Close on backdrop click or X button
-    modal.addEventListener('click', function(e) {
-      if (e.target === modal) modal.classList.remove('strat-modal--open');
     });
-    var closeBtn = modal.querySelector('.strat-modal-close');
-    if (closeBtn) closeBtn.addEventListener('click', function() { modal.classList.remove('strat-modal--open'); });
+
+    // Close button
+    modal.querySelector('.strat-modal-close').addEventListener('click', function() {
+      modal.classList.remove('strat-modal--open');
+    });
+
+    // Escape key
     document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') modal.classList.remove('strat-modal--open');
+      if (e.key === 'Escape') {
+        modal.classList.remove('strat-modal--open');
+        document.getElementById('unit-picker-modal').classList.remove('modal--open');
+      }
     });
 
-    // Tab switching
+    // Single click handler for everything inside the modal
     modal.addEventListener('click', function(e) {
+      // Backdrop click to close
+      if (e.target === modal) { modal.classList.remove('strat-modal--open'); return; }
+
+      // Tab switch
       var tab = e.target.closest('.strat-tab');
       if (tab) {
         modal.querySelectorAll('.strat-tab').forEach(function(t) { t.classList.remove('strat-tab--active'); });
         modal.querySelectorAll('.strat-tab-panel').forEach(function(p) { p.classList.remove('strat-tab-panel--active'); });
         tab.classList.add('strat-tab--active');
-        var panelId = 'strat-tab-' + tab.dataset.tab;
-        var panel   = document.getElementById(panelId);
+        var panel = document.getElementById('strat-tab-' + tab.dataset.tab);
         if (panel) panel.classList.add('strat-tab-panel--active');
         return;
       }
 
-      // Detachment select buttons inside the modal
+      // Detachment select button
       var detBtn = e.target.closest('.det-select-btn');
       if (detBtn) {
-        var detId = detBtn.dataset.detachmentId;
-        var snap  = StateManager.getSnapshot();
-        StateManager.setDetachment(snap.detachmentId === detId ? null : detId);
-        // Re-render modal content with new state
+        var snap = StateManager.getSnapshot();
+        StateManager.setDetachment(snap.detachmentId === detBtn.dataset.detachmentId ? null : detBtn.dataset.detachmentId);
         Renderer.renderStratModal(StateManager.getSnapshot());
+        // Stay on same tab
         return;
       }
     });
   }
-
 
   return { init };
 })();

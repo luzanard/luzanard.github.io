@@ -61,13 +61,7 @@
         <div id="active-doctrine-display" aria-live="polite">No doctrine active</div>
       </section>
 
-      <!-- Detachment selector -->
-      <section class="sidebar-section">
-        <h2 class="sidebar-section-title">▣ Detachment</h2>
-        <div id="detachment-selector" class="detachment-selector-list" role="radiogroup"></div>
-      </section>
-
-      <!-- Stratagems & Reference button -->
+      <!-- Stratagems & Detachments button -->
       <section class="sidebar-section">
         <button id="open-strat-modal-btn" class="strat-modal-open-btn">
           <span class="strat-btn-icon">⊞</span>
@@ -78,12 +72,10 @@
         </button>
       </section>
 
-      <!-- Forge World -->
-      <section class="sidebar-section" id="forge-world-section">
-        <h2 class="sidebar-section-title">⬡ Forge World</h2>
-        <select id="forge-world-select" class="select-styled" aria-label="Select forge world">
-          <option value="">— No Forge World —</option>
-        </select>
+      <!-- Active detachment display (read-only, set from modal) -->
+      <section class="sidebar-section" id="active-det-section" style="display:none">
+        <h2 class="sidebar-section-title">▣ Active Detachment</h2>
+        <div id="active-det-display" class="active-det-display"></div>
       </section>
 
     </aside>
@@ -125,30 +117,27 @@
   <!-- ═══════════════════════════════════════════════════
        STRATAGEMS & DETACHMENTS FULL-SCREEN MODAL
   ═══════════════════════════════════════════════════ -->
-  <div id="strat-modal" class="strat-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="strat-modal-title">
+  <div id="strat-modal" class="strat-modal-backdrop" role="dialog" aria-modal="true">
     <div class="strat-modal-panel">
 
-      <!-- Header -->
       <div class="strat-modal-header">
         <div class="strat-modal-title-group">
           <span class="strat-modal-cog">⚙</span>
           <div>
-            <h2 class="strat-modal-title" id="strat-modal-title">Stratagems &amp; Detachments</h2>
+            <h2 class="strat-modal-title">Stratagems &amp; Detachments</h2>
             <p class="strat-modal-subtitle">Adeptus Mechanicus // 10th Edition Reference</p>
           </div>
         </div>
         <button class="strat-modal-close" aria-label="Close">✕</button>
       </div>
 
-      <!-- Tab bar -->
       <div class="strat-tabs" role="tablist">
-        <button class="strat-tab strat-tab--active" data-tab="detachments" role="tab">▣ Detachments</button>
-        <button class="strat-tab" data-tab="det-stratagems" role="tab">⊞ Detachment Stratagems</button>
-        <button class="strat-tab" data-tab="core" role="tab">◈ Core Stratagems</button>
-        <button class="strat-tab" data-tab="faction" role="tab">⚙ Faction Stratagems</button>
+        <button class="strat-tab strat-tab--active" data-tab="detachments"    role="tab">▣ Detachments</button>
+        <button class="strat-tab"                   data-tab="det-stratagems" role="tab">⊞ Detachment Stratagems</button>
+        <button class="strat-tab"                   data-tab="core"           role="tab">◈ Core Stratagems</button>
+        <button class="strat-tab"                   data-tab="faction"        role="tab">⚙ Faction Stratagems</button>
       </div>
 
-      <!-- Tab panels -->
       <div class="strat-modal-body">
         <div id="strat-tab-detachments"    class="strat-tab-panel strat-tab-panel--active"></div>
         <div id="strat-tab-det-stratagems" class="strat-tab-panel"></div>
